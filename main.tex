@@ -1,0 +1,91 @@
+\documentclass[
+    paper=a4,
+    fontsize=11pt
+]{scrbook}
+\usepackage{lecture-notes}  % load custom template
+\nocite{*}  % include all reference entries in bibliography
+
+%% PDF INFO %%
+\hypersetup{
+    pdftitle=Quantitative Foundations of Artificial Intelligence,
+    pdfauthor=Marvin Theis{\ss},
+    bookmarksopenlevel=1
+}
+
+%% BIB-FILE(S) %%
+\addbibresource{bibliography/quant-foundations-ai.bib}
+
+%% BEGINNING OF DOCUMENT %%
+\begin{document}
+\sffamily
+
+%% FRONTMATTER %%
+\input{other/title}
+
+%% TABLE OF CONTENTS %%
+\tableofcontents
+\cleardoublepage
+
+%% MAIN TEXT %%
+\pagenumbering{arabic}
+\input{contents/chapter1}
+\input{contents/section1-1}
+
+\input{contents/chapter2}
+\input{contents/section2-1}
+\input{contents/section2-2}
+\input{contents/section2-3}
+\input{contents/section2-4}
+\input{contents/section2-5}
+
+\input{contents/chapter3}
+\input{contents/section3-1}
+\input{contents/section3-2}
+
+\input{contents/chapter4}
+\input{contents/section4-1}
+\input{contents/section4-2}
+\input{contents/section4-3}
+\input{contents/section4-4}
+\input{contents/section4-5}
+\input{contents/section4-6}
+
+\input{contents/chapter5}
+
+\input{contents/chapter6}
+\input{contents/section6-1}
+\input{contents/section6-2}
+
+\input{contents/chapter7}
+\input{contents/section7-1}
+\input{contents/section7-2}
+
+\input{contents/chapter8}
+\input{contents/section8-1}
+\input{contents/section8-2}
+\input{contents/section8-3}
+\input{contents/section8-4}
+
+\input{contents/chapter9}
+\input{contents/section9-1}
+\input{contents/section9-2}
+
+\input{contents/exercises-and-solutions/exercises1}
+\input{contents/exercises-and-solutions/exercises2}
+
+\input{contents/exercises-and-solutions/solutions1}
+\input{contents/exercises-and-solutions/solutions2}
+
+%% ADD BIBLIOGRAPHY %%
+\cleardoublepage
+\printbibliography[
+    heading=bibintoc,
+    title={Bibliography}
+]
+
+%% BACKMATTER %%
+\cleardoubleevenemptypage
+\input{other/back-cover}
+
+\end{document}
+%% END OF DOCUMENT %%

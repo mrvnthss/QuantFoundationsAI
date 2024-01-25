@@ -1,0 +1,45 @@
+%% SECTION 4.2 %%
+\section{Symmetrization and Rademacher Complexity}
+\label{sec: symmetrization}
+
+Symmetrization is a commonly used technique in machine learning. Let $\mathcal{D}_n = \set{Z_1, \dots, Z_n}$ be our sample set. To use symmetrization, we take another independent copy of the sample set, which we denote $\mathcal{D}_n' = \set{Z_1', \dots, Z_n'}$. This sample exists only in theory (i.e., for the following considerations), which is why $\mathcal{D}_n'$ is sometimes referred to as a \qq{ghost sample}. We have
+\[
+    \mu(A) = \Pr{Z \in A} = \Ex{\frac{1}{n} \sum_{i=1}^n \indSet{Z_i' \in A}} = \Ex{\frac{1}{n} \sum_{i=1}^n \indSet{Z_i' \in A} \,\Big\vert\, \mathcal{D}_n} = \Ex{\mu_n'(A) \given \mathcal{D}_n},
+\]
+where $\mu_n'(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i' \in A}$. Hence, by Jensen's inequality
+\begin{align*}
+    \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} &= \Ex{\sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \Ex{\mu_n'(A) \given \mathcal{D}_n} }} \\[4pt]
+        &= \Ex{\sup_{A \in \mathcal{A}} \abs{ \Ex{\mu_n(A) - \mu_n'(A) \given \mathcal{D}_n} }} \\[4pt]
+        &\leq \Ex{\sup_{A \in \mathcal{A}} \Ex{\abs{ \mu_n(A) - \mu_n'(A) } \given \mathcal{D}_n} } \\[4pt]
+        &\leq \Ex{\sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \mu_n'(A) }} \\[4pt]
+        &= \Ex{\sup_{A \in \mathcal{A}} \abs{ \frac{1}{n} \sum_{i=1}^n \left(\indSet{Z_i \in A} - \indSet{Z_i' \in A}\right) }}.
+\end{align*}
+Since our ghost sample $\mathcal{D}_n'$ has the same distribution as $\mathcal{D}_n$, by symmetry, $\indSet{Z_i \in A} - \indSet{Z_i' \in A}$ has the same distribution as $\sigma_i \left(\indSet{Z_i \in A} - \indSet{Z_i' \in A}\right)$, where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\mathrm{Rad}(\nicefrac{1}{2})$, i.e., $\Pr{\sigma_i = \pm 1} = \nicefrac{1}{2}$, and $\sigma_1, \dots, \sigma_n$ are independent of both samples $\mathcal{D}_n$ and $\mathcal{D}_n'$. Thus,
+\begin{align}
+    \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} &\leq \Ex{\sup_{A \in \mathcal{A}} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \left(\indSet{Z_i \in A} - \indSet{Z_i' \in A}\right) }} \nonumber \\[4pt]
+        \label{eq: precursor to symmetrization bound}
+        &\leq 2 \Ex{\sup_{A \in \mathcal{A}} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}}}
+\end{align}
+Using symmetrization, we have bounded $\Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }}$ by a much nicer quantity. Nonetheless, we still want the upper bound only to rely on the structure of $\mathcal{A}$ and not on the particular random sample $\set{Z_1, \dots, Z_n}$. To achieve this, we take the supremum over all $z_i \in \mathcal{X} \times \set{0, 1}$.
+
+\begin{definition}
+The \emph{Rademacher complexity of a family of sets} $\mathcal{A}$ in a space $\mathcal{Z}$ is defined to be the quantity
+\[
+    \mathcal{R}_n(\mathcal{A}) = \sup_{z_1, \dots, z_n \in \mathcal{Z}} \Ex{\sup_{A \in \mathcal{A}} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}},
+\]
+where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ random variables drawn from the Rademacher distribution.
+
+The \emph{Rademacher complexity of a set} $B \subset \R^n$ is defined as 
+\[
+    \mathcal{R}_n(B) = \Ex{\sup_{b \in B} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i b_i}},
+\]
+where $\sigma_1, \dots, \sigma_n$ are defined as above.
+\end{definition}
+From this definition and \eqref{eq: precursor to symmetrization bound}, we conclude
+\begin{equation}
+\label{eq: symmetrization bound}
+    \highlightMath{
+        \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} \leq 2 \mathcal{R}_n(\mathcal{A}).
+    }
+\end{equation}
+The Rademacher complexity measures the complexity of a set $B \subset \R^n$ in the following sense: The quantity $\abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i b_i}$ measures how well a vector $b \in B$ correlates with a random sign pattern $(\sigma_1, \dots, \sigma_n)$. The more complex $B$ is, the better some vector $b \in B$ can replicate a given sign pattern. For example, if $B = [-1, 1]^n$, then $\mathcal{R}_n(B) = 1$. If, instead, $B \subset [-1, 1]^n$ consists only of $k$-sparse vectors, then $\mathcal{R}_n(B) = k/n$.

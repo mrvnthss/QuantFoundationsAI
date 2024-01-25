@@ -1,0 +1,75 @@
+%% SECTION 3.1 %%
+\section{Azuma-Hoeffding Inequality}
+
+To state the main result of this section, we first need to introduce the concept of \emph{martingales}.
+
+\begin{definition}
+Let $(\Omega, \mathcal{A}, \mathbb{P})$ be a probability space.
+\begin{enumerate}[(i)]
+    \item A \emph{filtration} $\set{\mathcal{F}_n}_{n \in \N}$ is an increasing sequence of sub-$\sigma$-algebras $\mathcal{F}_n$ of $\mathcal{A}$, i.e.,
+    \[
+        \mathcal{F}_1 \subseteq \mathcal{F}_2 \subseteq \dots \subseteq \mathcal{A}.
+    \]
+
+    \item A stochastic process $\set{X_n}_{n \in \N}$ is called a \emph{martingale} if, for every $n \in \N$,
+    \begin{enumerate}[(a)]
+        \item $X_n$ is $\mathcal{F}_n$-measurable and integrable, i.e., $\Ex{\abs{X_n}} < \infty$,
+
+        \item $\Ex{X_{n+1} \given \mathcal{F}_n} = X_n$ holds almost surely.
+    \end{enumerate}
+\end{enumerate}
+\end{definition}
+
+Loosely speaking, martingales are a generalization of sums of zero-mean, independent random variables: Let $\set{X_n}_{n \in \N}$ be a sequence of independent random variables with $\Ex{X_n} = 0$, and let $S_n = \sum_{i=1}^n X_i$. Then, for $\mathcal{F}_n = \sigma(X_1, \dots, X_n)$, we have
+\[
+    \Ex{S_{n+1} \given \mathcal{F}_n} = \Ex{X_{n+1} + S_n \given \mathcal{F}_n} = \Ex{X_{n+1}} + \Ex{S_n \given \mathcal{F}_n} = S_n,
+\]
+since $X_{n+1}$ is centered and independent of $\mathcal{F}_n$, and $S_n$ is $\mathcal{F}_n$-measurable.
+
+Another definition we will need is that of a \emph{martingale difference sequence}.
+
+\begin{definition}
+Let $(\Omega, \mathcal{A}, \mathbb{P})$ be a probability space with filtration $\set{\mathcal{F}_n}_{n \in \N}$. A stochastic process $\set{X_n}_{n\in\N}$ is called a \emph{martingale difference sequence (MDS)}, if
+\begin{enumerate}[(i)]
+    \item $X_n$ is $\mathcal{F}_n$-measurable and integrable, i.e., $\Ex{\abs{X_n}} < \infty$,
+
+    \item $\Ex{X_{n+1} \given \mathcal{F}_n} = 0$ holds almost surely.
+\end{enumerate}
+\end{definition}
+
+Whenever we have a martingale $\set{X_n}_{n\in\N}$, we can construct a martingale difference sequence by setting $\Delta_n = X_n - X_{n-1}$, since then
+\[
+    \Ex{\Delta_{n+1} \given \mathcal{F}_n} = \Ex{X_{n+1} - X_n \given \mathcal{F}_n} = \Ex{X_{n+1} \given \mathcal{F}_n} - X_n = 0.
+\]
+
+\begin{theorem}[Azuma-Hoeffding]
+\label{thm: azuma-hoeffding}
+Assume that $\set{\Delta_i}_{i\in\N}$ is a martingale difference sequence with respect to a filtration $\set{\mathcal{F}_i}_{i\in\N}$ and let $A_i, B_i$ be $\mathcal{F}_i$-measurable random variables such that
+\[
+    A_i \leq \Delta_i \leq B_i
+\]
+holds almost surely for all $i \in \N$. Then,
+\[
+    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > t} \leq \exp(\frac{-2n^2t^2}{\sum_{i=1}^n \norm{A_i - B_i}_\infty^2})
+\]
+\end{theorem}
+
+In comparison to Hoeffding’s inequality, the Azuma-Hoeffding inequality allows for non-uniform boundedness and does not require independence of the random variables.
+
+\begin{proof}
+As in the proof of Hoeffding's inequality, we first apply the generic Chernoff bound to obtain
+\begin{align*}
+    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > t} \leq \Ex{\e^{s\sum_i \Delta_i}} \e^{-snt} &= \Ex{\Ex{\e^{s\sum_i \Delta_i} \given \mathcal{F}_{n-1}}} \e^{-snt} \\
+        &= \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i} \Ex{\e^{s\Delta_n} \given \mathcal{F}_{n-1}}} \e^{-snt}.
+\end{align*}
+Next, we apply Hoeffding's lemma to the inner expectation $\Ex{\e^{s\Delta_n} \given \mathcal{F}_{n-1}}$ to obtain
+\begin{align*}
+    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > t} &\leq \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i} \e^{s^2\frac{(B_n - A_n)^2}{8}}} \e^{-snt} \\
+        &\leq \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i}} \exp(\frac{s^2}{8}\norm{A_n - B_n}^2_\infty) \e^{-snt}.
+\end{align*}
+Iteratively splitting off the $\Delta_i$ one-by-one and then applying Hoeffding's lemma, we eventually get
+\[
+    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > t} \leq \exp(\frac{s^2}{8}\sum_{i=1}^n \norm{A_i - B_i}_\infty^2) \e^{-snt}.
+\]
+As usual, optimizing the RHS over $s$ yields the desired result.
+\end{proof}

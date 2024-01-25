@@ -1,0 +1,71 @@
+%% SECTION 2.2 %%
+\section{Plug-In Decisions}
+\label{subsec: plug-in decisions}
+
+We know that the Bayes classifier $h^*(x) = \indSet{\eta(X) > 1/2}$ is our best guess of $Y$ based on the observation $X$. However, the function $\eta(x) = \Ex{Y \given X=x}$ is often unknown. Assume that we have a function $\tilde\eta \colon \mathcal{X} \to [0, 1]$ approximating $\eta$. In this case, it is natural to use the \emph{plug-in} decision function
+\[
+    \tilde h(x) = \begin{cases}
+        1, \quad &\tilde\eta(x) > 1/2 \\
+        0, \quad &\tilde\eta(x) \leq 1/2
+    \end{cases}
+\]
+
+The error probability of this plug-in classifier is close to the optimal classifier $h^*$.
+
+\begin{theorem}
+\label{thm: plug-in decision}
+The excess risk $R(\tilde h)$ of the classifier $\tilde h$ defined above satisfies
+\begin{align*}
+    R(\tilde h) = L(\tilde h) - L^* &= 2 \int_{\tilde h \neq h^*} \bigAbs{ \eta(x) - 1/2 } \dP{X}{x} \\[4pt]
+        &\leq 2 \int_{\mathcal{X}} \bigAbs{ \eta(x) - \tilde\eta(x)} \dP{X}{x} = 2 \, \Ex{\bigAbs{ \eta(X) - \tilde\eta(X) }}.
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+The first identity is a consequence of Theorem \ref{thm: bayes classifier}. Thus, all we need to demonstrate is that the inequality
+\[
+    \bigAbs{ \eta(x) - 1/2 } \leq \bigAbs{ \eta(x) - \tilde\eta(x) }
+\]
+holds on $A = \{\tilde h \neq h^*\}$. First, assume that $\tilde h(x) = 0$ for $x \in A$. This implies that $h^*(x) = 1$. By definition of $\tilde h$ and $h^*$, we know that $\tilde\eta(x) \leq 1/2$ and $\eta(x) > 1/2$, and thus
+\[
+    \tilde\eta(x) \leq 1/2 < \eta(x).
+\]
+If $\tilde h(x) = 1$, then $h^*(x) = 0$, and consequently $\tilde\eta(x) > 1/2$ and $\eta(x) \leq 1/2$. Altogether, we have
+\[
+    \eta(x) \leq 1/2 < \tilde\eta(x).
+\]
+This proves the inequality stated at the beginning of this proof.
+\end{proof}
+
+If we can express the classifier in the form
+\[
+    \tilde h(x) = \begin{cases}
+        1, \quad &\tilde\eta_1(x) > \tilde\eta_0(x) \\
+        0, \quad &\text{else}
+    \end{cases}
+\]
+where $\tilde\eta_1$ and $\tilde\eta_0$ do \emph{not} sum to $1$, then we are in a different situation compared to Theorem \ref{thm: plug-in decision}. Nonetheless, an analogous inequality as in Theorem \ref{thm: plug-in decision} still holds.
+
+\begin{theorem}
+The excess risk $R(\tilde h)$ of the classifier $\tilde h$ defined above satisfies
+\[
+    R(\tilde h) = L(\tilde h) - L^* \leq \int_{\mathcal{X}} \bigAbs{ (1 - \eta(x)) - \tilde\eta_0(x) } \dP{X}{x} + \int_{\mathcal{X}} \bigAbs{ \eta(x) - \tilde\eta_1(x) } \dP{X}{x}.
+\]
+\end{theorem}
+
+The proof is left to the reader. Finally, assume that the class-conditional densities $f_0$ and $f_1$ exist and are approximated by $\tilde f_0$ and $\tilde f_1$. Further, let the class probabilities $p = \Pr{Y=1}$ and $1-p = \Pr{Y=0}$ be approximated by $\tilde p_1$ and $\tilde p_0$, respectively. In this case, one might use the plug-in decision
+\[
+    \tilde h(x) = \begin{cases}
+        1, \quad &\tilde f_1(x) \tilde p_1 > \tilde f_0(x) \tilde p_0 \\
+        0, \quad &\text{else}
+    \end{cases}
+\]
+
+\begin{proposition}
+The excess risk $R(\tilde h)$ of the plug-in decision $\tilde h$ defined above satisfies
+\[
+    R(\tilde h) = L(\tilde h) - L^* \leq \int_{\mathcal{X}} \bigAbs{ (1-p) f_0(x) - \tilde p_0 \tilde f_0(x) } \dx + \int_{\mathcal{X}} \bigAbs{ p f_1(x) - \tilde p_1 \tilde f_1(x) } \dx \, .
+\]
+\end{proposition}
+
+The proof is left to the reader once again.

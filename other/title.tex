@@ -1,0 +1,58 @@
+%% TITEL-SEITE %%
+
+% Provide information for title page
+\subject{\sffamily Lecture Notes}
+\title{\titleOfDoc}
+\subtitle{\subtitleOfDoc}
+\author{Prof.~Dr.~Ludger Overbeck}  % NOTE: \author is being misused to refer to the lecturer
+\date{Last edited on \today}
+\publishers{By Marvin Thei{\ss}}
+
+\pagenumbering{Alph}
+
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        \begin{scope}[on background layer]
+            % LIGHTBLUE BACKGROUND
+            \fill[lightblue] ($(current page.north west) + (8mm, -38mm)$) rectangle ($(current page.south east)$);
+        
+            % LOGO
+            % \node[anchor=north east, inner sep=0pt] (jlu) at ($(current page.north east) - (8mm, 8mm)$) {\includegraphics[width=48mm, height=60mm]{tmp/logo}};
+        \end{scope}
+
+        % HEADLINE
+        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (headline) at ($(current page.south west) + (16mm, 32mm)$) {\fontsize{24pt}{34pt}\let\strut\relax\bfseries \titleOfDoc \par};
+
+        % SUBHEADLINE
+        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (subheadline) at ($(headline.north west) + (0, 8mm)$) {\fontsize{12pt}{14pt}\bfseries \subtitleOfDoc \par};
+
+        \begin{scope}[on background layer]
+            % BLUE TEXTBOX
+            \fill[blue, fill opacity=0.9] ($(current page.west |- subheadline.north) + (0mm, 16mm)$) rectangle ($(current page.south west) + (154mm, 16mm)$);
+        \end{scope}
+    \end{tikzpicture}
+\end{titlepage}
+
+\cleardoublepage
+\pagenumbering{roman}
+
+\uppertitleback{
+    This work \copyright{} 2024 by \href{https://github.com/mrvnthss}{Marvin Thei{\ss}} is licensed under \href{http://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1}{CC BY-NC-SA 4.0} \ccbyncsa \\
+
+    You are free to distribute, remix, adapt, and build upon the material in any medium or format. You must give \href{https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1\#ref-appropriate-credit}{appropriate credit}, provide a link to the license, and \href{https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1\#ref-indicate-changes}{indicate if changes were made}. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use. You may not use the material for \href{https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1\#ref-commercial-purposes}{commercial purposes}. If you remix, transform, or build upon the material, you must distribute your contributions under the \href{https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1\#ref-same-license}{same license} as the original. \\
+
+    This work is in no way affiliated with the Justus Liebig University (JLU), except for the fact that it is based on a series of lectures held at JLU in the winter of 2023/24.
+}
+
+\lowertitleback{
+    \begin{center}
+        \includegraphics[width=5cm]{other/buymeacoffee}
+    \end{center}
+    \vspace{2cm}
+    
+    \textbf{Warning}: These lectures notes have seen more all-nighters than a college coffee pot and were crafted with more love than grandma's secret cookie recipe. Should you nevertheless spot any mistakes (be it typos, grammar, logical errata, gaps, broken links, ...), feel free to send an email to \href{mailto:mrvnthss@mail.de}{mrvnthss@mail.de} or open a pull request on \href{https://github.com/mrvnthss/quantitative-foundations-of-artificial-intelligence}{GitHub} and I will do my best to fix these as soon as possible. \\
+
+    If you want to support my work, please feel free to scan the QR code above. It will take you to my \href{https://www.buymeacoffee.com/mrvnthss}{buymeacoffee.com} landing page, where you can show your appreciation through a small donation.
+}
+
+\maketitle

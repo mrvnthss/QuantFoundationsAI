@@ -1,0 +1,239 @@
+\ProvidesPackage{lecture-notes}
+
+%% PACKAGES %%
+\usepackage{geometry}   % page layout
+\usepackage{setspace}   % spacing of text
+\usepackage{enumerate}  % numbered lists
+\usepackage{caption}    % captions
+\usepackage{ccicons}    % icons for Creative Commons licenses
+
+\usepackage[dvipsnames]{xcolor}  % colors
+\usepackage{graphicx}            % images
+\graphicspath{ {./images/} }     % sets path for images
+
+\usepackage{tikz}  % TikZ
+\usetikzlibrary{
+    backgrounds,
+    calc,
+    shapes.callouts,
+    shapes.arrows
+}  % additional TikZ libraries
+
+\usepackage{amsthm}     % theorem setup of AMS document classes
+\usepackage{amssymb}    % math symbols, operators, etc.
+\usepackage{amsfonts}   % extended set of fonts for use in mathematics
+\usepackage{mathtools}  % tools for mathematical typesetting
+\usepackage{physics}    % includes the \norm and \abs commands
+\usepackage{nicefrac}   % for typesetting "nice" fractions
+
+\usepackage[many]{tcolorbox}  % colorful boxes, option 'many' loads additional libraries
+\usepackage{calc}             % provides the '\widthof' command
+
+
+%% PAGE SETUP %%
+% Compute the height of the page numbers printed on each page
+\newlength{\pagemarkheight}
+\settoheight{\pagemarkheight}{\bfseries\sffamily 1}
+
+\geometry{
+    twoside,
+    top=26mm,
+    inner=16mm,
+    outer=16mm,
+    bottom=16mm,
+    headsep=26mm-(8mm+\pagemarkheight),  % distance between bottom of header and top of textbody
+}
+\onehalfspacing
+
+
+%% HEADERS & FOOTERS %%
+% Loading 'scrlayer-scrpage' automatically activates the pagestyle 'scrheadings' and swaps the page styles 'headings' for 'scrheadings' and 'plain' for 'plain.scrheadings'
+\usepackage[
+    automark,
+    headsepline=0pt,
+    headwidth=\textwidth+8mm:0pt  % extend header an additional 8mm
+]{scrlayer-scrpage}
+
+% Change font styles in header and footer
+\setkomafont{pageheadfoot}{\color{gray}\sffamily}
+\setkomafont{pagenumber}{\color{blue}\bfseries\sffamily}
+
+% NOTE: Using the starred commands changes both page styles at once
+\ofoot*{}  % clear outer footer
+\rohead*{\headmark\hspace{8mm-\widthof{\pagemark}}\pagemark}
+\lehead*{\pagemark\hspace{8mm-\widthof{\pagemark}}\headmark}
+
+
+%% COLORS %%
+\definecolor{blue}{HTML}{0069B3}
+\definecolor{gray}{HTML}{53606B}
+\definecolor{lightblue}{HTML}{DCE6EB}
+\definecolor{red}{HTML}{E7004A}
+\definecolor{orange}{HTML}{FF9000}
+\definecolor{yellow}{HTML}{FFBE00}
+\definecolor{green}{HTML}{00BD67}
+\definecolor{purple}{HTML}{4E00BB}
+\definecolor{pptx-green}{HTML}{70AD47}
+
+
+%% "PART" TITLE PAGES %%
+% Based on https://tex.stackexchange.com/questions/705424/getting-rid-of-additional-space-above-and-below-the-title-of-a-part
+
+% Remove the "." after "Part <counter>"
+\renewcommand\partformat{%
+    \partname~\thepart%
+}
+
+% Get rid of any formatting of the title appearing on 'part' pages
+\setkomafont{part}{}
+\setkomafont{partnumber}{}
+
+% Modify page layout
+\renewcommand\partlineswithprefixformat[3]{%
+    \thispagestyle{empty}%
+    \begin{tikzpicture}[remember picture, overlay]
+        % HEADLINE
+        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (headline) at ($(current page.south west) + (16mm, 72mm)$) {\fontsize{24pt}{34pt}\let\strut\relax\sffamily\bfseries #3\par};
+
+        % SUBHEADLINE
+        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (subheadline) at ($(headline.north west) + (0, 16mm)$) {\fontsize{12pt}{14pt}\sffamily\bfseries #2\par};
+
+        \begin{scope}[on background layer]
+             % LIGHTBLUE BACKGROUND
+            \fill[lightblue] ($(current page.north west) + (8mm, -38mm)$) rectangle ($(current page.east |- subheadline.north) + (0, 16mm)$);
+    
+            % LOGO
+            % \node[anchor=north east, inner sep=0pt] (jlu) at ($(current page.north east) - (8mm, 8mm)$) {\includegraphics[width=48mm, height=60mm]{tmp/logo}};
+    
+            % BLUE TEXTBOX
+            \fill[blue, fill opacity=0.9] ($(current page.west |- subheadline.north) + (0mm, 32mm)$) rectangle ($(current page.west |- headline.south) + (154mm, -16mm)$);
+        \end{scope}
+    \end{tikzpicture}
+}
+
+
+%% MATH ENVIRONMENTS %%
+\newtheorem{Theorem}{Theorem}[chapter]
+\newtheorem{Proposition}[Theorem]{Proposition}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Definition}[Theorem]{Definition}
+\newtheorem{example}[Theorem]{Example}
+\newtheorem{remark}[Theorem]{Remark}
+\newtheorem{exercise}{Exercise}[]
+\numberwithin{equation}{chapter}
+
+
+%% ENVIRONMENT FOR EXERCISE SOLUTIONS %%
+\newenvironment{solution}[1]{%
+    \begin{proof}[\normalfont\textbf{Solution to Exercise #1}]}
+    {\end{proof}
+}
+
+
+%% BOXES %%
+\tcbset{
+    enhanced,
+    breakable,
+    sharp corners=all
+}
+
+\newtcolorbox{thm}{colback=blue!50!white, colframe=blue!50!white}
+\newtcolorbox{prop}{colback=blue!25!white, colframe=blue!25!white}
+\newtcolorbox{lem}{colback=lightblue, colframe=lightblue}
+\newtcolorbox{cor}{colback=lightblue, colframe=lightblue}
+\newtcolorbox{defi}{colback=gray!50!white, colframe=gray!50!white}
+
+
+%% MATH ENVIRONMENTS W/ BOXES %%
+\newenvironment{theorem}{\begin{thm}\begin{Theorem}}{\end{Theorem}\end{thm}}
+\newenvironment{proposition}{\begin{prop}\begin{Proposition}}{\end{Proposition}\end{prop}}
+\newenvironment{lemma}{\begin{lem}\begin{Lemma}}{\end{Lemma}\end{lem}}
+\newenvironment{corollary}{\begin{cor}\begin{Corollary}}{\end{Corollary}\end{cor}}
+\newenvironment{definition}{\begin{defi}\begin{Definition}}{\end{Definition}\end{defi}}
+\newcommand{\highlightMath}[1]{\tcboxmath[colback=gray!25!white, colframe=gray!25!white]{#1}}
+
+
+%% MATH %%
+\newcommand*{\e}{\mathrm{e}}                        % Euler's number
+\newcommand*{\R}{\mathbb{R}}                        % real numbers
+\newcommand*{\C}{\mathbb{C}}                        % complex numbers
+\newcommand*{\N}{\mathbb{N}}                        % natural numbers
+
+\newcommand*{\set}[1]{\left\{#1\right\}}            % set notation
+\newcommand*{\given}[1][]{\mathrel{#1|}}            % vertical bar w/ spacing
+\newcommand*{\with}[1][]{\mathrel{#1|}}             % same as above
+\DeclareMathOperator*{\argmax}{argmax}              % argmax
+\DeclareMathOperator*{\argmin}{argmin}              % argmin
+\newcommand*{\bigAbs}[1]{\big\lvert#1\big\rvert}    % absolute value (of fixed size)
+\newcommand*{\card}[1]{\mathrm{\mathbf{card}}(#1)}  % cardinality of a set
+
+\newcommand*{\sgn}{\mathrm{sgn}}                    % sign function
+\newcommand*{\dx}{\,\mathrm{d}x}                    % dx
+\newcommand*{\dt}{\,\mathrm{d}t}                    % dt
+\newcommand*{\dP}[2]{\,\mathrm{d}\P_{#1}(#2)}       % e.g., dP_X(x)
+
+\renewcommand*{\P}{\mathbb{P}}                      % probability measure
+\renewcommand*{\Pr}[1]{\mathbb{P}\left(#1\right)}   % probability
+\newcommand*{\Ex}[1]{\mathbb{E}\left[#1\right]}     % expected value
+\newcommand*{\colEx}[2][.]{%
+    \mathbb{E}\cLeft[#1][#2\cRight[#1]]
+}                                                   % expected value w/ colored parentheses
+\newcommand*{\ex}[1]{\mathbb{E}[#1]}                % expected value w/o scaling of brackets
+\newcommand*{\Var}{\mathrm{Var}}                    % variance
+\newcommand*{\Cov}{\mathrm{Cov}}                    % covariance
+
+
+%% INDICATOR FUNCTION %%
+\newcommand*{\indicator}[1]{\mathbf{1}_{#1}}           % classical
+\newcommand*{\indSet}[1]{\mathbf{1}_{\set{#1}}}        % set
+\newcommand*{\indOpenInt}[2]{\mathbf{1}_{(#1, #2)}}    % open interval
+\newcommand*{\indClosedInt}[2]{\mathbf{1}_{[#1, #2]}}  % closed interval
+\newcommand*{\indLORC}[2]{\mathbf{1}_{(#1, #2]}}       % left-open, right-closed
+\newcommand*{\indLCRO}[2]{\mathbf{1}_{[#1, #2)}}       % left-closed, right-open
+
+
+%% COLORED DELIMITERS %%
+\newcommand{\cLeft}[2][.]{%
+    \begingroup\colorlet{leftColor}{.}
+    \color{#1}\left#2\color{leftColor}
+}  % left delimiter
+\newcommand{\cRight}[2][.]{%
+  \color{#1}\right#2\endgroup
+}  % right delimiter
+
+
+%% CAPTIONS %%
+\addtokomafont{caption}{\sffamily\small}        % font of caption text
+\setkomafont{captionlabel}{\sffamily\bfseries}  % font of caption label
+\renewcommand*{\captionformat}{\quad}           % no colon as separator
+\setcaptionalignment{j}                         % justify caption
+\setcapindent{0mm}                              % no indentation for multi-line captions
+\captionsetup{parindent=\parindent}             % controls paragraph indentation
+
+
+%% OTHER %%
+\renewcommand{\qq}[1]{``#1''}  % quote command (double quotes)
+\newcommand{\titleOfDoc}{%
+    Quantitative Foundations\\ of Artificial Intelligence%
+}  % title of document
+\newcommand{\subtitleOfDoc}{%
+    Justus-Liebig-Universit\"at Gie{\ss}en \textbar{} Winter 2023/24%
+}  % subtitle of document
+
+
+%% BIBLIOGRAPHY %%
+\usepackage[
+    backend=biber,
+    style=alphabetic
+]{biblatex}
+
+
+%% HYPERLINKS %%
+\usepackage{hyperref}   % adds hyperlinks to PDF (LAST PACKAGE TO LOAD!)
+\hypersetup{
+    colorlinks=true,
+    citecolor=blue!80!black,     % citations
+    linkcolor=blue!80!black,     % internal links (figures, sections, etc.)
+    urlcolor=blue!80!black       % web links
+}

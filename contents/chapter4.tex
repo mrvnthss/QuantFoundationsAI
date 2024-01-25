@@ -1,0 +1,54 @@
+%% CHAPTER 4 %%
+\chapter{Vapnik-Chervonenkis (VC) Theory}
+\label{ch: VC theory}
+
+Once again, recall the general setup of Section \ref{subsec: empirical classification}: given a family $\mathcal{H}$ of classifiers, we can express the excess risk of the empirical risk minimizer $\hat h_n$ as
+\[
+    R(\hat h_n) = \underbrace{L(\hat h_n) - L(\bar h)}_{\substack{\text{estimation} \\ \text{error}}} + \underbrace{L(\bar h) - L^*}_{\substack{\text{approximation} \\ \text{error}}}
+\]
+where $\bar h \in \mathcal{H}$ is the oracle, i.e., the classifier in $\mathcal{H}$ that (somehow) minimizes the true risk over $\mathcal{H}$. The second term on the RHS is the approximation error, which remains fixed once we have settled on a family $\mathcal{H}$. Hence, we try to find bounds on the first term of the RHS, the estimation error. In Theorem \ref{thm: estimation error finite dictionary}, we had seen that the inequality
+\[
+    L(\hat h_n) - L(\bar h) \leq \sqrt{\frac{2 \log(2M / \delta)}{n}}
+\]
+holds with probability at least $1 - \delta$, if $\mathcal{H}$ is a \emph{finite} family of $M$ classifiers. Note that this upper bound for finite $\mathcal{H}$ cannot be applied to the case that $\mathcal{H}$ is \emph{infinite}. Essentially, to extend our previous results to the infinite case, we would need to show that only finitely many elements in a possibly infinite dictionary $\mathcal{H}$ \qq{really matter}. This exactly is the goal of the Vapnik-Chervonenkis (VC) theory developed in 1971.
+
+We start with the somewhat unrealistic case that our family $\mathcal{H}$ of classifiers is (again) finite and that there exists a classifier $\bar h \in \mathcal{H}$ with zero error probability. In that case, the empirical risk minimizer $\hat h_n$ satisfies $\hat L_n(\hat h_n) = 0$ almost surely. To see this, observe that
+\begin{align*}
+    \Ex{\hat L_n(\hat h_n)} &= \Ex{\frac{1}{n} \sum_{i=1}^n \indSet{\hat h_n(X_i) \neq Y_i}} \leq \Ex{\min_{h \in \mathcal{H}} \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i}} \\
+        &\leq \min_{h \in \mathcal{H}} \frac{1}{n} \sum_{i=1}^n \Pr{h(X_i) \neq Y_i} = \min_{h \in \mathcal{H}} \Pr{f(X) \neq Y} = L(\bar h) = 0.
+\end{align*}
+Since $\hat L_n(\hat h_n)$ is non-negative, this implies that $\P(\hat L_n(\hat h_n) = 0) = 1$. We can bound the true error of the empirical risk minimizer as follows:
+
+\begin{theorem}[Vapnik and Chervonenkis, 1974]
+Let $\card{\mathcal{H}} < \infty$ and $L(\bar h) = \min_{h \in \mathcal{H}} L(h) = 0$. Then, for every $n \in \N$, the empirical risk minimzer $\hat h_n$ satisfies
+\[
+    \P(L(\hat h_n) > \varepsilon) \leq \e^{-n \varepsilon} \, \card{\mathcal{H}}, \quad \varepsilon > 0
+\]
+and
+\[
+    \ex{L(\hat h_n)} \leq \frac{1 + \log(\card{\mathcal{H}})}{n}.
+\]
+\end{theorem}
+
+\begin{proof}
+Since $\hat L_n(\hat h_n) = 0$ almost surely, we have $\hat h_n \in \{h \in \mathcal{H} \with \hat L_n(h) = 0 \text{ a.s.}\}$, and hence
+\begin{align*}
+    \P(L(\hat h_n) > \varepsilon) &\leq \Pr{\max_{h \in \mathcal{H},\,\hat L_n(h) = 0} L(h) > \varepsilon} = \Ex{\indSet{\max_{h \in \mathcal{H},\,\hat L_n(h) = 0} L(h) > \varepsilon}} \\[4pt]
+        &=\Ex{\max_{h\in\mathcal{H}}\, \mathbf{1}_{\{\hat L_n(h) = 0\}} \indSet{L(h) > \varepsilon}} \leq \sum_{h\in\mathcal{H},\,L(h) > \varepsilon} \P(\hat L_n(h) = 0).
+\end{align*}
+Since the probability $\P(\hat L_n(h) = 0)$ that no $(X_i, Y_i)$ falls in the set $\set{(x, y) \with h(x) \neq y}$ is less than $(1 - \varepsilon)^n$ if the probability of this set\footnote{This is precisely the true loss $L(h) = \Pr{h(X) \neq Y}$, which is larger than $\varepsilon$ by assumption.} is larger than $\varepsilon$, we conclude
+\[
+    \P(L(\hat h_n) > \varepsilon) \leq \sum_{h\in\mathcal{H}, \, L(h) > \varepsilon} \P(\hat L_n(h) = 0) \leq (1 - \varepsilon)^n \, \card{\mathcal{H}} \leq \e^{-n \varepsilon} \, \card{\mathcal{H}}.
+\]
+
+To bound the expected error probability of $\hat h_n$ for $n \in \N$, first recall that the expected value of a non-negative random variable $Z \geq 0$ can be computed as follows:
+\[
+    \Ex{Z} = \int_0^\infty \Pr{X > t} \dt.
+\]
+Hence, we have
+\begin{align*}
+    \ex{L(\hat h_n)} &= \int_0^\infty \P(L(\hat h_n) > t) \dt \\
+        &\leq u + \int_u^\infty \P(L(\hat h_n) > t) \dt \leq u + \card{\mathcal{H}} \int_u^\infty \e^{-nt} \dt = u + \frac{\e^{-nu}}{n} \, \card{\mathcal{H}}.
+\end{align*}
+Since $u > 0$ was arbitrary, we can minimize the RHS to obtain $u = \log(\card{\mathcal{H}}) / n$, giving the desired result.
+\end{proof}

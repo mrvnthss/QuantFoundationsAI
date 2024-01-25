@@ -1,0 +1,109 @@
+%% SECTION 4.1 %%
+\section{Empirical Measure}
+
+Recall from the proof of Theorem \ref{thm: estimation error finite dictionary} that the key quantity we need to control is
+\[
+    2 \, \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) },
+\]
+i.e., we had observed the following:
+
+\begin{lemma}
+\label{lem: bound on estimation error}
+Let $\hat h$ be the empirical risk minimizer and denote the oracle by $\bar h$, i.e.,
+\[
+    \hat h \in \argmin_{h \in \mathcal{H}} \hat L_n(h) \qquad \text{and} \qquad \bar h \in \argmin_{h \in \mathcal{H}} L(h),
+\]
+where $\hat L_n(h)$ and $L(h)$ denote the empirical and the true risk of a classifier $h$, respectively. Then,
+\[
+    L(\hat h) - L(\bar h) \leq 2 \, \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) }.
+\]
+\end{lemma}
+
+The goal of bounding the quantity
+\[
+    \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) }
+\]
+leads to the study of uniform deviations of relative frequencies from their theoretical probabilities by the following observation: by definition, we have
+\[
+    \hat L_n(h) - L(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i} - \Pr{h(X) \neq Y}.
+\]
+Write $Z = (X, Y)$ and similarly $Z_i = (X_i, Y_i)$ for $i = 1, \dots, n$. We define two measures $\mu$ and $\mu_n$ on the space $\mathcal{X} \times \set{0, 1}$ by
+\[
+    \mu(A) = \Pr{Z \in A} \qquad \text{and} \qquad \mu_n(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i \in A}.
+\]
+Further, for a classifier $h \in \mathcal{H}$, let $A_h$ be defined by\footnote{Note that $A_h$ coincides with $(h^{-1}(1) \times \set{0}) \cup (h^{-1}(0) \times \set{1})$, which is clearly measurable, assuming that $h \colon \mathcal{X} \to \set{0, 1}$ is measurable.}
+\begin{equation}
+\label{eq: sets A_h}
+    \highlightMath{
+        A_h = \{ (x, y) \in \mathcal{X} \times \set{0, 1} \with h(x) \neq y \}.
+    }
+\end{equation}
+By definition of $A_h$, we have
+\[
+    \set{Z \in A_h} = \set{h(X) \neq Y} \qquad \text{and} \qquad \set{Z_i \in A_h} = \set{h(X_i) \neq Y_i},
+\]
+resulting in
+\[
+    \mu(A_h) = \Pr{Z \in A_h} = \Pr{h(X) \neq Y} = L(h)
+\]
+and
+\[
+    \mu_n(A_h) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i \in A_h} = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i} = \hat L_n(h).
+\]
+Setting
+\begin{equation}
+\label{eq: collection of sets A_h}
+    \highlightMath{
+        \mathcal{A} = \set{A_h \with h \in \mathcal{H}},
+    }
+\end{equation}
+we see that
+\[
+    \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } = \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }.
+\]
+The law of large numbers tells us that, for a measurable set $A$,
+\[
+    \mu_n(A) \xrightarrow{\mathrm{a.s.}} \mu(A),
+\]
+given that the $Z_i$ are i.i.d.\ draws from the distribution of $Z$. Further, as we can write
+\[
+    \mu_n(A) - \mu(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i \in A} - \Pr{Z \in A} = \frac{1}{n} \sum_{i=1}^n \left( \indSet{Z_i \in A} - \Ex{\indSet{Z_i \in A}} \right),
+\]
+Hoeffding's inequality (Theorem \ref{thm: hoeffding}) bounds the probability that the two measures differ on a measurable set $A$ by more than $t > 0$ as follows:
+\[
+    \Pr{\bigAbs{ \mu_n(A) - \mu(A) } > t} \leq 2\e^{-2nt^2}, \quad t > 0.
+\]
+Additionally, for finite $\mathcal{A}$, we have
+\[
+    \P\big( \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } > t \big) \leq 2\e^{-2nt^2} \card{\mathcal{A}}, \quad t > 0
+\]
+by applying a simple union bound. However, for infinite $\mathcal{A}$ (i.e., infinite dictionaries $\mathcal{H}$), the most powerful tools to attack these problems are distribution-free large deviation type inequalities proved by Vapnik and Chervonenkis (1971).
+
+Finally, observe that, for every collection $\mathcal{A}$ of measurable sets $A \subset \mathcal{X} \times \set{0, 1}$, the function
+\[
+    (z_1, \dots, z_n) \mapsto \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }
+\]
+satisfies the bounded differences condition with constants $c_i = \frac{1}{n}$. Hence, by the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}), the inequality
+\[
+    \abs{ \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } - \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} } \leq \sqrt{\frac{\log(2 / \delta)}{2n}}
+\]
+holds\footnote{This follows directly from an application of the complement rule.} with probability at least $1 - \delta$. It follows that, with probability at least $1 - \delta$,
+\begin{equation}
+\label{eq: upper bound on uniform deviations}
+    \highlightMath{
+        \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } \leq \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} + \sqrt{\frac{\log(2 / \delta)}{2n}}
+    }
+\end{equation}
+We will now focus on bounding the first term on the RHS. To do so, we will introduce a technique called symmetrization.
+
+\begin{remark}
+The results discussed in this section are \emph{not} restricted to our particular setup of binary classification with $\mathcal{Z} = \mathcal{X} \times \set{0, 1}$ and $Z = (X, Y)$ a feature-label pair, where $X \colon \Omega \to \mathcal{X}$ and $Y \colon \Omega \to \set{0 ,1}$. Instead, for \emph{any} random variable $W \colon \Omega \to \mathcal{X}$ defined on some probability space $(\Omega, \mathcal{F}, \P)$, we can let $\mu$ be the pushforward measure of $\P$ with respect to $W$, i.e.,
+\[
+    \mu(A) = \P_W(A) = \Pr{W \in A},
+\]
+and let $\mu_n$ be the empirical measure associated with $\mu$, i.e.,
+\[
+    \mu_n(A) = \frac{1}{n} \sum_{i=1}^n \indSet{W_i \in A},
+\]
+where $W_1, \dots, W_n$ are i.i.d. draws from the distribution of $W$. We can then apply the results discussed above to any family $\mathcal{A}$ of measurable sets $A \subset \mathcal{X}$.
+\end{remark}
