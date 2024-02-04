@@ -3,3 +3,63 @@
 
 %% CHAPTER 5 %%
 \chapter{Empirical Risk Minimization}
+
+So far, in chapters \ref{ch: binary classification} and \ref{ch: VC theory}, we have solely focused on the problem of binary classification, i.e., we have studied classifiers $h \colon \mathcal{X} \to \set{0, 1}$ and their performance. To measure the performance of these classifiers we introduced the binary loss function $\indSet{h(X) \neq Y}$ and computed the risk of a classifier $h$ as
+\[
+    L(h) = \Ex{\indSet{h(X) \neq Y}} = \Pr{h(X) \neq Y}.
+\]
+We then split the excess risk of a classifier $h$ into estimation error and approximation error as follows:
+\[
+    R(h) = \underbrace{L(h) - L(\bar h)}_{\substack{\text{estimation} \\ \text{error}}} + \underbrace{L(\bar h) - L^*}_{\substack{\text{approximation} \\ \text{error}}}.
+\]
+Finally, we used concentration inequalities and VC theory to find bounds for the estimation error $L(\hat h_n) - L(\bar h)$ of the empirical risk minimizer $\hat h_n$. Let's look at some of the limitations that these techniques carry along with them:
+
+\begin{itemize}
+    \item \emph{Hoeffding's inequality}: Only useful for finite families $\mathcal{H}$ of classifiers, requires boundedness of the loss function.
+
+    \item \emph{Bounded differences inequality}: Suitable for infinite families $\mathcal{H}$ of classifiers, also requires boundedness of the loss function.
+
+    \item \emph{VC theory}: Requires binary nature of the loss function.
+\end{itemize}
+
+In this chapter, we replace the binary output variable $Y$ with a \emph{continuous} output $Y$ that takes values in the interval $[-1, 1]$, and we replace the binary loss function $\indSet{h(X) \neq Y}$ with a smooth (and symmetric) loss function $l(Y, f(X))$ that we assume to be \emph{bounded}, i.e. $0 \leq l(Y, f(X)) \leq 1$. Some examples are:
+
+\begin{itemize}
+    \item $l(a, b) = \abs{a - b} \quad$ ($L^1$-loss)
+    
+    \item $l(a, b) = (a - b)^2 \quad$ (squared loss)
+
+    \item $l(a, b) = \abs{a - b}^p, \quad p \geq 1 \quad$ ($L^p$-loss)
+\end{itemize}
+
+Let's review the notation we will stick to during this chapter (which will largely remain unchanged compared to chapters \ref{ch: binary classification} and \ref{ch: VC theory}): We will denote the \emph{regression function} by $f \colon \mathcal{X} \to [-1, 1]$ whose \emph{error} is given by
+\[
+    L(f) = \Ex{l(Y, f(X))}.
+\]
+As always, our \emph{dataset} will be denoted $\mathcal{D}_n = \set{(X_1, Y_1), \dots, (X_n, Y_n)} = \set{Z_1, \dots, Z_n}$. The \emph{empirical error} of $f$ is defined as
+\[
+    \hat L_n(f) = \frac{1}{n} \sum_{i=1}^n l(Y_i, f(X_i)),
+\]
+which is a random variable! As before, we denote the \emph{empirical risk minimizer} of a class $\mathcal{F}$ of regression functions $f \colon \mathcal{X} \to [-1, 1]$ by $\hat f_n$, where $n$ denotes the number of observations $(X_i, Y_i)$. For convenience, we often drop the subscript $n$ and simply write $\hat f$. Finally, the \emph{oracle} of the class $\mathcal{F}$ (i.e., the regression function minimizing the true error $L(f)$) will be denoted by $\bar f$.
+
+By Lemma \ref{lem: bound on estimation error}, we can bound the estimation error of the empirical risk minimizer $\hat f$ as follows:
+\[
+    L(\hat f) - L(\bar f) \leq 2 \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)}.
+\]
+The function
+\[
+    (z_1, \dots, z_n) \mapsto \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} = \sup_{f \in \mathcal{F}} \abs{ \frac{1}{n} \sum_{i=1}^n l(y_i, f(x_i)) - L(f) }
+\]
+satisfies the bounded differences condition for constants $c_1 = \dots = c_n = \frac{1}{n}$, since the loss function $l$ is assumed to be bounded, i.e., $0 \leq l \leq 1$. Thus, by the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}), we obtain
+\[
+    \Pr{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} - \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } \geq t } \leq \e^{-2nt^2}.
+\]
+In particular,
+\[
+    \Pr{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} - \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } < t } \geq 1 - \e^{-2nt^2},
+\]
+and by evaluating this inequality at $t = \sqrt{\log(\delta^{-1})/2n}$, we see that the inequality
+\[
+    \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} < \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } + \sqrt{ \frac{\log(\delta^{-1})}{2n} }
+\]
+holds with probability at least $1 - \delta$. Therefore, as in Chapter \ref{ch: VC theory}, it remains to control the first term on the RHS. Ideally, we can do so independently of the (unknown) distribution of $(X, Y)$.
