@@ -89,3 +89,22 @@ which yields the optimal solution $s^* = \frac{4t}{\lambda}$. Hence, the best bo
 \]
 which is exactly the upper bound we wanted to prove.
 \end{proof}
+
+\begin{remark}
+Let $X_1, \dots, X_n$ be random variables satisfying the conditions of Theorem \ref{thm: hoeffding}, and write $\bar X = S_n/n$ for the arithmetic mean of the $X_i$. We have
+\[
+    \Pr{\abs{\bar X - \ex{\bar X}} > t} = \Pr{\abs{S_n - \Ex{S_n}} > nt} \leq 2 \exp(-\frac{2n^2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+\]
+Further, observe that the expression $\bar X - \ex{\bar X}$ can be rewritten as
+\[
+    \bar X - \ex{\bar X} = \frac{1}{n} \sum_{i=1}^n X_i - \Ex{X_i}.
+\]
+Hence, Hoeffding's inequality ensures that the (absolute) average deviation of independent and (almost surely) bounded random variables from their respective means decays \emph{exponentially fast} in the number of observations $n$. Finally, if the random variables $X_1, \dots, X_n$ are i.i.d. random variables such that, almost surely, $a \leq X_i \leq b$, Hoeffding's inequality states that
+\[
+    \Pr{\abs{\bar X - \ex{X_1}} > t} \leq 2 \exp(-\frac{2nt^2}{(b - a)^2}).
+\]
+For random variables $X_i$ taking values in the unit interval, this reduces to
+\[
+    \Pr{\abs{\bar X - \ex{X_1}} > t} \leq 2 \e^{-2nt^2}.
+\]
+\end{remark}
