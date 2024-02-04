@@ -8,7 +8,7 @@ Once again, recall the general setup of Section \ref{subsec: empirical classific
 \]
 where $\bar h \in \mathcal{H}$ is the oracle, i.e., the classifier in $\mathcal{H}$ that (somehow) minimizes the true risk over $\mathcal{H}$. The second term on the RHS is the approximation error, which remains fixed once we have settled on a family $\mathcal{H}$. Hence, we try to find bounds on the first term of the RHS, the estimation error. In Theorem \ref{thm: estimation error finite dictionary}, we had seen that the inequality
 \[
-    L(\hat h_n) - L(\bar h) \leq \sqrt{\frac{2 \log(2M / \delta)}{n}}
+    L(\hat h_n) - L(\bar h) < \sqrt{\frac{2 \log(2M / \delta)}{n}}
 \]
 holds with probability at least $1 - \delta$, if $\mathcal{H}$ is a \emph{finite} family of $M$ classifiers. Note that this upper bound for finite $\mathcal{H}$ cannot be applied to the case that $\mathcal{H}$ is \emph{infinite}. Essentially, to extend our previous results to the infinite case, we would need to show that only finitely many elements in a possibly infinite dictionary $\mathcal{H}$ \qq{really matter}. This exactly is the goal of the Vapnik-Chervonenkis (VC) theory developed in 1971.
 
@@ -36,7 +36,7 @@ Since $\hat L_n(\hat h_n) = 0$ almost surely, we have $\hat h_n \in \{h \in \mat
     \P(L(\hat h_n) > \varepsilon) &\leq \Pr{\max_{h \in \mathcal{H},\,\hat L_n(h) = 0} L(h) > \varepsilon} = \Ex{\indSet{\max_{h \in \mathcal{H},\,\hat L_n(h) = 0} L(h) > \varepsilon}} \\[4pt]
         &=\Ex{\max_{h\in\mathcal{H}}\, \mathbf{1}_{\{\hat L_n(h) = 0\}} \indSet{L(h) > \varepsilon}} \leq \sum_{h\in\mathcal{H},\,L(h) > \varepsilon} \P(\hat L_n(h) = 0).
 \end{align*}
-Since the probability $\P(\hat L_n(h) = 0)$ that no $(X_i, Y_i)$ falls in the set $\set{(x, y) \with h(x) \neq y}$ is less than $(1 - \varepsilon)^n$ if the probability of this set\footnote{This is precisely the true loss $L(h) = \Pr{h(X) \neq Y}$, which is larger than $\varepsilon$ by assumption.} is larger than $\varepsilon$, we conclude
+Since the probability $\P(\hat L_n(h) = 0)$ that no $(X_i, Y_i)$ falls in the set $\set{(x, y) \with h(x) \neq y}$ is at most $(1 - \varepsilon)^n$ if the probability of this set\footnote{This is precisely the true loss $L(h) = \Pr{h(X) \neq Y}$, which is larger than $\varepsilon$ by assumption.} is larger than $\varepsilon$, we conclude
 \[
     \P(L(\hat h_n) > \varepsilon) \leq \sum_{h\in\mathcal{H}, \, L(h) > \varepsilon} \P(\hat L_n(h) = 0) \leq (1 - \varepsilon)^n \, \card{\mathcal{H}} \leq \e^{-n \varepsilon} \, \card{\mathcal{H}}.
 \]

@@ -24,12 +24,12 @@ since $\hat L_n(\hat h) \leq \hat L_n(\bar h)$ by definition of the empirical ri
 \begin{enumerate}[(i)]
     \item For a classifier $h$ and $\delta > 0$,
     \[
-        \Pr{\bigAbs{ \hat L_n(h) - L(h) } \leq \sqrt{\frac{\log(2/\delta)}{2n}}} \geq 1 - \delta.
+        \Pr{\bigAbs{ \hat L_n(h) - L(h) } < \sqrt{\frac{\log(2/\delta)}{2n}}} \geq 1 - \delta.
     \]
 
     \item If $\mathcal{H} = \set{h_1, \dots, h_M}$ is a \emph{finite} family of $M$ classifiers, then
     \[
-        \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \leq \sqrt{\frac{\log(2M/\delta)}{2n}}} \geq 1 - \delta.
+        \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < \sqrt{\frac{\log(2M/\delta)}{2n}}} \geq 1 - \delta.
     \]
 \end{enumerate}
 \end{theorem}
@@ -45,24 +45,24 @@ and hence,
 \]
 The first assertion thus follows from Hoeffding's inequality applied to the random variables $\indSet{h(X_i) \neq Y_i}$, $i = 1, \dots, n$ and $t = \sqrt{\frac{\log(2/\delta)}{2n}}$, since
 \[
-    \Pr{\abs{\ldots} \leq t} = 1 - \Pr{\abs{\ldots} > t} \geq 1 - 2\e^{-2nt^2} = 1 - \delta.
+    \Pr{\abs{\ldots} < t} = 1 - \Pr{\abs{\ldots} \geq t} \geq 1 - 2\e^{-2nt^2} = 1 - \delta.
 \]
 For the second assertion, observe that, for $t = \sqrt{\frac{\log(2M/\delta)}{2n}}$,
 \[
-    \set{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } > t} = \bigcup_{j=1}^M \set{\bigAbs{ \hat L_n(h_j) - L(h_j) } > t}
+    \set{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \geq t} = \bigcup_{j=1}^M \set{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t}
 \]
 and hence,
 \begin{align*}
-    \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \leq t} &= 1 - \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } > t} \\
-        &\geq 1 - \sum_{j=1}^M \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } > t}
+    \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < t} &= 1 - \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \geq t} \\
+        &\geq 1 - \sum_{j=1}^M \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t}
 \end{align*}
 by applying a simple union bound. As before, Hoeffding's inequality yields
 \[
-    \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } > t} \leq 2\e^{-2nt^2} = \frac{\delta}{M}, \quad j = 1, \dots, M.
+    \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t} \leq 2\e^{-2nt^2} = \frac{\delta}{M}, \quad j = 1, \dots, M.
 \]
 Putting everything together, we obtain
 \[
-    \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \leq t} \geq 1 - \sum_{j=1}^M \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } > t} = 1 - \sum_{j=1}^M \frac{\delta}{M} = 1 - \delta.
+    \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < t} \geq 1 - \sum_{j=1}^M \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t} = 1 - \sum_{j=1}^M \frac{\delta}{M} = 1 - \delta.
 \]
 \end{proof}
 
@@ -72,7 +72,7 @@ As hinted at before, we can now use this intermediate result to obtain a bound o
 \label{thm: estimation error finite dictionary}
 For a finite family of classifiers $\mathcal{H} = \set{h_1, \dots, h_M}$ and $\delta > 0$, the estimation error $L(\hat h) - L(\bar h)$ satisfies
 \[
-    \Pr{L(\hat h) - L(\bar h) \leq \sqrt{\frac{2\log(2M/\delta)}{n}}} \geq 1 - \delta.
+    \Pr{L(\hat h) - L(\bar h) < \sqrt{\frac{2\log(2M/\delta)}{n}}} \geq 1 - \delta.
 \]
 \end{theorem}
 
@@ -93,8 +93,8 @@ Summarizing, we have
 \]
 and thus, Theorem \ref{thm: empirical vs true risk} implies
 \begin{align*}
-    \Pr{L(\hat h) - L(\bar h) \leq \sqrt{\frac{2\log(2M/\delta)}{n}}} &\geq \Pr{2 \max_j \bigAbs{ \hat L_n(h_j) - L(h_j) } \leq \sqrt{\frac{2\log(2M/\delta)}{n}}} \\
-        &= \Pr{\max_j \bigAbs{ \hat L_n(h_j) - L(h_j) } \leq \sqrt{\frac{\log(2M/\delta)}{2n}}} \geq 1 - \delta.
+    \Pr{L(\hat h) - L(\bar h) < \sqrt{\frac{2\log(2M/\delta)}{n}}} &\geq \Pr{2 \max_j \bigAbs{ \hat L_n(h_j) - L(h_j) } < \sqrt{\frac{2\log(2M/\delta)}{n}}} \\
+        &= \Pr{\max_j \bigAbs{ \hat L_n(h_j) - L(h_j) } < \sqrt{\frac{\log(2M/\delta)}{2n}}} \geq 1 - \delta.
 \end{align*}
 \end{proof}
 

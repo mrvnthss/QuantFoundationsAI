@@ -50,7 +50,7 @@ Assume that $\set{\Delta_i}_{i\in\N}$ is a martingale difference sequence with r
 \]
 holds almost surely for all $i \in \N$. Then,
 \[
-    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > t} \leq \exp(\frac{-2n^2t^2}{\sum_{i=1}^n \norm{A_i - B_i}_\infty^2})
+    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i \geq t} \leq \exp(\frac{-2n^2t^2}{\sum_{i=1}^n \norm{A_i - B_i}_\infty^2})
 \]
 \end{theorem}
 
@@ -59,17 +59,17 @@ In comparison to Hoeffding’s inequality, the Azuma-Hoeffding inequality allows
 \begin{proof}
 As in the proof of Hoeffding's inequality, we first apply the generic Chernoff bound to obtain
 \begin{align*}
-    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > t} \leq \Ex{\e^{s\sum_i \Delta_i}} \e^{-snt} &= \Ex{\Ex{\e^{s\sum_i \Delta_i} \given \mathcal{F}_{n-1}}} \e^{-snt} \\
+    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i \geq t} \leq \Ex{\e^{s\sum_i \Delta_i}} \e^{-snt} &= \Ex{\Ex{\e^{s\sum_i \Delta_i} \given \mathcal{F}_{n-1}}} \e^{-snt} \\
         &= \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i} \Ex{\e^{s\Delta_n} \given \mathcal{F}_{n-1}}} \e^{-snt}.
 \end{align*}
 Next, we apply Hoeffding's lemma to the inner expectation $\Ex{\e^{s\Delta_n} \given \mathcal{F}_{n-1}}$ to obtain
 \begin{align*}
-    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > t} &\leq \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i} \e^{s^2\frac{(B_n - A_n)^2}{8}}} \e^{-snt} \\
+    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i \geq t} &\leq \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i} \e^{s^2\frac{(B_n - A_n)^2}{8}}} \e^{-snt} \\
         &\leq \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i}} \exp(\frac{s^2}{8}\norm{A_n - B_n}^2_\infty) \e^{-snt}.
 \end{align*}
 Iteratively splitting off the $\Delta_i$ one-by-one and then applying Hoeffding's lemma, we eventually get
 \[
-    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > t} \leq \exp(\frac{s^2}{8}\sum_{i=1}^n \norm{A_i - B_i}_\infty^2) \e^{-snt}.
+    \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i \geq t} \leq \exp(\frac{s^2}{8}\sum_{i=1}^n \norm{A_i - B_i}_\infty^2) \e^{-snt}.
 \]
 As usual, optimizing the RHS over $s$ yields the desired result.
 \end{proof}

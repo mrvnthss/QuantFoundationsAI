@@ -17,7 +17,7 @@ Intuitively, $g$ meets the bounded differences condition if changing only one co
 \label{thm: bounded differences inequality}
 Let $X_1, \dots, X_n$ be independent random variables and let $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$ be a function satisfying the bounded differences condition for constants $c_1, \dots, c_n$. Then,
 \[
-    \Pr{\bigAbs{ g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)}} > t } \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
+    \Pr{\bigAbs{ g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)}} \geq t } \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
 \]
 \end{theorem}
 
@@ -71,7 +71,7 @@ since $g$ satisfies the bounded differences condition with constants $c_1, \dots
 \]
 Hence, we can apply the Azuma-Hoeffding inequality (Theorem \ref{thm: azuma-hoeffding}) to obtain
 \[
-    \Pr{g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)} > t} = \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i > \frac{t}{n}} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
+    \Pr{g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)} \geq t} = \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i \geq \frac{t}{n}} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
 \]
 The one-sided bound in the opposite direction is obtained by applying Theorem \ref{thm: azuma-hoeffding} to $\set{-\Delta_i}_i$ and, finally, the two-sided bound follows from a union bound.
 \end{proof}
@@ -84,7 +84,7 @@ Another drawback of Hoeffding's inequality is that it completely ignores the ran
 \label{thm: bernstein}
 Let $X_1, \dots, X_n$ be independent, centered random variables such that $\abs{X_i} \leq c$ for $i = 1, \dots, n$, and denote the average variance of all $X_i$ by $\bar\sigma^2 = n^{-1} \sum_i \Var(X_i)$. Then,
 \[
-    \Pr{\frac{1}{n} \sum_{i=1}^n X_i > t} \leq \exp(\frac{-2nt^2}{2\bar\sigma^2 + \frac{2}{3}tc}).
+    \Pr{\frac{1}{n} \sum_{i=1}^n X_i \geq t} \leq \exp(\frac{-2nt^2}{2\bar\sigma^2 + \frac{2}{3}tc}).
 \]
 \end{theorem}
 
@@ -120,7 +120,7 @@ Equipped with this result, we can continue to prove Bernstein's inequality.
 \begin{proof}[Proof of Theorem \ref{thm: bernstein}]
 As in the proof of Hoeffding's inequality, we have
 \[
-    \Pr{\frac{1}{n} \sum_{i=1}^n X_i > t} \leq \e^{-snt} \prod_{i=1}^n \ex{e^{sX_i}} \leq \e^{-snt} \exp( n s^2 \sigma^2 \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ), \quad s > 0,
+    \Pr{\frac{1}{n} \sum_{i=1}^n X_i \geq t} \leq \e^{-snt} \prod_{i=1}^n \ex{e^{sX_i}} \leq \e^{-snt} \exp( n s^2 \sigma^2 \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ), \quad s > 0,
 \]
 where the second inequality is precisely Lemma \ref{lem: bernstein}. The RHS can be written as
 \[
