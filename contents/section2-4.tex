@@ -58,14 +58,14 @@ Equipped with this result, we can tackle Hoeffding's inequality:
 \label{thm: hoeffding}
 Let $X_1, \dots, X_n$ be independent random variables such that, almost surely, $a_i \leq X_i \leq b_i$, and denote the sum of the $X_i$ by $S_n = \sum_{i=1}^n X_i$. Then, for any $t>0$,
 \[
-    \Pr{\abs{S_n - \Ex{S_n}} \geq t} \leq 2 \exp(-\frac{2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+    \Pr{\abs{S_n - \Ex{S_n}} \geq t} \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
 \end{theorem}
 
 \begin{proof}
 It suffices to show the inequality
 \[
-    \Pr{S_n - \Ex{S_n} \geq t} \leq \exp(-\frac{2t^2}{\sum_{i=1}^n (b_i - a_i)^2})
+    \Pr{S_n - \Ex{S_n} \geq t} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2})
 \]
 as the bound for the lower tail follows analogously. For any $s>0$, we have
 \[
@@ -85,7 +85,7 @@ To optimize the bound, we want to minimize the expression inside the exponential
 \]
 which yields the optimal solution $s^* = \frac{4t}{\lambda}$. Hence, the best bound we can find is
 \[
-    \exp(f(s^*)) = \exp(\frac{\lambda}{8} \left(\frac{4t}{\lambda}\right)^2 - t \frac{4t}{\lambda}) = \exp(-\frac{2t^2}{\lambda}) = \exp(-\frac{2t^2}{\sum_{i=1}^n (b_i - a_i)^2}),
+    \exp(f(s^*)) = \exp(\frac{\lambda}{8} \left(\frac{4t}{\lambda}\right)^2 - t \frac{4t}{\lambda}) = \exp(\frac{-2t^2}{\lambda}) = \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}),
 \]
 which is exactly the upper bound we wanted to prove.
 \end{proof}
@@ -93,7 +93,7 @@ which is exactly the upper bound we wanted to prove.
 \begin{remark}
 Let $X_1, \dots, X_n$ be random variables satisfying the conditions of Theorem \ref{thm: hoeffding}, and write $\bar X = S_n/n$ for the arithmetic mean of the $X_i$. We have
 \[
-    \Pr{\abs{\bar X - \ex{\bar X}} \geq t} = \Pr{\abs{S_n - \Ex{S_n}} \geq nt} \leq 2 \exp(-\frac{2n^2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+    \Pr{\abs{\bar X - \ex{\bar X}} \geq t} = \Pr{\abs{S_n - \Ex{S_n}} \geq nt} \leq 2 \exp(\frac{-2n^2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
 Further, observe that the expression $\bar X - \ex{\bar X}$ can be rewritten as
 \[
@@ -101,7 +101,7 @@ Further, observe that the expression $\bar X - \ex{\bar X}$ can be rewritten as
 \]
 Hence, Hoeffding's inequality ensures that the (absolute) average deviation of independent and (almost surely) bounded random variables from their respective means decays \emph{exponentially fast} in the number of observations $n$. Finally, if the random variables $X_1, \dots, X_n$ are i.i.d. random variables such that, almost surely, $a \leq X_i \leq b$, Hoeffding's inequality states that
 \[
-    \Pr{\abs{\bar X - \ex{X_1}} \geq t} \leq 2 \exp(-\frac{2nt^2}{(b - a)^2}).
+    \Pr{\abs{\bar X - \ex{X_1}} \geq t} \leq 2 \exp(\frac{-2nt^2}{(b - a)^2}).
 \]
 For random variables $X_i$ taking values in the unit interval, this reduces to
 \[

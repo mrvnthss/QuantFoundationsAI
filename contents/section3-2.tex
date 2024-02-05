@@ -31,9 +31,8 @@ Every function $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$
 \begin{proof}
 Let $c_1, \dots, c_n$ be the constants of the bounded differences condition and let $x_1, \dots, x_n \in \mathcal{X}$ and $y_1, \dots, y_n \in \mathcal{X}$. Then, by the triangle inequality
 \begin{align*}
-    &\bigAbs{ g(x_1, \dots, x_n) - g(y_1, \dots, y_n) } \\
-        \leq &\bigAbs{ (g(x_1, \dots, x_n) - g(x_1, y_2, \dots, y_n) } + \bigAbs{ g(x_1, y_2, \dots, y_n) - g(y_1, \dots, y_n) } \\
-        \leq &\bigAbs{ (g(x_1, \dots, x_n) - g(x_1, y_2, \dots, y_n) } + c_1.
+    \bigAbs{ g(x_1, \dots, x_n) - g(y_1, \dots, y_n) } &\leq \bigAbs{ (g(x_1, \dots, x_n) - g(x_1, y_2, \dots, y_n) } + \bigAbs{ g(x_1, y_2, \dots, y_n) - g(y_1, \dots, y_n) } \\
+        &\leq \bigAbs{ (g(x_1, \dots, x_n) - g(x_1, y_2, \dots, y_n) } + c_1.
 \end{align*}
 Iteratively applying the triangle inequality in this manner yields
 \[
@@ -41,8 +40,6 @@ Iteratively applying the triangle inequality in this manner yields
 \]
 showing that $g$ is indeed bounded, since the RHS is independent of the chosen $x_i$ and $y_i$.
 \end{proof}
-
-Let us now proceed with proving the bounded differences inequality.
 
 \begin{proof}[Proof of Theorem \ref{thm: bounded differences inequality}]
 Since $g$ is bounded by Lemma \ref{lem: bounded differences condition}, the random variable $g(X_1, \dots, X_n)$ is integrable. Hence, we can construct the \emph{Doob martingale}\footnote{See \href{https://en.wikipedia.org/wiki/Doob_martingale}{here}. The original paper by J.~L.~Doob can be found \href{https://www.ams.org/journals/tran/1940-047-03/S0002-9947-1940-0002052-6/S0002-9947-1940-0002052-6.pdf}{here}.}
@@ -76,7 +73,7 @@ Hence, we can apply the Azuma-Hoeffding inequality (Theorem \ref{thm: azuma-hoef
 The one-sided bound in the opposite direction is obtained by applying Theorem \ref{thm: azuma-hoeffding} to $\set{-\Delta_i}_i$ and, finally, the two-sided bound follows from a union bound.
 \end{proof}
 
-Observe that, assuming $X_1, \dots, X_n$ are independent random variables such that $X_i \in [0, 1]$ (almost surely), we can recover Hoeffding's inequality (Theorem \ref{thm: hoeffding}) by applying Theorem \ref{thm: bounded differences inequality} to the function $g(x_1, \dots, x_n) = \frac{1}{n} \sum_{i=1}^n x_i$, as $g$ satisfies the bounded differences condition for constants $c_i = 1/n$ for all $i = 1, \dots, n$.
+Observe that, assuming $X_1, \dots, X_n$ are independent random variables such that $a_i \leq X_i \leq b_i$ (almost surely), we can recover Hoeffding's inequality (Theorem \ref{thm: hoeffding}) by applying Theorem \ref{thm: bounded differences inequality} to $g(x_1, \dots, x_n) = \sum_{i=1}^n x_i$, since, in this case, $g$ satisfies the bounded differences condition for constants $c_i = b_i - a_i$.
 
 Another drawback of Hoeffding's inequality is that it completely ignores the random variables' variances\footnote{Nevertheless, this also makes Hoeffding's inequality so powerful, because it assumes so little about the random variables that are involved.}. When the random variables' variances are known, an ideal concentration inequality should capture the idea that the variance of a random variable is a measure of concentration to some degree, and thus should include it in the inequality. This is exactly what Bernstein's inequality does. Most importantly, when the variance of the random variables involved is small, Bernstein's inequality provides a sharper bound than Hoeffding's inequality.
 
