@@ -52,17 +52,16 @@ For the second assertion, observe that, for $t = \sqrt{\frac{\log(2M/\delta)}{2n
     \set{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \geq t} = \bigcup_{j=1}^M \set{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t}
 \]
 and hence,
-\begin{align*}
-    \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < t} &= 1 - \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \geq t} \\
-        &\geq 1 - \sum_{j=1}^M \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t}
-\end{align*}
+\[
+    \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < t} = 1 - \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \geq t} \geq 1 - \sum_{j=1}^M \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t}
+\]
 by applying a simple union bound. As before, Hoeffding's inequality yields
 \[
     \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t} \leq 2\e^{-2nt^2} = \frac{\delta}{M}, \quad j = 1, \dots, M.
 \]
 Putting everything together, we obtain
 \[
-    \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < t} \geq 1 - \sum_{j=1}^M \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t} = 1 - \sum_{j=1}^M \frac{\delta}{M} = 1 - \delta.
+    \Pr{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < t} \geq 1 - \sum_{j=1}^M \Pr{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t} \geq 1 - \sum_{j=1}^M \frac{\delta}{M} = 1 - \delta.
 \]
 \end{proof}
 
