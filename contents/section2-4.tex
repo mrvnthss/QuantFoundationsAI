@@ -13,7 +13,7 @@ An important technique for understanding the empirical error and classifiers bas
 
 \noindent The main result of this section is \emph{Hoeffding's inequality}, which we will subsequently apply in order to bound the estimation error $L(\hat h) - L(\bar h)$ (see Theorem \ref{thm: estimation error finite dictionary}).
 
-To prove Hoeffding's inequality, we will have to control the moment-generating function\footnote{Recall that the moment-generating function of a random variable $X$ is defined as $M_X(s) = \Ex{\e^{sX}}$. Its name reflects the observation that the $n$-th moment of $X$ (given that it exists) can be obtained by evaluating the $n$-th derivative of $M_X$ at $s=0$.} of a bounded random variable. Hence, we start with the following lemma:
+To prove Hoeffding's inequality, we will have to control the moment-generating function\footnote{Recall that the moment-generating function of a random variable $X$ is defined as $M_X(s) = \Ex{\e^{sX}}$. Its name reflects the fact that the $n$-th moment of $X$ (given that it exists) can be obtained by evaluating the $n$-th derivative of $M_X$ at $s=0$.} of a bounded random variable. Hence, we start with the following lemma:
 
 \begin{lemma}[Hoeffding's Lemma]
 \label{lem: hoeffding}
@@ -71,7 +71,7 @@ as the bound for the lower tail follows analogously. For any $s>0$, we have
 \[
     \Pr{S_n - \Ex{S_n} \geq t} = \Pr{\exp(s(S_n - \Ex{S_n})) \geq \exp(st)} \leq \exp(-st) \Ex{\exp(s(S_n - \Ex{S_n}))},
 \]
-where we have applied Markov's inequality\footnote{This is what is referred to as the \emph{generic Chernoff bound}, which -- for a random variable $X$ -- is attained by applying Markov's inequality to $\e^{tX}$. Doing so yields $\Pr{X \geq a} = \Pr{\e^{tX} \geq \e^{ta}} \leq \e^{-ta} M_X(t) = \e^{-ta} \Ex{e^{tX}}$.}. Since the $X_i$ are independent, we have
+where we have applied Markov's inequality\footnote{This is what is referred to as the \emph{generic Chernoff bound}, which -- for a random variable $X$ -- is attained by applying Markov's inequality to $\e^{tX}$ with $t > 0$. Doing so yields $\Pr{X \geq a} = \Pr{\e^{tX} \geq \e^{ta}} \leq \e^{-ta} \Ex{e^{tX}} = \e^{-ta} M_X(t)$.}. Since the $X_i$ are independent, we have
 \[
     \Ex{\exp(s(S_n - \Ex{S_n}))} = \Ex{\exp(\sum_{i=1}^n s(X_i - \Ex{X_i}))} = \prod_{i=1}^n \Ex{\exp(s(X_i - \Ex{X_i}))},
 \]
