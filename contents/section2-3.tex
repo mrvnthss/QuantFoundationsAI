@@ -15,10 +15,18 @@ is always non-negative (in a deterministic sense, \emph{not} only almost surely)
 \begin{definition}
 The \emph{empirical risk} of a classifier $h$ with respect to the data $\mathcal{D}_n$ is given by
 \[
-    \hat L_n(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i} = \hat{\P}_n(h(X) \neq Y),
+    \hat L_n(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i}.
 \]
-where $\hat{\P}_n = \frac{1}{n} \sum_{i=1}^n \delta_{(X_i, Y_i)}$ is the empirical measure associated with the data $\mathcal{D}_n$.
 \end{definition}
+
+The empirical risk $\hat L_n(h)$ of a classifier $h$ is an \emph{unbiased estimator} of its true risk $L(h)$, i.e.,
+\begin{equation}
+\label{eq: bias of empirical risk}
+    \highlightMath{
+        \Ex{\hat L_n(h)} = \frac{1}{n} \sum_{i=1}^n \Ex{\indSet{h(X_i) \neq Y_i}} = \frac{1}{n} \sum_{i=1}^n \Pr{h(X_i) \neq Y_i} = \Pr{h(X) \neq Y} = L(h),
+    }
+\end{equation}
+since $(X_i, Y_i)$ are i.i.d. draws from the distribution of $(X, Y)$.
 
 Minimizing the empirical risk over all classifiers is useless since, for every hypothetical data set, we can always construct a classifier with \emph{no} empirical risk by just mimicking the data and classifying arbitrarily otherwise, i.e., the classifier
 \[
