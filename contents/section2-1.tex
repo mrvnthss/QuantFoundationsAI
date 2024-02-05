@@ -86,10 +86,9 @@ by \eqref{eq: error probability}, where we have again used the fact that the ide
     \end{cases}
 \]
 and hence
-\begin{align*}
-    L(h) - L^* &= \Ex{(2\eta(X) - 1) \cdot \sgn(\eta(X) - 1/2) \cdot \indSet{h(X) \neq h^*(X)}} \\
-        &= \Ex{\bigAbs{ 2\eta(X) - 1 } \cdot \mathbf{1}_{\set{h(X) \neq h^*(X)}}},
-\end{align*}
+\[
+    L(h) - L^* = \Ex{(2\eta(X) - 1) \cdot \sgn(\eta(X) - 1/2) \cdot \indSet{h(X) \neq h^*(X)}} = \Ex{\bigAbs{ 2\eta(X) - 1 } \cdot \mathbf{1}_{\set{h(X) \neq h^*(X)}}},
+\]
 completing this proof.
 \end{proof}
 
@@ -119,10 +118,9 @@ since $1 - \eta(x) = c / (x+c)$ for $x \geq 0$.
     \item Assume that $\Pr{X = c} = 1$, i.e., (almost surely) every student studies exactly $c$ hours. In this scenario, the Bayes error is equal to $1/2$, i.e., as large as it can be. This is due to the fact that $\eta(X) = 1/2$ (a.s.), i.e., completely uninformative.
     
     \item Assume that $X \sim U(0, 4c)$. Then,
-    \begin{align*}
-        L^* = \frac{1}{4c} \int_0^{4c} \frac{\min(x, c)}{x + c} \dx &= \frac{1}{4c} \left( \int_0^c \frac{x}{x + c} \dx + \int_c^{4c} \frac{c}{x + c} \dx \right) \\[4pt]
-            &= \frac{1}{4} \log\left(\frac{5\mathrm{e}}{4}\right) \approx 0.305785.
-    \end{align*}
+    \[
+        L^* = \frac{1}{4c} \int_0^{4c} \frac{\min(x, c)}{x + c} \dx = \frac{1}{4c} \left( \int_0^c \frac{x}{x + c} \dx + \int_c^{4c} \frac{c}{x + c} \dx \right) = \frac{1}{4} \log\left(\frac{5\mathrm{e}}{4}\right) \approx 0.305785.
+    \]
 \end{enumerate}
 \end{example}
 
@@ -169,11 +167,9 @@ A function minimizing the $L^1$-error is called the \emph{conditional median} of
 \end{remark}
 
 So far, we have seen that the Bayes risk can be expressed as
-\begin{align*}
-    L^* &= \min_h \Pr{h(X) \neq Y} \\[4pt]
-        &= \Ex{\min(\eta(X), 1-\eta(X))} \\[4pt]
-        &= \frac{1}{2} - \frac{1}{2} \Ex{\bigAbs{ 2\eta(X) - 1 }}
-\end{align*}
+\[
+    L^* = \min_h \Pr{h(X) \neq Y} = \Ex{\min(\eta(X), 1-\eta(X))} = \frac{1}{2} - \frac{1}{2} \Ex{\bigAbs{ 2\eta(X) - 1 }}
+\]
 for $h \colon \mathcal{X} \to \set{0, 1}$. Next, we will look at a special case for which we can deduce other helpful ways of expressing the Bayes risk. That is, we assume that $X$ has a density $f$ with respect to the Lebesgue measure, i.e.,
 \[
     \Pr{X \in A} = \int_A f(x) \dx.
@@ -206,7 +202,7 @@ with error
 since $\eta(x)f(x) = f_1(x)p$ and $(1-\eta(x)) = f_0(x)(1-p)$. Obviously, if $f_1$ and $f_0$ are non-overlapping, i.e., $\int f_0 f_1 = 0$, then $L^* = 0$.
 \begin{figure}
     \centering
-    \resizebox{12cm}{!}{\input{images/other/bayes-classifier}}
+    \resizebox{9cm}{!}{\input{images/other/bayes-classifier}}
     \caption{%
         Illustration of the Bayes classifier in case the distribution of $X$ is given by a density $f$ and conditional densities $f_0$ and $f_1$ exist. The classifier equals $0$ on the interval $[a, b]$ and $1$ elsewhere.
     }
@@ -219,9 +215,7 @@ If we additionally assume that both classes are equally likely, i.e., $p = 1-p =
     \end{cases}
 \]
 and its error is given by
-\begin{align*}
-    L^* &= \frac{1}{2} \int_{\mathcal{X}} \min(f_1(x), f_0(x)) \dx \\[4pt]
-        &= \frac{1}{2} \int_{\mathcal{X}} f_1(x) - (f_1(x) - f_0(x))^+ \dx \\[4pt]
-        &= \frac{1}{2} - \frac{1}{4} \int_{\mathcal{X}} \bigAbs{ f_1(x) - f_0(x) } \dx \, ,
-\end{align*}
+\[
+    L^* = \frac{1}{2} \int_{\mathcal{X}} \min(f_1(x), f_0(x)) \dx = \frac{1}{2} \int_{\mathcal{X}} f_1(x) - (f_1(x) - f_0(x))^+ \dx = \frac{1}{2} - \frac{1}{4} \int_{\mathcal{X}} \bigAbs{ f_1(x) - f_0(x) } \dx \, ,
+\]
 where $g^+ = \max(g, 0)$ denotes the positive part of a function $g$. This demonstrates that the Bayes error is directly related to the $L^1$-distance between the class densities $f_1$ and $f_0$.

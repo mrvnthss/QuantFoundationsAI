@@ -12,11 +12,9 @@ is the empirical risk minimizer, which minimizes the \emph{empirical} risk over 
 is the oracle, which minimizes the \emph{true} risk over the family $\mathcal{H}$. Keep in mind that the empirical risk minimizer $\hat h$ is a random variable that depends on the random data $\mathcal{D}_n$. In this section, we will prove a bound on the estimation error $L(\hat h) - L(\bar h)$ under the assumption that the family $\mathcal{H} = \set{h_1, \dots, h_M}$ is a \emph{finite} set of classifiers. In particular, we want to better understand the scaling of the estimation error with respect to the number $M$ of classifiers and the number $n$ of observations.
 
 To get started, observe that the estimation error satisfies
-\begin{align*}
-    L(\hat h) - L(\bar h) &= L(\hat h) + \hat L_n(\bar h) - \hat L_n(\bar h) - L(\bar h) \\
-        &= \left[L(\hat h) - \hat L_n(\bar h)\right] + \left[\hat L_n(\bar h) - L(\bar h)\right] \\
-        &\leq \left[L(\hat h) - \hat L_n(\hat h)\right] + \left[\hat L_n(\bar h) - L(\bar h)\right],
-\end{align*}
+\[
+    L(\hat h) - L(\bar h) = \left(L(\hat h) - \hat L_n(\bar h)\right) + \left(\hat L_n(\bar h) - L(\bar h)\right) \leq \left(L(\hat h) - \hat L_n(\hat h)\right) + \left(\hat L_n(\bar h) - L(\bar h)\right),
+\]
 since $\hat L_n(\hat h) \leq \hat L_n(\bar h)$ by definition of the empirical risk minimzer. Thus, we can find a bound on the estimation error by bounding the deviation of the empirical risk $\hat L_n(h)$ of a classifier $h$ from its true risk $L(h)$. This is where Hoeffding's inequality comes in handy.
 
 \begin{theorem}
@@ -43,10 +41,8 @@ and hence,
 \[
     \hat L_n(h) - L(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i} - \Ex{\indSet{h(X_i) \neq Y_i}}.
 \]
-The first assertion thus follows from Hoeffding's inequality applied to the random variables $\indSet{h(X_i) \neq Y_i}$, $i = 1, \dots, n$ and $t = \sqrt{\frac{\log(2/\delta)}{2n}}$, since
-\[
-    \Pr{\abs{\ldots} < t} = 1 - \Pr{\abs{\ldots} \geq t} \geq 1 - 2\e^{-2nt^2} = 1 - \delta.
-\]
+The first assertion thus follows from Hoeffding's inequality applied to the random variables $\indSet{h(X_i) \neq Y_i}$, $i = 1, \dots, n$ and $t = \sqrt{\frac{\log(2/\delta)}{2n}}$, since $\Pr{\abs{\ldots} < t} = 1 - \Pr{\abs{\ldots} \geq t} \geq 1 - 2\e^{-2nt^2} = 1 - \delta$.
+
 For the second assertion, observe that, for $t = \sqrt{\frac{\log(2M/\delta)}{2n}}$,
 \[
     \set{\max_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } \geq t} = \bigcup_{j=1}^M \set{\bigAbs{ \hat L_n(h_j) - L(h_j) } \geq t}
@@ -77,14 +73,12 @@ For a finite family of classifiers $\mathcal{H} = \set{h_1, \dots, h_M}$ and $\d
 
 \begin{proof}
 We have
-\begin{align*}
-    L(\hat h) - L(\bar h) &= L(\hat h) + \hat L_n(\bar h) - \hat L_n(\bar h) - L(\bar h) \\
-        &= \left[L(\hat h) - \hat L_n(\bar h)\right] + \left[\hat L_n(\bar h) - L(\bar h)\right] \\
-        &\leq \left[L(\hat h) - \hat L_n(\hat h)\right] + \left[\hat L_n(\bar h) - L(\bar h)\right],
-\end{align*}
+\[
+    L(\hat h) - L(\bar h) = \left(L(\hat h) - \hat L_n(\bar h)\right) + \left(\hat L_n(\bar h) - L(\bar h)\right) \leq \left(L(\hat h) - \hat L_n(\hat h)\right) + \left(\hat L_n(\bar h) - L(\bar h)\right),
+\]
 since $\hat L_n(\hat h) \leq \hat L_n(\bar h)$ by definition of the empirical risk minimzer. Since we do not have any information about the oracle $\bar h$, we bound both terms of the RHS by a maximum over $\mathcal{H}$:
 \[
-    \left[L(\hat h) - \hat L_n(\hat h)\right] + \left[\hat L_n(\bar h) - L(\bar h)\right] \leq 2 \max_j \bigAbs{ \hat L_n(h_j) - L(h_j) }.
+    \left(L(\hat h) - \hat L_n(\hat h)\right) + \left(\hat L_n(\bar h) - L(\bar h)\right) \leq 2 \max_{j} \bigAbs{ \hat L_n(h_j) - L(h_j) }.
 \]
 Summarizing, we have
 \[

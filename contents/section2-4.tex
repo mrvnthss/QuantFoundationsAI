@@ -95,11 +95,7 @@ Let $X_1, \dots, X_n$ be random variables satisfying the conditions of Theorem \
 \[
     \Pr{\abs{\bar X - \ex{\bar X}} \geq t} = \Pr{\abs{S_n - \Ex{S_n}} \geq nt} \leq 2 \exp(\frac{-2n^2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
-Further, observe that the expression $\bar X - \ex{\bar X}$ can be rewritten as
-\[
-    \bar X - \ex{\bar X} = \frac{1}{n} \sum_{i=1}^n X_i - \Ex{X_i}.
-\]
-Hence, Hoeffding's inequality ensures that the (absolute) average deviation of independent and (almost surely) bounded random variables from their respective means decays \emph{exponentially fast} in the number of observations $n$. Finally, if the random variables $X_1, \dots, X_n$ are i.i.d. random variables such that, almost surely, $a \leq X_i \leq b$, Hoeffding's inequality states that
+Further, observe that the expression $\bar X - \ex{\bar X}$ can be rewritten as $\frac{1}{n} \sum_{i=1}^n (X_i - \Ex{X_i})$. Hence, Hoeffding's inequality ensures that the (absolute) average deviation of independent and (almost surely) bounded random variables from their respective means decays \emph{exponentially fast} in the number of observations $n$. Finally, if the random variables $X_1, \dots, X_n$ are i.i.d. random variables such that, almost surely, $a \leq X_i \leq b$, Hoeffding's inequality states that
 \[
     \Pr{\abs{\bar X - \ex{X_1}} \geq t} \leq 2 \exp(\frac{-2nt^2}{(b - a)^2}).
 \]
