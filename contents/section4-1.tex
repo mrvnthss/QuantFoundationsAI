@@ -83,15 +83,15 @@ Finally, observe that, for every collection $\mathcal{A}$ of measurable sets $A 
 \[
     (z_1, \dots, z_n) \mapsto \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }
 \]
-satisfies the bounded differences condition with constants $c_i = \frac{1}{n}$. Hence, by the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}), the inequality
+satisfies the bounded differences condition with constants $c_i = \frac{1}{n}$. Hence, by the bounded differences inequality\footnote{In combination with the complement rule $\Pr{A^{\mathrm{C}}} = 1 - \Pr{A}$.} (Theorem \ref{thm: bounded differences inequality}, one-sided bound obtained in the proof), we have
 \[
-    \abs{ \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } - \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} } < \sqrt{\frac{\log(2 / \delta)}{2n}}
+    \Pr{\sup_{A \in \mathcal{A}} \bigAbs{\mu_n(A) - \mu(A)} - \Ex{\sup_{A \in \mathcal{A}} \bigAbs{\mu_n(A) - \mu(A)}} < t} \geq 1 - \e^{-2nt^2}.
 \]
-holds\footnote{This follows directly from an application of the complement rule.} with probability at least $1 - \delta$. It follows that, with probability at least $1 - \delta$,
+Evaluating this inequality at $t = \sqrt{\log(\delta^{-1})/2n}$, with probability at least $1 - \delta$ it holds that
 \begin{equation}
 \label{eq: upper bound on uniform deviations}
     \highlightMath{
-        \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } < \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} + \sqrt{\frac{\log(2 / \delta)}{2n}}
+        \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } < \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
     }
 \end{equation}
 We will now focus on bounding the first term on the RHS. To do so, we will introduce a technique called symmetrization.

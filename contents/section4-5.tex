@@ -21,7 +21,7 @@ Hence, the VC inequality tells us that
 \begin{equation}
 \label{eq: VC ineqaulity for ERM}
     \highlightMath{
-        \Pr{ \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + \sqrt{\frac{\log(2 / \delta)}{2n}} } \geq 1 - \delta,
+        \Pr{ \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } < 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}} } \geq 1 - \delta,
     }
 \end{equation}
 where $D$ denotes the VC dimension of $\mathcal{A} = \set{A_h \with h \in \mathcal{H}}$. However, the VC dimension of this class $\mathcal{A}$ is not very natural, and in many cases it is more convenient to consider the class
@@ -82,7 +82,7 @@ Based on our discussion of the emprical risk minimzer at the beginning of this s
 \begin{corollary}
 The empirical risk minimizer $\hat h_n$ of a family of classifiers $\mathcal{H}$ with VC dimension $D$ satisfies
 \[
-    L(\hat h_n) < L(\bar h) + 4 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + 2 \sqrt{\frac{\log(2 / \delta)}{2n}}
+    L(\hat h_n) < L(\bar h) + 4 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + 2 \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 with probability at least $1 - \delta$.
 \end{corollary}

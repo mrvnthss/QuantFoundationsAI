@@ -113,14 +113,14 @@ For a proof of this result, we refer the reader to Theorem 13.2 of Section 13.1 
 
 Recall that, using the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}), we had shown that the bound
 \[
-    \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } < \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} + \sqrt{\frac{\log(2 / \delta)}{2n}}
+    \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } < \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 holds with probability at least $1 - \delta$. Hence, we conclude:
 
 \begin{corollary}[VC Inequality]
 For a family of sets $\mathcal{A}$ with finite VC dimension $VC(\mathcal{A}) = D$, the upper bound
 \[
-    \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } < 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + \sqrt{\frac{\log(2 / \delta)}{2n}}
+    \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } < 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 holds with probability at least $1 - \delta$.
 \end{corollary}
