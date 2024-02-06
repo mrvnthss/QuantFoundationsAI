@@ -1,0 +1,24 @@
+%% SECTION 5.1 %%
+\section{Empirical Risk Minimization}
+
+As in chapters \ref{ch: binary classification} and \ref{ch: VC theory}, we want to control the estimation error of the empirical risk minimizer $\hat f$. Using the same arguments as before, by Lemma \ref{lem: bound on estimation error}, we can bound this error somewhat crudely as follows:
+\[
+    L(\hat f) - L(\bar f) \leq 2 \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)}.
+\]
+The function
+\[
+    (z_1, \dots, z_n) \mapsto \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} = \sup_{f \in \mathcal{F}} \abs{ \frac{1}{n} \sum_{i=1}^n l(y_i, f(x_i)) - L(f) }
+\]
+satisfies the bounded differences condition for constants $c_1 = \dots = c_n = \frac{1}{n}$, since the loss function $l$ is assumed to be bounded, i.e., $0 \leq l \leq 1$. Thus, by the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}, one-sided bound obtained in the proof), we obtain
+\[
+    \Pr{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} - \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } \geq t } \leq \e^{-2nt^2}.
+\]
+In particular,
+\[
+    \Pr{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} - \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } < t } \geq 1 - \e^{-2nt^2},
+\]
+and by evaluating this inequality at $t = \sqrt{\log(\delta^{-1})/2n}$, we see that the inequality
+\[
+    \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} < \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } + \sqrt{ \frac{\log(\delta^{-1})}{2n} }
+\]
+holds with probability at least $1 - \delta$. Therefore, as in Chapter \ref{ch: VC theory}, it remains to control the first term on the RHS. Ideally, we can do so independently of the (unknown) distribution of $(X, Y)$.
