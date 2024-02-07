@@ -35,6 +35,7 @@ We split the proof of this result into three steps:
 Since the first step is already done, let's tackle step number 2.
 
 \begin{lemma}
+\label{lem: Rademacher complexity of finite set}
 For any finite set $B \subset \R^n$ (i.e., $\card{B} < \infty$) it holds
 \[
     \mathcal{R}_n(B) = \Ex{\max_{b \in B} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i b_i}} \leq \max_{b \in B} \norm{b} \frac{\sqrt{2 \log(2 \, \card{B})}}{n},
