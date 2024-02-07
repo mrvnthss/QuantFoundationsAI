@@ -1,2 +1,22 @@
 %% SECTION 5.2 %%
 \section{Symmetrization and Rademacher Complexity}
+
+We have already introduced the technique of symmetrization and the concept of Rademacher complexity in Section \ref{sec: symmetrization}. The line of argument we use here is naturally very similar to the one employed before. We introduce a so-called \qq{ghost sample} $\mathcal{D}_n' = \set{(X_1', Y_1'), \dots, (X_n', Y_n')}$, which is a set of random variables identically distributed as and independent of the random variables $(X_i, Y_i)$ that make up our dataset $\mathcal{D}_n$. Using this ghost sample, we rewrite the error of $f$ as
+\[
+    L(f) = \Ex{l(Y, f(X))} = \Ex{\frac{1}{n} \sum_{i=1}^n l(Y_i', f(X_i'))} = \Ex{\frac{1}{n} \sum_{i=1}^n l(Y_i', f(X_i')) \,\Big\vert\, \mathcal{D}_n} = \ex{\hat L_n'(f) \given \mathcal{D}_n},
+\]
+where $\hat L_n'(f) = \frac{1}{n} \sum_{i=1}^n l(Y_i', f(X_i'))$, since $(X_1', Y_1'), \dots, (X_n', Y_n')$ are identically distributed as $(X, Y)$, and are independent of $\mathcal{D}_n$. Since the empirical error $\hat L_n(f)$ is $\sigma(Z_1, \dots, Z_n)$-measurable, where $Z_i = (X_i, Y_i)$, we have
+\begin{align*}
+    \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } &= \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - \ex{\hat L_n'(f) \given \mathcal{D}_n}} } \\[4pt]
+        &= \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\ex{\hat L_n(f) -\hat L_n'(f) \given \mathcal{D}_n}} } \leq \Ex{ \sup_{f \in \mathcal{F}} \ex{ \bigAbs{\hat L_n(f) -\hat L_n'(f)} \given \mathcal{D}_n} }
+\end{align*}
+by Jensen's inequality. For the same reasons as in Section \ref{sec: symmetrization}, we can pull the supremum over $f \in \mathcal{F}$ inside the conditional expectation, and then apply the law of total expectation to arrive at
+\[
+    \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } \leq \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) -\hat L_n'(f)} } = \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n (l(Y_i, f(X_i)) - l(Y_i', f(X_i')))} }.
+\]
+Using the same symmetry arguments, we can introduce i.i.d. $\mathrm{Rad}(\nicefrac{1}{2})$ variables $\sigma_1, \dots, \sigma_n$, independent of both samples $\mathcal{D}_n$ and $\mathcal{D}_n'$, to obtain
+\begin{align*}
+    \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n (l(Y_i, f(X_i)) - l(Y_i', f(X_i')))} } &= \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i (l(Y_i, f(X_i)) - l(Y_i', f(X_i')))} } \\[4pt]
+        &\leq 2 \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i l(Y_i, f(X_i))}},
+\end{align*}
+i.e., we are essentially in the exact same situation as in Section \ref{sec: symmetrization}, the only difference being that the binary loss function $\indSet{f(X) \neq Y}$ has been replaced by a more general loss function $l(Y, f(X))$ taking values in the unit interval $[0, 1]$.
