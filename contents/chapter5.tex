@@ -19,7 +19,7 @@ Finally, we used concentration inequalities and VC theory to find bounds for the
     \item \emph{VC theory}: Requires binary nature of the loss function.
 \end{itemize}
 
-In this chapter, we replace the binary output variable $Y$ with a \emph{continuous} output $Y$ that takes values in the interval $[-1, 1]$, and we replace the binary loss function $\indSet{h(X) \neq Y}$ with a smooth (and symmetric) loss function $l(Y, f(X))$ that we assume to be \emph{bounded}, i.e. $0 \leq l(Y, f(X)) \leq 1$. Some examples are:
+In this chapter, we replace the binary output variable $Y$ with a \emph{continuous} output $Y$ that takes values in the interval $[-1, 1]$, and we replace the binary loss function $\indSet{h(X) \neq Y}$ with a smooth (and symmetric) loss function $l(Y, h(X))$ that we assume to be \emph{bounded}, i.e. $0 \leq l(Y, h(X)) \leq 1$. Some examples are:
 
 \begin{itemize}
     \item $l(a, b) = \abs{a - b} \quad$ ($L^1$-loss)
