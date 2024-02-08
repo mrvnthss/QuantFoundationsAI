@@ -56,7 +56,7 @@ where $\mathcal{R}_n(T_l(z))$ is the Rademacher complexity of the subset $T_l(z)
 
 \begin{proposition}
 \label{prop: bound on rademacher complexity for general loss}
-Let $\mathcal{F}$ be a finite set of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$ and let $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function taking values in the unit interval. Then,
+Let $\mathcal{F}$ be a \emph{finite} set of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$ and let $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function taking values in the unit interval. Then,
 \[
     \mathcal{R}_n(l \circ \mathcal{F}) \leq \sqrt{\frac{2 \log(2 \, \card{\mathcal{F}})}{n}}.
 \]
@@ -72,3 +72,9 @@ where $l_f(z) = ( l(y_1, f(x_1)), \dots, l(y_n, f(x_n)) ) \in T_l(z)$, and $z$ r
     \mathcal{R}_n(l \circ \mathcal{F}) \leq \sup_z \max_{f \in \mathcal{F}} \norm{l_f(z)} \frac{\sqrt{2 \log(2 \, \card{T_l(z)})}}{n} \leq \sqrt{\frac{2 \log(2 \, \card{\mathcal{F}})}{n}}.
 \]
 \end{proof}
+
+Remember that we had proven a very similar result in the setting of binary classification, namely Proposition \ref{prop: bound on rademacher complexity of family of sets}. There, we showed that, for a family of sets $\mathcal{A}$, we have
+\[
+    \mathcal{R}_n(\mathcal{A}) \leq \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n))}{n}}.
+\]
+The proof of that result was nearly identical to the proof of Proposition \ref{prop: bound on rademacher complexity for general loss}, the only difference being that (to prove Proposition \ref{prop: bound on rademacher complexity of family of sets}) we bounded the cardinality of $T(z)$ by the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ of $\mathcal{A}$, which turned out to be at most polynomial in $n$ for a family $\mathcal{A}$ with finite VC dimension (Sauer-Shelah lemma). To generalize Proposition \ref{prop: bound on rademacher complexity for general loss} to general (i.e., not necessarily finite) families $\mathcal{F}$ of regression functions, we will need to introduce a suitable alternative to the notion of the VC dimension of a family of sets. This is what we will do in the next section, where we discuss covering numbers.
