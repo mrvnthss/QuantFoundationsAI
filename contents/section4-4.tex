@@ -35,7 +35,7 @@ We split the proof of this result into three steps:
 Since the first step is already done, let's tackle step number 2.
 
 \begin{lemma}
-\label{lem: Rademacher complexity of finite set}
+\label{lem: rademacher complexity of finite set}
 For any finite set $B \subset \R^n$ (i.e., $\card{B} < \infty$) it holds
 \[
     \mathcal{R}_n(B) = \Ex{\max_{b \in B} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i b_i}} \leq \max_{b \in B} \norm{b} \frac{\sqrt{2 \log(2 \, \card{B})}}{n},
@@ -78,7 +78,7 @@ Next, observe that
 \[
     \mathcal{R}_n(\mathcal{A}) = \sup_{z_1, \dots, z_n} \mathcal{R}_n(T(z)),
 \]
-by Lemma \ref{lem: rademacher complexity}, where $T(z)$ is defined as in \eqref{eq: T(z)}. Since $T(z) \subset \set{0, 1}^n$, we have $\norm{b} \leq \sqrt{n}$ for all $b \in T(z)$ and all subsets $z = \set{z_1, \dots, z_n}$. Hence, by the first assertion of this Lemma, we have
+by Lemma \ref{lem: rademacher complexity of family of sets}, where $T(z)$ is defined as in \eqref{eq: T(z)}. Since $T(z) \subset \set{0, 1}^n$, we have $\norm{b} \leq \sqrt{n}$ for all $b \in T(z)$ and all subsets $z = \set{z_1, \dots, z_n}$. Hence, by the first assertion of this Lemma, we have
 \[
     \mathcal{R}_n(\mathcal{A}) \leq \sup_{z_1, \dots, z_n} \sqrt{\frac{2 \log(2 \, \card{T(z)})}{n}}
 \]

@@ -13,7 +13,7 @@ $\mathcal{A}$ are sets of the form
 for $z = \set{z_1, \dots, z_n}$, where\footnote{Again, this definition makes sense for arbitrary spaces $\mathcal{Z}$, i.e., we can take a family of measurable sets $\mathcal{A}$ and a set $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ and then define $T(z)$ as above.} $z_i \in \mathcal{X} \times \set{0, 1}$. Particularly, the cardinality of $T(z)$, i.e., the number of binary patterns a set of points $\set{z_1, \dots, z_n}$ can replicate as $A$ ranges over the family of sets $\mathcal{A}$, will be extremely important, as it will arise when trying to control the Rademacher complexity of $\mathcal{A}$. A first hint at this is the following result, which allows us to link the Rademacher complexity of $\mathcal{A}$ to the Rademacher complexity of the sets $T(z)$:
 
 \begin{lemma}
-\label{lem: rademacher complexity}
+\label{lem: rademacher complexity of family of sets}
 The Rademacher complexity of a family of sets $\mathcal{A}$ in a space $\mathcal{Z}$ satisfies
 \[
     \mathcal{R}_n(\mathcal{A}) = \sup_{z_1, \dots, z_n} \mathcal{R}_n(T(z)),
