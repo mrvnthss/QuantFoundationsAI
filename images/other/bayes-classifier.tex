@@ -1,6 +1,6 @@
 \begin{tikzpicture}
     % (1-p) f_0
-    \draw [orange] plot[smooth, tension=.7] coordinates {
+    \draw [blue] plot[smooth, tension=.7] coordinates {
         (-4.88,-2.09) (-4.47,-2.06) (-4.11,-2.01) (-3.74,-1.93) (-3.37,-1.79)
         (-3.12,-1.68) (-2.86,-1.54) (-2.53,-1.31) (-2.32,-1.10) (-2.07,-0.78)
         (-1.85,-0.38) (-1.67, 0.11)  % first crossing (a)
@@ -16,7 +16,7 @@
     \node at (-2.10, 2.23) {$(1-p)f_{0}$};  % label
 
     % p f_1
-    \draw [purple] plot[smooth, tension=.7] coordinates {
+    \draw [green] plot[smooth, tension=.7] coordinates {
         (-4.88,-2.08) (-4.70,-2.07) (-4.50,-2.05) (-4.29,-2.00) (-4.11,-1.93)
         (-3.94,-1.85) (-3.75,-1.73) (-3.55,-1.56) (-3.42,-1.43) (-3.29,-1.27)
         (-3.15,-1.08) (-3.04,-0.93) (-2.95,-0.80) (-2.84,-0.64) (-2.68,-0.39)
@@ -36,13 +36,13 @@
 
     % first crossing (a)
     \draw (-1.77,-0.20) node (a) {} circle (2pt);  % circle (a)
-    \fill [green, thick] (a) circle (2pt);         % fill circle
+    \fill [orange, thick] (a) circle (2pt);         % fill circle
     \draw [dotted] (a) -- (-1.77,-2.13);           % dotted line to x-axis
     \node at (-1.77,-2.37) {$a$};                  % label on x-axis
 
     % second crossing (b)
     \draw (-0.03, 0.74) node (b) {} circle (2pt);  % circle (b)
-    \fill [green, thick] (b) circle (2pt);         % fill circle
+    \fill [orange, thick] (b) circle (2pt);        % fill circle
     \draw [dotted] (b) -- (-0.03,-2.13);           % dotted line to x-axis
     \node at (-0.03,-2.37) {$b$};                  % label on x-axis
 
