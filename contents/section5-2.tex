@@ -53,7 +53,9 @@ Exactly as in Lemma \ref{lem: rademacher complexity of family of sets}, we have
     }
 \end{equation}
 where $\mathcal{R}_n(T_l(z))$ is the Rademacher complexity of the subset $T_l(z)$ of $\R^n$. Using this identity, we can bound the Rademacher complexity of a \emph{finite} family of regression functions $\mathcal{F}$ as follows:
+
 \begin{proposition}
+\label{prop: bound on rademacher complexity for general loss}
 Let $\mathcal{F}$ be a finite set of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$ and let $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function taking values in the unit interval. Then,
 \[
     \mathcal{R}_n(l \circ \mathcal{F}) \leq \sqrt{\frac{2 \log(2 \, \card{\mathcal{F}})}{n}}.
@@ -61,7 +63,7 @@ Let $\mathcal{F}$ be a finite set of regression functions $f \colon \mathcal{X} 
 \end{proposition}
 
 \begin{proof}
-By \eqref{eq: rademacher complexity for general loss} and Lemma \ref{lem: rademacher complexity of finite set} (applied to the set $T_l(z) \subset \R^n$), we have
+By \eqref{eq: rademacher complexity for general loss} and Lemma \ref{lem: bound on rademacher complexity of finite set} (applied to the set $T_l(z) \subset \R^n$), we have
 \[
     \mathcal{R}_n(l \circ \mathcal{F}) = \sup_z \mathcal{R}_n(T_l(z)) \leq \sup_z \max_{f \in \mathcal{F}} \norm{l_f(z)} \frac{\sqrt{2 \log(2 \, \card{T_l(z)})}}{n},
 \]
