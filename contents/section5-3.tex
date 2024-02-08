@@ -4,7 +4,7 @@
 As pointed out in the previous section, we need a suitable generalization of VC theory to find a bound on the Rademacher complexity $\mathcal{R}_n(l \circ \mathcal{F})$ for arbitrary (i.e., possibly infinite) function classes $\mathcal{F}$. We have seen that, as in the case of binary classification, the cardinality of the set $T_l(z) = \set{(l(y_1, f(x_1)), \dots, l(y_n, f(x_n)) \with f \in \mathcal{F}}$ plays a significant role in bounding the Rademacher complexity of $l \circ \mathcal{F}$. When $\mathcal{F}$ is infinite, the set $T_l(z)$ will  most likely be infinite as well. Thus, we need to find a way that lets us treat points in this set that are close to each other as if they were identical. We start with the definition of \emph{covering numbers} of a class $\mathcal{F}$.
 
 \begin{definition}
-Let $d$ be a pseudometric\footnote{The only difference between a metric and a pseudometric is the relaxation of the property of \emph{positivity}. A metric requires every pair of distinct points $x$ and $y$ to have a positive distance $d(x, y)$ from each other. In other words, $d(x, y) = 0$ always implies $x = y$ when $d$ is a metric. For a pseudometric, this need not be true, i.e., there can be points $x \neq y$ such that $d(x, y) = 0$.} of a function class $\mathcal{F}$ and let $\varepsilon > 0$. An \emph{$\varepsilon$-net} on $(\mathcal{F}, d)$ is a set of functions $V \subset \mathcal{F}$ such that every function $f \in \mathcal{F}$ is within distance of at most $\varepsilon$ to some function $g \in V$. In other words, for every $f \in \mathcal{F}$ there exists $g \in V$ such that $d(f, g) \leq \varepsilon$.
+Let $d$ be a pseudometric\footnote{The only difference between a metric and a \emph{pseudo}metric is the relaxation of the \emph{positivity} property. A metric requires every pair of distinct points $x$ and $y$ to have a positive distance $d(x, y)$ from each other. In other words, $d(x, y) = 0$ always implies $x = y$ when $d$ is a metric. For a pseudometric, this need not be true, i.e., there can be points $x \neq y$ such that $d(x, y) = 0$.} of a class $\mathcal{F}$ of functions and let $\varepsilon > 0$. An \emph{$\varepsilon$-net} (also: \emph{$\varepsilon$-covering}) of $(\mathcal{F}, d)$ is a set of functions $V \subset \mathcal{F}$ such that every function $f \in \mathcal{F}$ is within distance of less than $\varepsilon$ to some function $g \in V$. In other words, for every $f \in \mathcal{F}$ there exists $g \in V$ such that $d(f, g) < \varepsilon$.
 
 The \emph{$\varepsilon$-covering number} $N(\mathcal{F}, d, \varepsilon)$ of $(\mathcal{F}, d)$ is the minimum number of functions needed to form an $\varepsilon$-net of $(\mathcal{F}, d)$, i.e.,
 \[
@@ -41,7 +41,23 @@ The \emph{$\varepsilon$-covering number} $N(\mathcal{F}, d, \varepsilon)$ of $(\
         \end{scope}
     \end{tikzpicture}
     \caption{%
-         A class $\mathcal{F}$ covered by an $\varepsilon$-net ${\color{red} V} = \set{{\color{red} g_1}, \dots, {\color{red} g_7}}$. Note, however, that $N(\mathcal{F}, d, \varepsilon) < 7$ since the $\varepsilon$-ball centered on $g_7$ and depicted in green is redundant (i.e., the remaining 6 $\varepsilon$-balls still cover all of $\mathcal{F}$).
+         A class $\mathcal{F}$ covered by an $\varepsilon$-net ${\color{red} V} = \set{{\color{red} g_1}, \dots, {\color{red} g_7}}$. Note, however, that $N(\mathcal{F}, d, \varepsilon) < 7$ since the $\varepsilon$-ball centered at $g_7$ and depicted in green is redundant (i.e., the remaining 6 $\varepsilon$-balls still cover all of $\mathcal{F}$).
     }
     \label{fig: epsilon-net}
 \end{figure}
+
+If $V$ is an $\varepsilon$-covering of $(\mathcal{F}, d)$, then clearly
+\[
+    \mathcal{F} = \bigcup_{g \in V} B_{d, \varepsilon}(g),
+\]
+where $B_{d, \varepsilon}(g) = \set{f \in \mathcal{F} \with d(f, g) < \varepsilon}$ is the open ball of radius $\varepsilon$ centered at $g$. Thus, $\mathcal{F}$ is covered by open balls of radius $\varepsilon$ centered on elements in $V$, hence the name $\varepsilon$-covering.
+
+Next, we introduce the concept of the \emph{conditional Rademacher average} of a class\footnote{In what follows, we use a general class of functions $\mathcal{F}$ and a set of points $\set{z_1, \dots, z_n}$. In the setting of empirical risk minimization, we would substitute $\mathcal{F}$ for $l \circ \mathcal{F}$ and the set under consideration would be our set of observations $\set{(x_1, y_1), \dots, (x_n, y_n)}$.} of functions $\mathcal{F}$ given a set of points $\set{z_1, \dots, z_n}$.
+
+\begin{definition}
+The \emph{conditional Rademacher average} of a class $\mathcal{F}$ of functions given a set of $n$ points $z = \set{z_1, \dots, z_n}$ is defined as
+\[
+    \hat{\mathcal{R}}_n^z(\mathcal{F}) = \Ex{\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i f(x_i)}},
+\]
+where $\sigma_1, \dots, \sigma_n$ are i.i.d. $\mathrm{Rad}(\nicefrac{1}{2})$ random variables.
+\end{definition}
