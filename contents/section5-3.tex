@@ -4,12 +4,14 @@
 As pointed out in the previous section, we need a suitable generalization of VC theory to find a bound on the Rademacher complexity $\mathcal{R}_n(l \circ \mathcal{F})$ for arbitrary (i.e., possibly infinite) function classes $\mathcal{F}$. We have seen that, as in the case of binary classification, the cardinality of the set $T_l(z) = \set{(l(y_1, f(x_1)), \dots, l(y_n, f(x_n)) \with f \in \mathcal{F}}$ plays a significant role in bounding the Rademacher complexity of $l \circ \mathcal{F}$. When $\mathcal{F}$ is infinite, the set $T_l(z)$ will  most likely be infinite as well. Thus, we need to find a way that lets us treat points in this set that are close to each other as if they were identical. We start with the definition of \emph{covering numbers} of a class $\mathcal{F}$.
 
 \begin{definition}
-Let $d$ be a pseudometric\footnote{The only difference between a metric and a \emph{pseudo}metric is the relaxation of the \emph{positivity} property. A metric requires every pair of distinct points $x$ and $y$ to have a positive distance $d(x, y)$ from each other. In other words, $d(x, y) = 0$ always implies $x = y$ when $d$ is a metric. For a pseudometric, this need not be true, i.e., there can be points $x \neq y$ such that $d(x, y) = 0$.} of a class $\mathcal{F}$ of functions and let $\varepsilon > 0$. An \emph{$\varepsilon$-net} (also: \emph{$\varepsilon$-covering}) of $(\mathcal{F}, d)$ is a set of functions $V \subset \mathcal{F}$ such that every function $f \in \mathcal{F}$ is within distance of less than $\varepsilon$ to some function $g \in V$. In other words, for every $f \in \mathcal{F}$ there exists $g \in V$ such that $d(f, g) < \varepsilon$.
+Let $d$ be a pseudometric\footnote{The only difference between a metric and a \emph{pseudo}metric is the relaxation of the \emph{positivity} property. A metric requires every pair of distinct points $x$ and $y$ to have a positive distance $d(x, y)$ from each other. In other words, $d(x, y) = 0$ always implies $x = y$ when $d$ is a metric. For a pseudometric, this need not be true, i.e., there can be points $x \neq y$ such that $d(x, y) = 0$.} on a class $\mathcal{F}$ of functions and let $\varepsilon > 0$. An \emph{$\varepsilon$-covering} of $(\mathcal{F}, d)$ is a set of functions $V \subset \mathcal{F}$ such that every function $f \in \mathcal{F}$ is within distance of less than $\varepsilon$ to some function $g \in V$. In other words, for every $f \in \mathcal{F}$ there exists $g \in V$ such that $d(f, g) < \varepsilon$.
 
-The \emph{$\varepsilon$-covering number} $N(\mathcal{F}, d, \varepsilon)$ of $(\mathcal{F}, d)$ is the minimum number of functions needed to form an $\varepsilon$-net of $(\mathcal{F}, d)$, i.e.,
+The \emph{$\varepsilon$-covering number} $N(\mathcal{F}, d, \varepsilon)$ of $(\mathcal{F}, d)$ is the minimum number of functions needed to form an $\varepsilon$-covering of $(\mathcal{F}, d)$, i.e.,
 \[
     N(\mathcal{F}, d, \varepsilon) = \inf\set{\card{V} \with V \text{ is an } \varepsilon \text{-net of } (\mathcal{F}, d)}.
 \]
+
+Finally, an $\varepsilon$-covering $V$ of $\mathcal{F}$ is called \emph{minimal}, if $\card{V} = N(\mathcal{F}, d, \varepsilon)$.
 \end{definition}
 
 \begin{figure}
@@ -55,9 +57,57 @@ where $B_{d, \varepsilon}(g) = \set{f \in \mathcal{F} \with d(f, g) < \varepsilo
 Next, we introduce the concept of the \emph{conditional Rademacher average} of a class\footnote{In what follows, we use a general class of functions $\mathcal{F}$ and a set of points $\set{z_1, \dots, z_n}$. In the setting of empirical risk minimization, we would substitute $\mathcal{F}$ for $l \circ \mathcal{F}$ and the set under consideration would be our set of observations $\set{(x_1, y_1), \dots, (x_n, y_n)}$.} of functions $\mathcal{F}$ given a set of points $\set{z_1, \dots, z_n}$.
 
 \begin{definition}
-The \emph{conditional Rademacher average} of a class $\mathcal{F}$ of functions given a set of $n$ points $z = \set{z_1, \dots, z_n}$ is defined as
+The \emph{conditional Rademacher average} of a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$ given a set of $n$ points $z = \set{z_1, \dots, z_n}$ is defined as
 \[
     \hat{\mathcal{R}}_n^z(\mathcal{F}) = \Ex{\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i f(z_i)}},
 \]
 where $\sigma_1, \dots, \sigma_n$ are i.i.d. $\mathrm{Rad}(\nicefrac{1}{2})$ random variables.
 \end{definition}
+
+There is one more term we have to introduce before we state the first result of this section.
+
+\begin{definition}
+Given a set of points $z = \set{z_1, \dots, z_n}$ and a pseudometric $d$ on a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^1$-distance} between $f, g \in \mathcal{F}$ is given by
+\[
+    d_1^z(f, g) = \frac{1}{n} \sum_{i=1}^n \abs{f(z_i) - g(z_i)}.
+\]
+\end{definition}
+
+With these definitions in place, we will prove an upper bound on the conditional Rademacher average of a class $\mathcal{F}$ that (besides the number of observations $n$) depends only on the $\varepsilon$-covering numbers of $\mathcal{F}$ with respect to the empirical $L^1$-distance $d_1^z$. In order for these (covering numbers) to be well-defined, we would have to show that the empirical $L^1$-distance defines a pseudometric on a given class $\mathcal{F}$ (since this is assumed to be the case in the definition of covering numbers presented earlier). This is indeed true, and it follows directly from the properties of the absolute value.
+
+\begin{theorem}
+Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to [0, 1]$. For any set of points $z = \set{z_1, \dots, z_n}$, we have
+\[
+    \hat{\mathcal{R}}_n^z(\mathcal{F}) \leq \inf_{\varepsilon \geq 0} \varepsilon + \sqrt{\frac{2 \log(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n}}.
+\]
+\end{theorem}
+
+\begin{proof}
+We can assume $N(\mathcal{F}, d_1^z, \varepsilon) < \infty$, since the inequality is trivially true if this is not the case. Given $\varepsilon > 0$, we let $V_{\varepsilon}$ be a minimal $\varepsilon$-covering of $\mathcal{F}$, i.e., $\card{V_{\varepsilon}} = N(\mathcal{F}, d_1^z, \varepsilon) < \infty$. For every function $f \in \mathcal{F}$, there exists $f^{\circ} \in V_{\varepsilon}$ such that $d_1^z(f, f^{\circ}) < \varepsilon$. By the triangle inequality, we have
+\[
+    \hat{\mathcal{R}}_n^z(\mathcal{F}) = \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f(z_i)} } \leq \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i ( f(z_i) - f^{\circ}(z_i))} } + \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} }.
+\]
+The triangle inequality also implies
+\[
+    \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i ( f(z_i) - f^{\circ}(z_i))} \leq \frac{1}{n} \sum_{i=1}^n \abs{ f(z_i) - f^{\circ}(z_i) } = d_1^z(f, f^{\circ}) < \varepsilon,
+\]
+since $\abs{\sigma_i} = 1$ almost surely. Hence,
+\[
+    \hat{\mathcal{R}}_n^z(\mathcal{F}) \leq \varepsilon + \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} }.
+\]
+As $f^{\circ} \in V_{\varepsilon}$, we obtain
+\[
+    \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} } = \Ex{ \max_{g \in V_{\varepsilon}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i g(z_i)} } = \mathcal{R}_n(\tilde V_{\varepsilon}),
+\]
+where $\mathcal{R}_n(\tilde V_{\varepsilon})$ denotes the Rademacher complexity of the \emph{finite} set $\tilde V_{\varepsilon} = \set{ (g(z_1), \dots, g(z_n)) \with g \in V_{\varepsilon} }$. Since every $g \in V_{\varepsilon}$ takes values in $[0, 1]$, we have $\max_{v \in \tilde V_{\varepsilon}} \norm{v} \leq \sqrt{n}$, and Lemma \ref{lem: bound on rademacher complexity of finite set} hence tells us that
+\[
+    \mathcal{R}_n(\tilde V_{\varepsilon}) \leq \sqrt{ \frac{2 \, \mathrm{log}(2 \, \card{\tilde V_{\varepsilon}})}{n} } \leq \sqrt{ \frac{2 \, \mathrm{log}(2 \, \card{V_{\varepsilon}})}{n} } = \sqrt{ \frac{2 \, \mathrm{log}(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n} },
+\]
+since $\card{\tilde V_{\varepsilon}} \leq \card{V_{\varepsilon}} = N(\mathcal{F}, d_1^z, \varepsilon)$. Altogether,
+\[
+    \hat{\mathcal{R}}_n^z(\mathcal{F}) \leq \varepsilon + \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} } \leq \varepsilon + \sqrt{ \frac{2 \, \mathrm{log}(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n} }.
+\]
+Since this is true for every $\varepsilon > 0$, we can take the infimum over $\varepsilon$ to arrive at the desired result.
+\end{proof}
+
+Observe that there is a trade-off in the upper bound of the previous result, since the $\varepsilon$-covering numbers $N(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ increase as $\varepsilon$ decreases, and vice versa.
