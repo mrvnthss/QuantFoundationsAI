@@ -67,7 +67,7 @@ where $\sigma_1, \dots, \sigma_n$ are i.i.d. $\mathrm{Rad}(\nicefrac{1}{2})$ ran
 There is one more term we have to introduce before we state the first result of this section.
 
 \begin{definition}
-Given a set of points $z = \set{z_1, \dots, z_n}$ and a pseudometric $d$ on a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^1$-distance} between $f, g \in \mathcal{F}$ is given by
+Given a set of points $z = \set{z_1, \dots, z_n}$ and a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^1$-distance} between $f, g \in \mathcal{F}$ is given by
 \[
     d_1^z(f, g) = \frac{1}{n} \sum_{i=1}^n \abs{f(z_i) - g(z_i)}.
 \]
@@ -110,4 +110,56 @@ since $\card{\tilde V_{\varepsilon}} \leq \card{V_{\varepsilon}} = N(\mathcal{F}
 Since this is true for every $\varepsilon > 0$, we can take the infimum over $\varepsilon$ to arrive at the desired result.
 \end{proof}
 
-Observe that there is a trade-off in the upper bound of the previous result, since the $\varepsilon$-covering numbers $N(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ increase as $\varepsilon$ decreases, and vice versa.
+Observe that there is a trade-off in the upper bound of the previous result, since the $\varepsilon$-covering numbers $N(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ increase as $\varepsilon$ decreases, and vice versa. Next, we introduce another set of empirical distances.
+
+\begin{definition}
+Given a set of points $z = \set{z_1, \dots, z_n}$ and a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^p$-distance} between $f, g \in \mathcal{F}$ is given by
+\[
+    d_p^z(f, g) = \left( \frac{1}{n} \sum_{i=1}^n \abs{f(z_i) - g(z_i)}^p \right)^{\nicefrac{1}{p}}, \quad p \geq 1.
+\]
+For $p = \infty$, we set
+\[
+    d_{\infty}^z(f, g) = \max_{i = 1, \dots, n} \abs{f(z_i) - g(z_i)}.
+\]
+\end{definition}
+
+Before we proceed to state the next result on $\varepsilon$-covering numbers, we recall a special case of H{\"o}lders inequality.
+
+\begin{proposition}[H{\"o}lder, 1889]
+\label{prop: hoelder}
+For any $r, s \geq 0$, and $x, y \in \R^n$, it holds
+\[
+    \left( \sum_{i=1}^n \abs{x_i}^r \abs{y_i}^s \right)^{r+s} \leq \left( \sum_{i=1}^n \abs{x_i}^{r+s} \right)^r \left( \sum_{i=1}^n \abs{y_i}^{r+s} \right)^s.
+\]
+\end{proposition}
+
+It is clear that the $\varepsilon$-covering numbers of a class $\mathcal{F}$ decrease as $\varepsilon$ increases. Essentially, this is due to the fact that the open balls $B_{d, \varepsilon}(f)$ increase in size\footnote{More precisely, $\varepsilon > \varphi$ implies $B_{d, \varepsilon}(f) \supset B_{d, \varphi}(f)$.} for larger $\varepsilon$, i.e.,
+\[
+    \varepsilon \uparrow \quad \Rightarrow \quad \text{size of } B_{d, \varepsilon}(f) \uparrow \quad \Rightarrow \quad N(\mathcal{F}, d, \varepsilon) \downarrow.
+\]
+We will now show that something similar in spirit is true for the family of empirical distances $d_p^z$ we have defined above, namely,
+\[
+    p \uparrow \quad \Rightarrow \quad \text{size of } B_{d_p^z, \varepsilon}(f) \downarrow \quad \Rightarrow \quad N(\mathcal{F}, d_p^z, \varepsilon) \uparrow.
+\]
+
+\begin{proposition}
+Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to \R$ and fix a set of points $z = \set{z_1, \dots, z_n}$. For $1 \leq p \leq q < \infty$ and $\varepsilon > 0$, it holds
+\[
+    N(\mathcal{F}, d_p^z, \varepsilon) \leq N(\mathcal{F}, d_q^z, \varepsilon) \leq N(\mathcal{F}, d_{\infty}^z, \varepsilon).
+\]
+\end{proposition}
+
+\begin{proof}
+Throughout this proof, let us write $u_i = f(z_i) - g(z_i)$ and $u = \max_{i=1, \dots, n} \abs{u_i}$. We first tackle the inequality $N(\mathcal{F}, d_q^z, \varepsilon) \leq N(\mathcal{F}, d_{\infty}^z, \varepsilon)$. Since the functions $x \mapsto x^q$ and $x \mapsto x^{\nicefrac{1}{q}}$ are increasing on $[0, \infty)$, we have
+\[
+    d_q^z(f, g) = \left( \frac{1}{n} \sum_{i=1}^n \abs{u_i}^q \right)^{\nicefrac{1}{q}} \leq \left( \frac{1}{n} \sum_{i=1}^n u^q \right)^{\nicefrac{1}{q}} = u = \max_{i=1, \dots, n} \abs{u_i} = d_{\infty}^z(f, g).
+\]
+If $g \in B_{d_{\infty}^z, \varepsilon}(f)$, so that $d_{\infty}^z(f, g) < \varepsilon$, then the above inequality implies $d_q^z(f, g) \leq d_{\infty}^z(f, g) < \varepsilon$. Hence, $B_{d_{\infty}^z, \varepsilon}(f) \subset B_{d_q^z, \varepsilon}(f)$. This, in turn, implies that every $\varepsilon$-covering of $\mathcal{F}$ w.r.t. $d_{\infty}^z$ defines an $\varepsilon$-covering of $\mathcal{F}$ w.r.t. $d_q^z$, and thus, $N(\mathcal{F}, d_q^z, \varepsilon) \leq N(\mathcal{F}, d_{\infty}^z, \varepsilon)$.
+
+To prove the inequality $N(\mathcal{F}, d_p^z, \varepsilon) \leq N(\mathcal{F}, d_q^z, \varepsilon)$, we will make use of the version of H{\"o}lder's inequality stated in Proposition \ref{prop: hoelder}. With $r = \frac{1}{p} - \frac{1}{q} \geq 0$ and $s = \frac{1}{q} \geq 0$, we have $r + s = \frac{1}{p}$, and hence
+\begin{align*}
+    d_p^z(f, g) = \left( \frac{1}{n} \sum_{i=1}^n \abs{u_i}^p \right)^{\nicefrac{1}{p}} &= n^{-\nicefrac{1}{p}} \left( \sum_{i=1}^n \abs{1}^r \abs{u_i^{pq}}^s \right)^{r+s} \\[4pt]
+        &\leq n^{-\nicefrac{1}{p}} \left( \sum_{i=1}^n \abs{1}^{r+s} \right)^r \left( \sum_{i=1}^n \abs{u_i^{pq}}^{r+s} \right)^s = n^{-\nicefrac{1}{q}} \left( \sum_{i=1}^n \abs{u_i}^{q} \right)^{\nicefrac{1}{q}} = d_q^z(f, g).
+\end{align*}
+By the same logic as before, the inequality $d_p^z(f, g) \leq d_q^z(f, g)$ implies $N(\mathcal{F}, d_p^z, \varepsilon) \leq N(\mathcal{F}, d_q^z, \varepsilon)$.
+\end{proof}
