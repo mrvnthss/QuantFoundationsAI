@@ -89,15 +89,15 @@ For a family of sets $\mathcal{A}$, it holds
 \begin{proof}
 Observe that
 \[
-    \mathcal{R}_n(\mathcal{A}) = \sup_{z_1, \dots, z_n} \mathcal{R}_n(T(z)),
+    \mathcal{R}_n(\mathcal{A}) = \sup_z \mathcal{R}_n(T(z)),
 \]
 by Lemma \ref{lem: rademacher complexity of family of sets}, where $T(z)$ is defined as in \eqref{eq: T(z)}. Since $T(z) \subset \set{0, 1}^n$, we have $\norm{b} \leq \sqrt{n}$ for all $b \in T(z)$ and all subsets $z = \set{z_1, \dots, z_n}$. Hence, by Lemma \ref{lem: bound on rademacher complexity of finite set}, we have
 \[
-    \mathcal{R}_n(\mathcal{A}) \leq \sup_{z_1, \dots, z_n} \sqrt{\frac{2 \log(2 \, \card{T(z)})}{n}}
+    \mathcal{R}_n(\mathcal{A}) \leq \sup_z \sqrt{\frac{2 \log(2 \, \card{T(z)})}{n}}
 \]
 Finally, by the definition of the shatter coefficients of $\mathcal{A}$, we have
 \[
-    \card{T(z)} \leq \sup_{z_1, \dots, z_n} \card{T(z)} = \mathcal{S}_{\mathcal{A}}(n),
+    \card{T(z)} \leq \sup_z \card{T(z)} = \mathcal{S}_{\mathcal{A}}(n),
 \]
 and hence
 \[

@@ -54,7 +54,7 @@ If $V$ is an $\varepsilon$-covering of $(\mathcal{F}, d)$, then clearly
 \]
 where $B_{d, \varepsilon}(g) = \set{f \in \mathcal{F} \with d(f, g) \leq \varepsilon}$ is the closed ball of radius $\varepsilon$ centered at $g$. Thus, $\mathcal{F}$ is covered by closed balls of radius $\varepsilon$ centered on elements in $V$, hence the name $\varepsilon$-covering.
 
-Next, we introduce the concept of the \emph{conditional Rademacher average} of a class\footnote{In what follows, we use a general class of functions $\mathcal{F}$ and a set of points $\set{z_1, \dots, z_n}$. In the setting of empirical risk minimization, we would substitute $\mathcal{F}$ for $l \circ \mathcal{F}$ and the set under consideration would be our set of observations $\set{(x_1, y_1), \dots, (x_n, y_n)}$.} of functions $\mathcal{F}$ given a set of points $\set{z_1, \dots, z_n}$.
+Next, we introduce the concept of the \emph{conditional Rademacher average} of a class\footnote{In what follows, we use a general class of functions $\mathcal{F}$ and a set of points $\set{z_1, \dots, z_n}$. In the setting of empirical risk minimization, we would substitute $\mathcal{F}$ for $l \circ \mathcal{F}$ and the set under consideration would be the observations $\set{(x_1, y_1), \dots, (x_n, y_n)}$.} of functions $\mathcal{F}$ given a set of points $\set{z_1, \dots, z_n}$.
 
 \begin{definition}
 The \emph{conditional Rademacher average} of a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$ given a set of $n$ points $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ is defined as
@@ -63,6 +63,15 @@ The \emph{conditional Rademacher average} of a class $\mathcal{F}$ of functions 
 \]
 where $\sigma_1, \dots, \sigma_n$ are i.i.d. $\mathrm{Rad}(\nicefrac{1}{2})$ random variables.
 \end{definition}
+
+Notice that, if $\mathcal{F}$ is a class of functions $f \colon \mathcal{X} \to \mathcal{Y}$, and $l \colon \mathcal{Y} \times \mathcal{Y} \to [-1, 1]$ is some loss function, then $l \circ \mathcal{F}$ is a class of functions $l \circ f \colon \mathcal{Z} \to [-1, 1]$, where $\mathcal{Z} = \mathcal{X} \times \mathcal{Y}$, and $(l \circ f) (x, y) = l(y, f(x))$. In particular,
+\begin{equation}
+\label{eq: rademacher complexity and conditional rademacher average}
+    \highlightMath{
+        \mathcal{R}_n(l \circ \mathcal{F}) = \sup_z \hat{\mathcal{R}}_n^z(l \circ \mathcal{F}),
+    }
+\end{equation}
+where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \subset \mathcal{Z} = \mathcal{X} \times \mathcal{Y}$.
 
 There is one more term we have to introduce before we state the first result of this section.
 
