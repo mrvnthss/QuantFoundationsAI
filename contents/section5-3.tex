@@ -76,7 +76,7 @@ Given a set of points $z = \set{z_1, \dots, z_n}$ and a class $\mathcal{F}$ of f
 With these definitions in place, we will prove an upper bound on the conditional Rademacher average of a class $\mathcal{F}$ that (besides the number of observations $n$) depends only on the $\varepsilon$-covering numbers of $\mathcal{F}$ with respect to the empirical $L^1$-distance $d_1^z$. In order for these (covering numbers) to be well-defined, we would have to show that the empirical $L^1$-distance defines a pseudometric on a given class $\mathcal{F}$ (since this is assumed to be the case in the definition of covering numbers presented earlier). This is indeed true, and it follows directly from the properties of the absolute value.
 
 \begin{theorem}
-Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to [0, 1]$. For any set of points $z = \set{z_1, \dots, z_n}$, we have
+Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to [-1, 1]$. For any set of points $z = \set{z_1, \dots, z_n}$, we have
 \[
     \hat{\mathcal{R}}_n^z(\mathcal{F}) \leq \inf_{\varepsilon \geq 0} \varepsilon + \sqrt{\frac{2 \log(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n}}.
 \]
@@ -99,7 +99,7 @@ As $f^{\circ} \in V_{\varepsilon}$, we obtain
 \[
     \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} } = \Ex{ \max_{g \in V_{\varepsilon}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i g(z_i)} } = \mathcal{R}_n(\tilde V_{\varepsilon}),
 \]
-where $\mathcal{R}_n(\tilde V_{\varepsilon})$ denotes the Rademacher complexity of the \emph{finite} set $\tilde V_{\varepsilon} = \set{ (g(z_1), \dots, g(z_n)) \with g \in V_{\varepsilon} }$. Since every $g \in V_{\varepsilon}$ takes values in $[0, 1]$, we have $\max_{v \in \tilde V_{\varepsilon}} \norm{v} \leq \sqrt{n}$, and Lemma \ref{lem: bound on rademacher complexity of finite set} hence tells us that
+where $\mathcal{R}_n(\tilde V_{\varepsilon})$ denotes the Rademacher complexity of the \emph{finite} set $\tilde V_{\varepsilon} = \set{ (g(z_1), \dots, g(z_n)) \with g \in V_{\varepsilon} }$. Since every $g \in V_{\varepsilon}$ takes values in $[-1, 1]$, we have $\max_{v \in \tilde V_{\varepsilon}} \norm{v} \leq \sqrt{n}$, and Lemma \ref{lem: bound on rademacher complexity of finite set} hence tells us that
 \[
     \mathcal{R}_n(\tilde V_{\varepsilon}) \leq \sqrt{ \frac{2 \, \mathrm{log}(2 \, \card{\tilde V_{\varepsilon}})}{n} } \leq \sqrt{ \frac{2 \, \mathrm{log}(2 \, \card{V_{\varepsilon}})}{n} } = \sqrt{ \frac{2 \, \mathrm{log}(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n} },
 \]
