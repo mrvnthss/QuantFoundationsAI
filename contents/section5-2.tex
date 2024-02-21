@@ -22,6 +22,7 @@ Using the same symmetry arguments, we can introduce i.i.d. $\mathrm{Rad}(\nicefr
 i.e., we are essentially in the exact same situation as in Section \ref{sec: symmetrization}, the only difference being that the binary loss function $\indSet{f(X) \neq Y}$ has been replaced by a more general loss function $l(Y, f(X))$ taking values in the unit interval $[0, 1]$. To get rid of the dependence of the bound on the sampled data $(X_1, Y_1), \dots, (X_n, Y_n)$, we generalize the concept of Rademacher complexity of a family of sets in order to apply it to the current context.
 
 \begin{definition}
+\label{def: rademacher complexity for general loss}
 Let $\mathcal{F}$ be a class of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$, and let $h \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function. The \emph{Rademacher complexity} of $\mathcal{F}$ given $l$ and a sample size $n$ is defined as
 \[
     \mathcal{R}_n(l \circ \mathcal{F}) = \sup_{\mathcal{D}_n} \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i l(Y_i, f(X_i))}},
