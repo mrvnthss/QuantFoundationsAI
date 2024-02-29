@@ -22,11 +22,10 @@ where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \subset \m
 \end{lemma}
 
 \begin{proof}
-This is straightforward: for a set $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$, we have
+This is straightforward: by the definition of the set $T(z)$ in \eqref{eq: T(z)}, we have
 \[
-    \mathcal{R}_n(T(z)) = \Ex{ \sup_{b \in T(z)} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i b_i}} = \Ex{ \sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}} = \mathcal{R}_n(\mathcal{A})
+    \sup_z \mathcal{R}_n(T(z)) = \sup_z \, \Ex{ \sup_{b \in T(z)} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i b_i}} = \sup_z \, \Ex{ \sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}} = \mathcal{R}_n(\mathcal{A}).
 \]
-by the definition of the set $T(z)$ in \eqref{eq: T(z)}.
 \end{proof}
 
 Let us briefly investigate the set $T(z)$ and its cardinality to get a better understanding. First, even though the cardinality of $\mathcal{A}$ can be infinite, the cardinality of $T(z)$ is at most $2^n$. To further illustrate the concept, let us look at an example: for the set $z = \set{z_1, z_2, z_3, z_4}$, the binary pattern $(1, 1, 0, 1)$ is contained in $T(z)$ if and only if there exists some set $A \in \mathcal{A}$ such that $z \cap A = \set{z_1, z_2, z_4}$, i.e., the set of points $\set {z_1, z_2, z_4}$ can be separated from the remaining points in $z$ by a set $A$ in $\mathcal{A}$. In this case, the set of points $\set{z_1, z_2, z_4}$ is said to be \emph{picked up} by $\mathcal{A}$. Hence, the cardinality of $T(z)$ equals the number of elements of the power set $\mathcal{P}(z)$ that can be picked up by $\mathcal{A}$, i.e.,
