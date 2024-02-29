@@ -17,8 +17,7 @@ To prove Hoeffding's inequality, we will have to control the moment-generating f
 
 \begin{lemma}[Hoeffding's Lemma]
 \label{lem: hoeffding}
-Let $X$ be a random variable satisfying $a \leq X \leq b$ almost surely. Then, 
-the moment-generating function of $X - \Ex{X}$ satisfies
+Let $X$ be a random variable satisfying $a \leq X \leq b$ almost surely. Then, for any $s > 0$, the moment-generating function of $X - \Ex{X}$ satisfies
 \[
     \Ex{\e^{s(X - \Ex{X})}} \leq \exp(\frac{s^2(b-a)^2}{8}).
 \]

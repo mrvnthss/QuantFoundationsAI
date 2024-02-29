@@ -6,7 +6,7 @@ Although the Azuma-Hoeffding Inequality is a strong result, it can be challengin
 \begin{definition}
 A function $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$ satisfies the \emph{bounded differences condition (for constants $c_1, \dots, c_n \in \R$)}, if the inequality
 \[
-    \sup_{x_i' \in \mathcal{X}_i} \bigAbs{ g(x_1, \dots, x_n) - g(x_1, \dots, x_i', \dots, x_n) } \leq c_i
+    \sup_{\tilde{x}_i \in \mathcal{X}_i} \bigAbs{ g(x_1, \dots, x_n) - g(x_1, \dots, \tilde{x}_i, \dots, x_n) } \leq c_i
 \]
 holds for all $i = 1, \dots, n$ and all $x_1 \in \mathcal{X}_1, \dots, x_n \in \mathcal{X}_n$.
 \end{definition}
@@ -17,7 +17,7 @@ Intuitively, $g$ meets the bounded differences condition if changing only one co
 \label{thm: bounded differences inequality}
 Let $X_1, \dots, X_n$ be independent random variables and let $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$ be a function satisfying the bounded differences condition for constants $c_1, \dots, c_n$. Then,
 \[
-    \Pr{\bigAbs{ g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)}} \geq t } \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
+    \Pr{g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)} \geq t } \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
 \]
 \end{theorem}
 
@@ -68,9 +68,8 @@ since $g$ satisfies the bounded differences condition with constants $c_1, \dots
 \]
 Hence, we can apply the Azuma-Hoeffding inequality (Theorem \ref{thm: azuma-hoeffding}) to obtain
 \[
-    \Pr{g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)} \geq t} = \Pr{\frac{1}{n}\sum_{i=1}^n \Delta_i \geq \frac{t}{n}} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
+    \Pr{g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)} \geq t} = \Pr{\sum_{i=1}^n \Delta_i \geq t} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
 \]
-The one-sided bound in the opposite direction is obtained by applying Theorem \ref{thm: azuma-hoeffding} to $\set{-\Delta_i}_i$ and, finally, the two-sided bound follows from a union bound.
 \end{proof}
 
 Observe that, assuming $X_1, \dots, X_n$ are independent random variables such that $a_i \leq X_i \leq b_i$ (almost surely), we can recover Hoeffding's inequality (Theorem \ref{thm: hoeffding}) by applying Theorem \ref{thm: bounded differences inequality} to $g(x_1, \dots, x_n) = \sum_{i=1}^n x_i$, since, in this case, $g$ satisfies the bounded differences condition for constants $c_i = b_i - a_i$.
@@ -79,9 +78,9 @@ Another drawback of Hoeffding's inequality is that it completely ignores the ran
 
 \begin{theorem}[Bernstein's Inequality]
 \label{thm: bernstein}
-Let $X_1, \dots, X_n$ be independent, centered random variables such that $\abs{X_i} \leq c$ for $i = 1, \dots, n$, and denote the average variance of all $X_i$ by $\bar\sigma^2 = n^{-1} \sum_i \Var(X_i)$. Then,
+Let $X_1, \dots, X_n$ be independent, centered random variables such that $\abs{X_i} \leq c$ for $i = 1, \dots, n$. Then,
 \[
-    \Pr{\frac{1}{n} \sum_{i=1}^n X_i \geq t} \leq \exp(\frac{-2nt^2}{2\bar\sigma^2 + \frac{2}{3}tc}).
+    \Pr{\sum_{i=1}^n X_i \geq t} \leq \exp(\frac{-\frac{1}{2}t^2}{\sum_{i=1}^n \Ex{X_i^2} + \frac{1}{3}ct}).
 \]
 \end{theorem}
 
@@ -89,27 +88,29 @@ We aim to make use of the fact that we know the random variables' variances to o
 
 \begin{lemma}
 \label{lem: bernstein}
-Let $X$ be a centered random variable satisfying $\abs{X} \leq c$. For any $t > 0$, the moment generating function of $X$ satisfies
+Let $X$ be a centered random variable satisfying $\abs{X} \leq c$. For any $s > 0$, the moment generating function of $X$ satisfies
 \[
-    \Ex{\e^{tX}} \leq \exp( t^2 \sigma^2 \left( \frac{\e^{tc} - 1 - tc}{(tc)^2} \right) ),
+    \Ex{\e^{sX}} \leq \exp( s^2 \ex{X^2} \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ).
 \]
-where $\sigma^2 = \Var(X)$.
 \end{lemma}
 
 \begin{proof}
 First, observe that
 \[
-    \ex{X^k} \leq \ex{X^2 \abs{X}^{k-2}} \leq \ex{X^2} c^{k-2} = \sigma^2 c^{k-2}, \quad k \geq 2.
+    \ex{X^k} \leq \ex{X^2 \abs{X}^{k-2}} \leq \ex{X^2} c^{k-2}, \quad k \geq 2.
 \]
 Hence, we have
 \[
-    \sum_{k=2}^\infty \frac{t^{k-2} \ex{X^k}}{\sigma^2 k!} \leq \sum_{k=2}^\infty \frac{t^{k-2} \sigma^2 c^{k-2}}{\sigma^2 k!} = \frac{1}{(tc)^2} \sum_{k=2}^\infty \frac{(tc)^k}{k!} = \frac{\e^{tc} - 1 - tc}{(tc)^2}
+    \sum_{k=2}^\infty \frac{s^{k-2} \ex{X^k}}{\ex{X^2} k!} \leq \sum_{k=2}^\infty \frac{s^{k-2} \ex{X^2} c^{k-2}}{\ex{X^2} k!} = \frac{1}{(sc)^2} \sum_{k=2}^\infty \frac{(sc)^k}{k!} = \frac{\e^{sc} - 1 - sc}{(sc)^2}
 \]
 and thus
 \[
-    \ex{\e^{tX}} = \Ex{1 + tX + \sum_{k=2}^\infty \frac{t^k X^k}{k!}} = 1 + t^2 \sigma^2 \sum_{k=2}^\infty \frac{t^{k-2} \ex{X^k}}{\sigma^2 k!} \leq 1 + t^2 \sigma^2 \frac{\e^{tc} - 1 - tc}{(tc)^2},
+    \Ex{\e^{sX}} = \Ex{1 + sX + \sum_{k=2}^\infty \frac{s^k X^k}{k!}} = 1 + s^2 \ex{X^2} \sum_{k=2}^\infty \frac{s^{k-2} \ex{X^k}}{\ex{X^2} k!} \leq 1 + s^2 \ex{X^2} \frac{\e^{sc} - 1 - sc}{(sc)^2},
 \]
-since $\ex{tX} = t \ex{X} = 0$. Our assertion then follows by applying the inequality $1 + x \leq \e^x$ to $x = t^2 \sigma^2 ((\e^{tc} - 1 - tc)/(tc)^2)$.
+since $\ex{sX} = s \ex{X} = 0$. Finally, by applying the inequality $1 + x \leq \e^x$, we obtain
+\[
+    \Ex{\e^{sX}} \leq 1 + s^2 \ex{X^2} \frac{\e^{sc} - 1 - sc}{(sc)^2} \leq \exp( s^2 \ex{X^2} \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ).
+\]
 \end{proof}
 
 Equipped with this result, we can continue to prove Bernstein's inequality.
@@ -117,11 +118,11 @@ Equipped with this result, we can continue to prove Bernstein's inequality.
 \begin{proof}[Proof of Theorem \ref{thm: bernstein}]
 As in the proof of Hoeffding's inequality, we have
 \[
-    \Pr{\frac{1}{n} \sum_{i=1}^n X_i \geq t} \leq \e^{-snt} \prod_{i=1}^n \ex{e^{sX_i}} \leq \e^{-snt} \exp( n s^2 \sigma^2 \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ), \quad s > 0,
+    \Pr{\sum_{i=1}^n X_i \geq t} \leq \e^{-st} \prod_{i=1}^n \ex{e^{sX_i}} \leq \e^{-st} \exp( s^2 \sum_{i=1}^n \ex{X_i^2} \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ), \quad s > 0,
 \]
-where the second inequality is precisely Lemma \ref{lem: bernstein}. The RHS can be written as
+where the second inequality is a consequence of Lemma \ref{lem: bernstein}. The RHS can be written as
 \[
-    \exp( n (s^2 \sigma^2 g(s) - st) ), \quad g(s) = \frac{\e^{sc} - 1 - sc}{(sc)^2},
+    \exp(s^2 \left( \sum_{i=1}^n \ex{X_i^2} \right) g(s) - st ), \quad g(s) = \frac{\e^{sc} - 1 - sc}{(sc)^2},
 \]
 and optimizing this expression over $s > 0$ yields the desired result.
 \end{proof}
