@@ -58,12 +58,16 @@ Equipped with this result, we can tackle Hoeffding's inequality:
 \label{thm: hoeffding}
 Let $X_1, \dots, X_n$ be independent random variables such that, almost surely, $a_i \leq X_i \leq b_i$, and denote the sum of the $X_i$ by $S_n = \sum_{i=1}^n X_i$. Then, for any $t>0$,
 \[
+    \Pr{S_n - \Ex{S_n} \geq t} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+\]
+In particular,
+\[
     \Pr{\abs{S_n - \Ex{S_n}} \geq t} \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
 \end{theorem}
 
 \begin{proof}
-It suffices to show the inequality
+It suffices to prove the first inequality
 \[
     \Pr{S_n - \Ex{S_n} \geq t} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2})
 \]

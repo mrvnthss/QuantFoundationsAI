@@ -23,7 +23,7 @@ The empirical risk $\hat L_n(h)$ of a classifier $h$ is an \emph{unbiased estima
 \begin{equation}
 \label{eq: bias of empirical risk}
     \highlightMath{
-        \Ex{\hat L_n(h)} = \frac{1}{n} \sum_{i=1}^n \Ex{\indSet{h(X_i) \neq Y_i}} = \frac{1}{n} \sum_{i=1}^n \Pr{h(X_i) \neq Y_i} = \Pr{h(X) \neq Y} = L(h),
+        \ex{\hat L_n(h)} = \frac{1}{n} \sum_{i=1}^n \Ex{\indSet{h(X_i) \neq Y_i}} = \frac{1}{n} \sum_{i=1}^n \Pr{h(X_i) \neq Y_i} = \Pr{h(X) \neq Y} = L(h),
     }
 \end{equation}
 since $(X_i, Y_i)$ are i.i.d. draws from the distribution of $(X, Y)$.
@@ -39,7 +39,10 @@ Minimizing the empirical risk over all classifiers is useless since, for every h
 with $a \in \set{0, 1}$ arbitrary, satisfies $\hat L_n(h_n) = 0$. Thus, we have to restrict ourselves to classifiers in a certain family $\mathcal{H}$.
 
 \begin{definition}
-The \emph{empirical risk minimizer} over $\mathcal{H}$ is any element $\hat h^{\text{erm}}$ of the set $\argmin_{h \in \mathcal{H}} \hat L_n(h)$, i.e., $\hat h^{\text{erm}} \in \mathcal{H}$ and $\hat L_n(\hat h^{\text{erm}}) = \min_{h \in \mathcal{H}} \hat L_n(h)$.
+The \emph{empirical risk minimizer} over $\mathcal{H}$ is defined as
+\[
+    \hat h^{\text{erm}} \in \argmin_{h \in \mathcal{H}} \hat L_n(h).
+\]
 \end{definition}
 
 For meaningful results, $\mathcal{H}$ should be much smaller than the set of all classifiers. On the other hand, $\mathcal{H}$ should not be \emph{too} small, because we want the empirical risk of $\hat h^{\text{erm}}$ to be close to the Bayes risk. Often, we will be satisfied with a classifier $\hat h$ that is reasonably close to the empirical risk minimizer $\hat h^{\text{erm}}$ in the sense that
