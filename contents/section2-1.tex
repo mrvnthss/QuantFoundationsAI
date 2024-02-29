@@ -4,7 +4,7 @@
 First, we define an optimal classifier in the setting of binary classification, the so-called \emph{Bayes classifier}. This is the classifier that (somehow) is aware of the regression function $\eta(X)$, and, based on an observation $X = x$, predicts the class $Y$ that has the higher a posteriori probability $\Pr{Y = 1 \given X = x}$. This is the classifier we would use \emph{if} we knew the distribution of $Y \vert X$.
 
 \begin{definition}
-The Bayes classifier $h^* \colon \mathcal{X} \to [0,1]$ is defined by
+The Bayes classifier $h^* \colon \mathcal{X} \to \set{0,1}$ is defined by
 \[
     h^* \colon \mathcal{X} \to \set{0, 1}, \quad x \mapsto \begin{cases}
     1, \quad &\eta(x) > 1/2 \\
@@ -52,13 +52,13 @@ For every classifier $h \colon \mathcal{X} \to \set{0, 1}$, we have
 \begin{align*}
     L(h) = \Pr{h(X) \neq Y} &= \Pr{h(X) = 0, Y = 1} + \Pr{h(X) = 1, Y = 0} \\
         &= \Ex{\indSet{h(X) = 0} \cdot \indSet{Y = 1}} + \Ex{\indSet{h(X) = 1} \cdot \indSet{Y = 0}} \\
-        &= \Ex{\Ex{\indSet{h(X) = 0} \cdot \indSet{Y = 1} \given X}} + \Ex{\Ex{\indSet{h(X) = 1} \cdot \indSet{Y = 0} \given X}},
+        &= \Ex{\Ex{\indSet{h(X) = 0} \cdot Y \given X}} + \Ex{\Ex{\indSet{h(X) = 1} \cdot (1 - Y) \given X}},
 \end{align*}
-where the last identity follows directly from the definition of conditional expectation. Since the function $\indSet{h(X) = c}$ is $\sigma(X)$-measurable ($c = 0, 1$), we can rewrite the previous line as
+where the last identity follows from the law of total expectation and the observation that $\indSet{Y = 1} = Y$ and $\indSet{Y = 0} = 1 - Y$. Since the function $\indSet{h(X) = c}$ is $\sigma(X)$-measurable ($c = 0, 1$), we can rewrite the previous line as
 \[
-    \Ex{\indSet{h(X) = 0} \cdot \Ex{\indSet{Y = 1} \given X}} + \Ex{\indSet{h(X) = 1} \cdot \Ex{\indSet{Y = 0} \given X}}.
+    \Ex{\indSet{h(X) = 0} \cdot \Ex{Y \given X}} + \Ex{\indSet{h(X) = 1} \cdot \Ex{1 - Y \given X}}.
 \]
-As $\indSet{Y = 0} = 1 - \indSet{Y = 1}$ and $\eta(X) = \Ex{\indSet{Y = 1} \given X}$, we conclude that
+As $\eta(X) = \Ex{Y \given X}$, we conclude that
 \begin{equation}
     \label{eq: error probability}
     \highlightMath{

@@ -160,7 +160,7 @@ We have
 \begin{align*}
     \mathcal{E}_2(f) &= \ex{\norm{f(X) - Y}^2} = \ex{\norm{(f(X) - f_Y(X)) + (f_Y(X) - Y)}^2} \\
         &= \ex{\norm{f(X) - f_Y(X)}^2} + \ex{\norm{f_Y(X) - Y}^2} + 2 \sum_{i=1}^d \Ex{(f_i(X) - \Ex{Y_i \given X}) (\Ex{Y_i \given X} - Y_i)} \\
-        &= \ex{\norm{f(X) - f_Y(X)}^2} + \ex{\ex{\norm{f_Y(X) - Y}^2} \given X} \\[4pt]
+        &= \ex{\norm{f(X) - f_Y(X)}^2} + \ex{\ex{\norm{f_Y(X) - Y}^2 \given X}} \\[4pt]
         &= \mathcal{E}_2(f(X), \Ex{Y \given X}) + \Ex{\sigma_Y^2(X)},
 \end{align*}
 where the second-to-last identity follows from the law of total expectation and the fact that the terms $\Ex{(f_i(X) - \Ex{Y_i \given X}) (\Ex{Y_i \given X} - Y_i)}$ vanish\footnote{Proving this is left as an exercise.} for $i = 1, \dots, d$.
