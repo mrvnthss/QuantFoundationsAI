@@ -189,12 +189,13 @@ By the law of total probability, we can express the density $f(x)$ as $f_1(x)p +
     }
 \end{equation}
 By solving $\eta(x) > 1/2$, we see that the Bayes classifier is given by
-\[
+\begin{equation}
+\label{eq: bayes classifier for X with density}
     h^*(x) = \begin{cases}
         1, \quad & f_1(x)p > f_0(x)(1-p) \\
         0, \quad &\text{else}
     \end{cases}
-\]
+\end{equation}
 with error
 \[
     L^* = \int_{\mathcal{X}} \min(\eta(x), 1-\eta(x)) f(x) \dx = \int_{\mathcal{X}} \min(f_1(x)p, f_0(x)(1-p)) \dx \, ,
