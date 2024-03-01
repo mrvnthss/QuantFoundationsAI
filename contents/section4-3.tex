@@ -89,10 +89,10 @@ In particular, $\mathcal{A}$ shatters the set $\set{z_1, z_2}$, and we can concl
 
 Let us discuss another example. Let $\mathcal{A}$ be the set of hyperrectangles in $\R^d$, i.e., $\mathcal{A} = \set{[\mathbf{a}, \mathbf{b}] \with \mathbf{a}, \mathbf{b} \in \R^d}$, where
 \[
-    [\mathbf{a}, \mathbf{b}] = \prod_{i=1}^d [a_i, b_i] = \set{(x_1, \dots, x_d) \in \R^d \with x_i \in [a_i, b_i] \text{ for } i = 1, \dots, d}
+    [\mathbf{a}, \mathbf{b}] = \prod_{i=1}^d [a^{(i)}, b^{(i)}] = \set{(x^{(1)}, \dots, x^{(d)}) \in \R^d \with x^{(i)} \in [a^{(i)}, b^{(i)}] \text{ for } i = 1, \dots, d}
 \]
-with $\mathbf{a} = (a_1, \dots, a_d)$ and $\mathbf{b} = (b_1, \dots, b_d)$ such that $a_i \leq b_i$ for all $i = 1, \dots, d$. For $d=2$, the family $\mathcal{A}$ shatters the set $\set{(\nicefrac{1}{2}, 0), (1, \nicefrac{1}{2}), (\nicefrac{1}{2}, 1), (0, \nicefrac{1}{2})}$ of four points in $\R^2$, and, more generally, one can show that $\mathcal{A}$ always shatters a set of $2d$ points for arbitrary dimensions $d$. This tells us that $\mathcal{S}_{\mathcal{A}}(2d) = 2^{2d}$ and $VC(\mathcal{A}) \geq 2d$. However, the family $\mathcal{A}$ can never shatter a set of $2d + 1$ points. The argument is similar in spirit to the one made earlier for half-lines. Let $B = \set{x_1, \dots, x_{2d+1}}$ be a set of $2d + 1$ points and define points $y_1, \dots, y_d$ and $z_1, \dots, z_d$ as follows:
+with $\mathbf{a} = (a^{(1)}, \dots, a^{(d)})$ and $\mathbf{b} = (b^{(1)}, \dots, b^{(d)})$ such that $a^{(i)} \leq b^{(i)}$ for all $i = 1, \dots, d$. For $d=2$, the family $\mathcal{A}$ shatters the set $\set{(1, 0), (0, 1), (-1, 0), (0, -1)}$ of four points in $\R^2$, and, more generally, one can show that $\mathcal{A}$ always shatters a set of $2d$ points for arbitrary dimensions $d$. This tells us that $\mathcal{S}_{\mathcal{A}}(2d) = 2^{2d}$ and $VC(\mathcal{A}) \geq 2d$. However, the family $\mathcal{A}$ can never shatter a set of $2d + 1$ points. The argument is similar in spirit to the one made earlier for half-lines. Let $B = \set{x_1, \dots, x_{2d+1}}$ be a set of $2d + 1$ points and define points $y_1, \dots, y_d$ and $z_1, \dots, z_d$ as follows:
 \[
-    y_i = \argmin_{x \in B} x_i, \quad\quad z_i = \argmax_{x \in B} x_i, \quad i = 1, \dots, d.
+    y_i = \argmin_{x_j \in B} x_j^{(i)}, \quad\quad z_i = \argmax_{x_j \in B} x_j^{(i)}, \quad i = 1, \dots, d.
 \]
 With these definitions, any set that contains $\set{y_1, \dots, y_d, z_1, \dots, z_d}$, will inevitably contain the entire set $B$. Hence, it is impossible to pick up the set $\set{y_1, \dots, y_d, z_1, \dots, z_d}$ and $\mathcal{S}_{\mathcal{A}}(2d + 1) < 2^{2d + 1}$. Consequently, $VC(\mathcal{A}) = 2d$.
