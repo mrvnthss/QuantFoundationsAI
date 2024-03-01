@@ -13,9 +13,11 @@ is the oracle, which minimizes the \emph{true} risk over the family $\mathcal{H}
 
 To get started, observe that the estimation error satisfies
 \[
-    L(\hat h) - L(\bar h) = \left(L(\hat h) - \hat L_n(\bar h)\right) + \left(\hat L_n(\bar h) - L(\bar h)\right) \leq \left(L(\hat h) - \hat L_n(\hat h)\right) + \left(\hat L_n(\bar h) - L(\bar h)\right),
+    L(\hat h) - L(\bar h) %
+    = \left(L(\hat h) - {\color{blue} \hat L_n(\bar h)}\right) + \left(\hat L_n(\bar h) - L(\bar h)\right) %
+    \leq \left(L(\hat h) - {\color{green} \hat L_n(\hat h)}\right) + \left(\hat L_n(\bar h) - L(\bar h)\right),
 \]
-since $\hat L_n(\hat h) \leq \hat L_n(\bar h)$ by definition of the empirical risk minimzer. Thus, we can find a bound on the estimation error by bounding the deviation of the empirical risk $\hat L_n(h)$ of a classifier $h$ from its true risk $L(h)$. This is where Hoeffding's inequality comes in handy.
+since ${\color{green} \hat L_n(\hat h)} \leq {\color{blue} \hat L_n(\bar h)}$ by definition of the empirical risk minimzer. Thus, we can find a bound on the estimation error by bounding the deviation of the empirical risk $\hat L_n(h)$ of a classifier $h$ from its true risk $L(h)$. This is where Hoeffding's inequality comes in handy.
 
 \begin{theorem}
 \label{thm: empirical vs true risk}

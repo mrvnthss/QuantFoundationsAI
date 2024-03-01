@@ -61,7 +61,7 @@ we see that
 \[
     \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) } = \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }.
 \]
-The law of large numbers tells us that, for a measurable set $A$,
+The law of large numbers tells us that, for a measurable set $A \in \mathcal{A}$,
 \[
     \mu_n(A) \xrightarrow{\mathrm{a.s.}} \mu(A),
 \]
@@ -69,7 +69,7 @@ given that the $Z_i$ are i.i.d.\ draws from the distribution of $Z$. Further, as
 \[
     \mu_n(A) - \mu(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i \in A} - \Pr{Z \in A} = \frac{1}{n} \sum_{i=1}^n \left( \indSet{Z_i \in A} - \Ex{\indSet{Z_i \in A}} \right),
 \]
-Hoeffding's inequality (Theorem \ref{thm: hoeffding}) bounds the probability that the two measures differ on a measurable set $A$ by at least $t > 0$ as follows:
+Hoeffding's inequality (Theorem \ref{thm: hoeffding}) bounds the probability that the two measures differ on a measurable set $A \in \mathcal{A}$ by at least $t > 0$ as follows (cf. Theorem \ref{thm: empirical vs true risk}):
 \[
     \Pr{\bigAbs{ \mu_n(A) - \mu(A) } \geq t} \leq 2\e^{-2nt^2}, \quad t > 0.
 \]
@@ -77,7 +77,7 @@ Additionally, for finite $\mathcal{A}$, we have
 \[
     \P\big( \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } \geq t \big) \leq 2\e^{-2nt^2} \card{\mathcal{A}}, \quad t > 0
 \]
-by applying a simple union bound. However, for infinite $\mathcal{A}$ (i.e., infinite dictionaries $\mathcal{H}$), the most powerful tools to attack these problems are distribution-free large deviation type inequalities proved by Vapnik and Chervonenkis (1971).
+by applying a simple union bound (again, cf. Theorem \ref{thm: empirical vs true risk}). However, for infinite $\mathcal{A}$ (i.e., infinite dictionaries $\mathcal{H}$), the most powerful tools to attack these problems are distribution-free large deviation type inequalities proved by Vapnik and Chervonenkis (1971).
 
 Finally, observe that, for every collection $\mathcal{A}$ of measurable sets $A \subset \mathcal{X} \times \set{0, 1}$, the function
 \[

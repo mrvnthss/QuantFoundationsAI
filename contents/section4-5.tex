@@ -1,13 +1,13 @@
 %% SECTION 4.5 %%
 \section{Application to the ERM}
 
-Recall our goal that we started with at the beginning of this chapter: given a family $\mathcal{H}$ of classifiers, we want to bound the excess risk $R(\hat h_n)$ of the empirical risk minimizer $\hat h_n$, which can be decomposed into estimation error and approximation error as follows:
+Recall our goal that we started with at the beginning of this chapter: given a family $\mathcal{H}$ of classifiers, we want to bound the excess risk $R(\hat h_n)$ of the empirical risk minimizer $\hat h$, which can be decomposed into estimation error and approximation error as follows:
 \[
-    R(\hat h_n) = \underbrace{L(\hat h_n) - L(\bar h)}_{\substack{\text{estimation} \\ \text{error}}} + \underbrace{L(\bar h) - L^*}_{\substack{\text{approximation} \\ \text{error}}}.
+    R(\hat h) = \underbrace{L(\hat h) - L(\bar h)}_{\substack{\text{estimation} \\ \text{error}}} + \underbrace{L(\bar h) - L^*}_{\substack{\text{approximation} \\ \text{error}}}.
 \]
-Since the approximation error is fixed for a given family of classifiers $\mathcal{H}$, we have focused on bounding the estimation error $L(\hat h_n) - L(\bar h)$. In Lemma \ref{lem: bound on estimation error}, we had already observed that this estimation error is bounded by
+Since the approximation error is fixed for a given family of classifiers $\mathcal{H}$, we have focused on bounding the estimation error $L(\hat h) - L(\bar h)$. In Lemma \ref{lem: bound on estimation error}, we had already observed that this estimation error is bounded by
 \[
-    L(\hat h_n) - L(\bar h) \leq 2 \, \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) }.
+    L(\hat h) - L(\bar h) \leq 2 \, \sup_{h \in \mathcal{H}} \bigAbs{ \hat L_n(h) - L(h) }.
 \]
 Defining $A_h$ and $\mathcal{A}$ as in \eqref{eq: sets A_h} and \eqref{eq: collection of sets A_h}, respectively, i.e.,
 \[
@@ -80,9 +80,9 @@ Since the XOR operation is bijective, this tells us that the cardinalities of $T
 Based on our discussion of the emprical risk minimzer at the beginning of this section, we conclude the following:
 
 \begin{corollary}
-The empirical risk minimizer $\hat h_n$ of a family of classifiers $\mathcal{H}$ with VC dimension $D$ satisfies
+The empirical risk minimizer $\hat h$ of a family of classifiers $\mathcal{H}$ with VC dimension $D$ satisfies
 \[
-    L(\hat h_n) < L(\bar h) + 4 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + 2 \sqrt{\frac{\log(\delta^{-1})}{2n}}
+    L(\hat h) < L(\bar h) + 4 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + 2 \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 with probability at least $1 - \delta$.
 \end{corollary}

@@ -41,13 +41,13 @@ with $a \in \set{0, 1}$ arbitrary, satisfies $\hat L_n(h_n) = 0$. Thus, we have 
 \begin{definition}
 The \emph{empirical risk minimizer} over $\mathcal{H}$ is defined as
 \[
-    \hat h^{\text{erm}} \in \argmin_{h \in \mathcal{H}} \hat L_n(h).
+    \hat{h}^{\text{erm}} \in \argmin_{h \in \mathcal{H}} \hat L_n(h).
 \]
 \end{definition}
 
-For meaningful results, $\mathcal{H}$ should be much smaller than the set of all classifiers. On the other hand, $\mathcal{H}$ should not be \emph{too} small, because we want the empirical risk of $\hat h^{\text{erm}}$ to be close to the Bayes risk. Often, we will be satisfied with a classifier $\hat h$ that is reasonably close to the empirical risk minimizer $\hat h^{\text{erm}}$ in the sense that
+For meaningful results, $\mathcal{H}$ should be much smaller than the set of all classifiers. On the other hand, $\mathcal{H}$ should not be \emph{too} small, because we want the empirical risk of $\hat{h}^{\text{erm}}$ to be close to the Bayes risk. Often, we will be satisfied with a classifier $\hat h$ that is reasonably close to the empirical risk minimizer $\hat{h}^{\text{erm}}$ in the sense that
 \[
-    \hat L_n(\hat h) \leq \min_{h \in \mathcal{H}} \hat L_n(h) + \varepsilon, \quad \text{for small } \varepsilon > 0.
+    \hat L_n(\hat h) \leq \hat L_n(\hat{h}^{\text{erm}}) + \varepsilon, \quad \text{for small } \varepsilon > 0.
 \]
 Given a family $\mathcal{H}$, let $\bar h$ be a classifier that somehow minimizes the \emph{true} risk, i.e.,
 \[

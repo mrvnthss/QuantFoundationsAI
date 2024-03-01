@@ -9,7 +9,7 @@ We then split the excess risk of a classifier $h$ into estimation error and appr
 \[
     R(h) = \underbrace{L(h) - L(\bar h)}_{\substack{\text{estimation} \\ \text{error}}} + \underbrace{L(\bar h) - L^*}_{\substack{\text{approximation} \\ \text{error}}}.
 \]
-Finally, we used concentration inequalities and VC theory to find bounds for the estimation error $L(\hat h_n) - L(\bar h)$ of the empirical risk minimizer $\hat h_n$. Let's look at some of the limitations that these techniques carry along with them:
+Finally, we used concentration inequalities and VC theory to find bounds for the estimation error $L(\hat h) - L(\bar h)$ of the empirical risk minimizer $\hat h$. Let's look at some of the limitations that these techniques carry along with them:
 
 \begin{itemize}
     \item \emph{Hoeffding's inequality}: Only useful for finite families $\mathcal{H}$ of classifiers, requires boundedness of the loss function.
@@ -19,7 +19,7 @@ Finally, we used concentration inequalities and VC theory to find bounds for the
     \item \emph{VC theory}: Requires binary nature of the loss function.
 \end{itemize}
 
-In this chapter, we replace the binary output variable $Y$ with a \emph{continuous} output $Y$ that takes values in the interval $[-1, 1]$, and we replace the binary loss function $\indSet{h(X) \neq Y}$ with a smooth (and symmetric) loss function $l(Y, h(X))$ that we assume to be \emph{bounded}, i.e. $0 \leq l(Y, h(X)) \leq 1$. Some examples are:
+In this chapter, we replace the binary output variable $Y$ with a \emph{continuous} output $Y$ that takes values in the interval $[-1, 1]$, and we replace the binary loss function $\indSet{h(X) \neq Y}$ with a smooth (and symmetric) loss function $l(a, b)$ that we assume to be \emph{bounded}, i.e. $0 \leq l(a, b) \leq 1$. Some examples are:
 
 \begin{itemize}
     \item $l(a, b) = \abs{a - b} \quad$ ($L^1$-loss)
@@ -31,10 +31,10 @@ In this chapter, we replace the binary output variable $Y$ with a \emph{continuo
 
 Let's review the notation we will stick to during this chapter (which will largely remain unchanged compared to chapters \ref{ch: binary classification} and \ref{ch: VC theory}): From now on, we will denote the \emph{regression function} by $f \colon \mathcal{X} \to [-1, 1]$ whose \emph{error} is given by
 \[
-    L(f) = \Ex{l(Y, f(X))}.
+    L(f) = \Ex{l(f(X), Y)}.
 \]
 As always, our \emph{dataset} will be denoted $\mathcal{D}_n = \set{(X_1, Y_1), \dots, (X_n, Y_n)} = \set{Z_1, \dots, Z_n}$. The \emph{empirical error} of $f$ is defined as
 \[
-    \hat L_n(f) = \frac{1}{n} \sum_{i=1}^n l(Y_i, f(X_i)),
+    \hat L_n(f) = \frac{1}{n} \sum_{i=1}^n l(f(X_i), Y_i),
 \]
 which is a random variable! As before, we denote the \emph{empirical risk minimizer} of a class $\mathcal{F}$ of regression functions $f \colon \mathcal{X} \to [-1, 1]$ by $\hat f_n$, where $n$ denotes the number of observations $(X_i, Y_i)$. For convenience, we often drop the subscript $n$ and simply write $\hat f$. Finally, the \emph{oracle} of the class $\mathcal{F}$ (i.e., the regression function minimizing the true error $L(f)$) will be denoted by $\bar f$.
