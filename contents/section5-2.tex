@@ -25,7 +25,7 @@ i.e., we are essentially in the exact same situation as in Section \ref{sec: sym
 \label{def: rademacher complexity for general loss}
 Let $\mathcal{F}$ be a class of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$, and let $h \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function. The \emph{Rademacher complexity} of $\mathcal{F}$ given $l$ and a sample size $n$ is defined as
 \[
-    \mathcal{R}_n(l \circ \mathcal{F}) = \sup_{\mathcal{D}_n} \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i l(Y_i, f(X_i))}},
+    \mathcal{R}_n(l \circ \mathcal{F}) = \sup_{\mathcal{D}_n} \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i l(f(X_i), Y_i)}},
 \]
 where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ random variables drawn from the Rademacher distribution, and the supremum is taken over all possible observations $\mathcal{D}_n = \set{(X_1, Y_1), \dots, (X_n, Y_n)}$.
 \end{definition}
