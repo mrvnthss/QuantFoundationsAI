@@ -51,18 +51,22 @@ By definition,
 where $Z_b = \sum_{i=1}^n \sigma_i b_i$. Since $-\abs{b_i} \leq \sigma_i b_i \leq \abs{b_i}$ holds almost surely, Hoeffding's lemma (Lemma \ref{lem: hoeffding}) bounds the moment generating function of $Z_b$ by
 \begin{equation}
 \label{eq: proof of bound on rademacher complexity of finite set}
-    \Ex{\exp(s Z_b)} = \prod_{i=1}^n \Ex{\exp(s \sigma_i b_i)} \leq \prod_{i=1}^n \exp(s^2 b_i^2 / 2) = \exp(s^2 \norm{b}^2 / 2).
+    \Ex{\exp(s Z_b)} = \prod_{i=1}^n \Ex{\exp(s \sigma_i b_i)} \leq \prod_{i=1}^n \exp(s^2 b_i^2 / 2) = \mathrm{exp}(s^2 \norm{b}^2 / 2).
 \end{equation}
 To bound the quantity $\Ex{\max_{b \in B} \abs{Z_b}}$ we are interested in, let $\overline{B} = B \cup -B$, where $-B = \set{-b \with b \in B}$. For $s>0$,
 \[
-    \Ex{\max_{b \in B} \abs{Z_b}} = \Ex{\max_{b \in \overline{B}} Z_b} = \frac{1}{s} \log( \exp( s \Ex{\max_{b \in \overline{B}} Z_b} )) \leq \frac{1}{s} \log(\Ex{ \exp( s \max_{b \in \overline{B}} Z_b )} ),
+    \Ex{\max_{b \in B} \abs{Z_b}} = \Ex{\max_{b \in \overline{B}} Z_b} = \frac{1}{s} \log( \exp( s \Ex{\max_{b \in \overline{B}} Z_b} )) \leq \frac{1}{s} \log({\color{blue} \Ex{ \exp( s \max_{b \in \overline{B}} Z_b )} }),
 \]
-where the last inequality follows from Jensen's inequality applied to the function $x \mapsto \exp(sx)$. We bound the maximum somewhat crudely by a sum to obtain
+where the last inequality follows from Jensen's inequality applied to the function $x \mapsto \exp(sx)$. Since the logarithm is increasing, we can bound
+\[
+    {\color{blue} \Ex{ \exp( s \max_{b \in \overline{B}} Z_b )} } \leq \sum_{b \in \overline{B}} \underbrace{\Ex{\exp(s Z_b)}}_{\geq 0}
+\]
+to obtain
 \begin{align*}
-    \Ex{\max_{b \in B} \abs{Z_b}} &\leq \frac{1}{s} \log( \sum_{b \in \overline{B}} \Ex{\exp(s Z_b)} ) \\[4pt]
+    \Ex{\max_{b \in B} \abs{Z_b}} &\leq \frac{1}{s} \log( \sum_{b \in \overline{B}} \Ex{\exp(s Z_b)} ) \leq \frac{1}{s} \log( \sum_{b \in \overline{B}} \mathrm{exp}(s^2 \norm{b}^2 / 2) ) \\[4pt]
         &\leq \frac{\log(2 \, \card{B})}{s} + \frac{s}{2} \max_{b \in B} \norm{b}^2 = \frac{2 \log(2 \, \card{B}) + s^2 \max_{b \in B} \norm{b}^2}{2s},
 \end{align*}
-where the second inequality follows from \eqref{eq: proof of bound on rademacher complexity of finite set} and the observation that $\max_{b \in \overline{B}} \norm{b}^2 = \max_{b \in B} \norm{b}^2$ and $\card{\overline{B}} \leq 2 \, \card{B}$. Optimizing the RHS over $s$ yields the optimal solution
+where the second inequality follows from \eqref{eq: proof of bound on rademacher complexity of finite set}, and the third inequality follows from the observation that $\max_{b \in \overline{B}} \norm{b}^2 = \max_{b \in B} \norm{b}^2$ and $\card{\overline{B}} \leq 2 \, \card{B}$. Optimizing the RHS over $s$ yields the optimal solution
 \[
     s^2 = \frac{2 \log(2 \, \card{B})}{\max_{b \in B} \norm{b}^2}.
 \]
