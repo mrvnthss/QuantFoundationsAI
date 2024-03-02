@@ -55,7 +55,7 @@ where $Z_b = \sum_{i=1}^n \sigma_i b_i$. Since $-\abs{b_i} \leq \sigma_i b_i \le
 \end{equation}
 To bound the quantity $\Ex{\max_{b \in B} \abs{Z_b}}$ we are interested in, let $\overline{B} = B \cup -B$, where $-B = \set{-b \with b \in B}$. For $s>0$,
 \[
-    \Ex{\max_{b \in B} \abs{Z_b}} = \Ex{\max_{b \in \overline{B}} Z_b} = \frac{1}{s} \log( \exp( s \Ex{\max_{b \in \overline{B}} Z_b} )) \leq \frac{1}{s} \log({\color{blue} \Ex{ \exp( s \max_{b \in \overline{B}} Z_b )} }),
+    \Ex{\max_{b \in B} \abs{Z_b}} = \Ex{\max_{b \in \overline{B}} Z_b} = \frac{1}{s} \log( \exp( s \Ex{\max_{b \in \overline{B}} Z_b} )) \leq \frac{1}{s} \log \left( {\color{blue} \Ex{\exp( s \max_{b \in \overline{B}} Z_b )}} \right),
 \]
 where the last inequality follows from Jensen's inequality applied to the function $x \mapsto \exp(sx)$. Since the logarithm is increasing, we can bound
 \[

@@ -112,13 +112,13 @@ since $\abs{\sigma_i} = 1$ almost surely. Hence,
 \]
 As $f^{\circ} \in V_{\varepsilon}$, we obtain
 \[
-    \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} } = \Ex{ \max_{g \in V_{\varepsilon}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i g(z_i)} } = \mathcal{R}_n(\tilde V_{\varepsilon}),
+    \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} } = \Ex{ \max_{g \in V_{\varepsilon}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i g(z_i)} } = \mathcal{R}_n(B),
 \]
-where $\mathcal{R}_n(\tilde V_{\varepsilon})$ denotes the Rademacher complexity of the \emph{finite} set $\tilde V_{\varepsilon} = \set{ (g(z_1), \dots, g(z_n)) \with g \in V_{\varepsilon} }$. Since every $g \in V_{\varepsilon}$ takes values in $[-1, 1]$, we have $\max_{v \in \tilde V_{\varepsilon}} \norm{v} \leq \sqrt{n}$, and Lemma \ref{lem: bound on rademacher complexity of finite set} hence tells us that
+where $\mathcal{R}_n(B)$ denotes the Rademacher complexity of the \emph{finite} set $B = \set{ (g(z_1), \dots, g(z_n)) \with g \in V_{\varepsilon} } \subset \R^n$. Since every $g \in V_{\varepsilon} \subset \mathcal{F}$ takes values in $[-1, 1]$, we have $\max_{b \in B} \norm{b} \leq \sqrt{n}$, and Lemma \ref{lem: bound on rademacher complexity of finite set} hence tells us that
 \[
-    \mathcal{R}_n(\tilde V_{\varepsilon}) \leq \sqrt{ \frac{2 \, \mathrm{log}(2 \, \card{\tilde V_{\varepsilon}})}{n} } \leq \sqrt{ \frac{2 \, \mathrm{log}(2 \, \card{V_{\varepsilon}})}{n} } = \sqrt{ \frac{2 \, \mathrm{log}(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n} },
+    \mathcal{R}_n(B) \leq \sqrt{ \frac{2 \, \log(2 \, \card{B})}{n} } \leq \sqrt{ \frac{2 \, \mathrm{log}(2 \, \card{V_{\varepsilon}})}{n} } = \sqrt{ \frac{2 \, \mathrm{log}(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n} },
 \]
-since $\card{\tilde V_{\varepsilon}} \leq \card{V_{\varepsilon}} = N(\mathcal{F}, d_1^z, \varepsilon)$. Altogether,
+since $\card{B} \leq \card{V_{\varepsilon}} = N(\mathcal{F}, d_1^z, \varepsilon)$. Altogether,
 \[
     \hat{\mathcal{R}}_n^z(\mathcal{F}) \leq \varepsilon + \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} } \leq \varepsilon + \sqrt{ \frac{2 \, \mathrm{log}(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n} }.
 \]
