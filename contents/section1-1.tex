@@ -42,7 +42,7 @@ which is exactly what we set out to prove.
     \centering
     \begin{tikzpicture}
         \node[above right, inner sep=0] (image) at (0,0) {
-            \includegraphics[width=6cm]{other/orthogonal-decomposition}
+            \includegraphics[width=5cm]{other/orthogonal-decomposition}
         };
 
         % Create scope with normalized axes
@@ -134,14 +134,10 @@ Let us return to our discussion of conditional expectation in the setting of min
         \Ex{Y_d \given X}
     \end{pmatrix}.
 \]
-Based on the observation that the conditional expectation minimizes the $L^2$-distance between $Y$ and the space of $\sigma(X)$-measurable, square-integrable random variables, we define
-\[
-    f_Y \colon \mathcal{X} \to \R^d, \quad f_Y(x) = \Ex{Y \given X = x},
-\]
-i.e., $f_Y(X) = \Ex{Y \given X}$. We have the following result:
+We have the following result:
 \begin{proposition}
 \label{prop: decomposition of mean-squared error}
-Let $Y \colon \Omega \to \R^d$ be a random variable such that $\Ex{\abs{Y_i}} < \infty$, $i = 1, \dots, d$, and let $X \colon \Omega \to \mathcal{X}$ be a random variable and $f \colon \mathcal{X} \to \R^d$ be a measurable function such that the mean-squared error $\mathcal{E}_2(f)$ exists. Then,
+Let $Y \colon \Omega \to \R^d$ be a random variable such that $\Ex{\abs{Y_i}} < \infty$, $i = 1, \dots, d$, and let $X \colon \Omega \to \mathcal{X}$ be a random variable and $f \colon \mathcal{X} \to \R^d$ a measurable function such that the mean-squared error $\mathcal{E}_2(f)$ exists. Then,
 \[
     \mathcal{E}_2(f) = \mathcal{E}_2(f(X), \Ex{Y \given X}) + \Ex{\sigma_Y^2(X)},
 \]
@@ -156,14 +152,20 @@ is the \emph{conditional variance} of $Y$ given $X$. In particular,
 \end{proposition}
 
 \begin{proof}
-We have
+Bilinearity of the inner product yields
 \begin{align*}
-    \mathcal{E}_2(f) &= \ex{\norm{f(X) - Y}^2} = \ex{\norm{(f(X) - f_Y(X)) + (f_Y(X) - Y)}^2} \\
-        &= \ex{\norm{f(X) - f_Y(X)}^2} + \ex{\norm{f_Y(X) - Y}^2} + 2 \sum_{i=1}^d \Ex{(f_i(X) - \Ex{Y_i \given X}) (\Ex{Y_i \given X} - Y_i)} \\
-        &= \ex{\norm{f(X) - f_Y(X)}^2} + \ex{\ex{\norm{f_Y(X) - Y}^2 \given X}} \\[4pt]
-        &= \mathcal{E}_2(f(X), \Ex{Y \given X}) + \Ex{\sigma_Y^2(X)},
+    \mathcal{E}_2(f) &= \ex{\norm{f(X) - Y}^2} = \ex{\norm{(f(X) - \Ex{Y \given X}) + (\Ex{Y \given X} - Y)}^2} \\
+        &= \ex{\norm{f(X) - \Ex{Y \given X}}^2} + \ex{\norm{\Ex{Y \given X} - Y}^2} + 2 \sum_{i=1}^d \Ex{(f_i(X) - \Ex{Y_i \given X}) (\Ex{Y_i \given X} - Y_i)}.
 \end{align*}
-where the second-to-last identity follows from the fact that the terms $\Ex{(f_i(X) - \Ex{Y_i \given X}) (\Ex{Y_i \given X} - Y_i)}$ vanish\footnote{Proving this is left as an exercise.} for $i = 1, \dots, d$ and the law of total expectation.
+The terms $\Ex{(f_i(X) - \Ex{Y_i \given X}) (\Ex{Y_i \given X} - Y_i)}$ vanish\footnote{Proving this is left as an exercise.} for $i = 1, \dots, d$. By the law of total expectation, we have
+\[
+    \ex{\norm{\Ex{Y \given X} - Y}^2} = \ex{\norm{Y - \Ex{Y \given X}}^2} = \ex{\ex{\norm{Y - \Ex{Y \given X}}^2 \given X}} = \Ex{\sigma_Y^2(X)}.
+\]
+Altogether,
+\[
+    \mathcal{E}_2(f) = \ex{\norm{f(X) - \Ex{Y \given X}}^2} + \ex{\norm{\Ex{Y \given X} - Y}^2} = \mathcal{E}_2(f(X), \Ex{Y \given X}) + \Ex{\sigma_Y^2(X)},
+\]
+as desired.
 \end{proof}
 
 \begin{remark}
@@ -171,7 +173,7 @@ where the second-to-last identity follows from the fact that the terms $\Ex{(f_i
 \begin{enumerate}[(i)]
     \item The quantity $\mathcal{E}_2(f(X), \Ex{Y \given X})$ measures the $L^2$-error of using $f(X)$ as an approximation of the conditional expectation $\Ex{Y \given X}$.
 
-    \item The term $\Ex{\sigma_Y^2(X)}$ is independent of the choice of $f \colon \mathcal{X} \to \R^d$. In particular, this shows that the $L^2$-error $\mathcal{E}_2(f)$ is minimized by $f = f_Y = \Ex{Y \given X}$.
+    \item The term $\Ex{\sigma_Y^2(X)}$ is independent of the choice of $f \colon \mathcal{X} \to \R^d$. In particular, this shows that the $L^2$-error $\mathcal{E}_2(f)$ is minimized by $f(X) = \Ex{Y \given X}$.
 
     \item The property $\P_{(X, Y)} = \P_{Y \given X} \cdot \P_X$ enables us to consider $\mathcal{X} \times \mathcal{Y}$ sequentially, i.e., as an \emph{input space} $\mathcal{X}$ followed by an \emph{output space} $\mathcal{Y}$, since, for any measurable function $f \colon \mathcal{X} \times \mathcal{Y} \to \R$, we have
         \[
