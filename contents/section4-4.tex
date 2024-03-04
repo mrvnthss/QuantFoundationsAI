@@ -36,9 +36,9 @@ Since the first step is already done, let's tackle step number 2. As an intermed
 
 \begin{lemma}
 \label{lem: bound on rademacher complexity of finite set}
-For any finite set $B \subset \R^n$ (i.e., $\card{B} < \infty$) it holds
+For a \emph{finite} set $B \subset \R^n$, it holds
 \[
-    \mathcal{R}_n(B) \leq \max_{b \in B} \norm{b} \frac{\sqrt{2 \log(2 \, \card{B})}}{n},
+    \mathcal{R}_n(B) \leq \max_{b \in B} \norm{b} \frac{\sqrt{2 \log(2 \abs{B})}}{n},
 \]
 where $\norm{\cdot}$ denotes the Euclidean norm on $\R^d$.
 \end{lemma}
@@ -64,21 +64,21 @@ where the last inequality follows from Jensen's inequality applied to the functi
 to obtain
 \begin{align*}
     \Ex{\max_{b \in B} \abs{Z_b}} &\leq \frac{1}{s} \log( \sum_{b \in \overline{B}} \Ex{\exp(s Z_b)} ) \leq \frac{1}{s} \log( \sum_{b \in \overline{B}} \mathrm{exp}(s^2 \norm{b}^2 / 2) ) \\[4pt]
-        &\leq \frac{\log(2 \, \card{B})}{s} + \frac{s}{2} \max_{b \in B} \norm{b}^2 = \frac{2 \log(2 \, \card{B}) + s^2 \max_{b \in B} \norm{b}^2}{2s},
+        &\leq \frac{\log(2 \abs{B})}{s} + \frac{s}{2} \max_{b \in B} \norm{b}^2 = \frac{2 \log(2 \abs{B}) + s^2 \max_{b \in B} \norm{b}^2}{2s},
 \end{align*}
-where the second inequality follows from \eqref{eq: proof of bound on rademacher complexity of finite set}, and the third inequality follows from the observation that $\max_{b \in \overline{B}} \norm{b}^2 = \max_{b \in B} \norm{b}^2$ and $\card{\overline{B}} \leq 2 \, \card{B}$. Optimizing the RHS over $s$ yields the optimal solution
+where the second inequality follows from \eqref{eq: proof of bound on rademacher complexity of finite set}, and the third inequality follows from the observation that $\max_{b \in \overline{B}} \norm{b}^2 = \max_{b \in B} \norm{b}^2$ and $\abs{\overline{B}} \leq 2 \abs{B}$. Optimizing the RHS over $s$ yields the optimal solution
 \[
-    s^2 = \frac{2 \log(2 \, \card{B})}{\max_{b \in B} \norm{b}^2}.
+    s^* = \sqrt{\frac{2 \log(2 \abs{B})}{\max_{b \in B} \norm{b}^2}}.
 \]
 Plugging this back in yields the desired result, i.e.,
 \[
-    n \mathcal{R}_n(B) = \Ex{ \max_{b \in B} \abs{Z_b} } \leq \max_{b \in B} \norm{b} \sqrt{2 \log(2 \, \card{B})}.
+    n \mathcal{R}_n(B) = \Ex{ \max_{b \in B} \abs{Z_b} } \leq \max_{b \in B} \norm{b} \sqrt{2 \log(2 \abs{B})}.
 \]
 \end{proof}
 
 By applying the previous result to the finite set $T(z)$, we obtain
 \[
-    \mathcal{R}_n(T(z)) \leq \max_{b \in T(z)} \norm{b} \frac{\sqrt{2 \log(2 \, \card{T(z)})}}{n}.
+    \mathcal{R}_n(T(z)) \leq \max_{b \in T(z)} \norm{b} \frac{\sqrt{2 \log(2 \abs{T(z)})}}{n}.
 \]
 Since each entry of a vector in $T(z)$ takes values in the set $\set{0, 1}$, we know that the norm $\norm{b}$ of any vector $b \in T(z)$ is at most $\sqrt{n}$. Further, we know that the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ of $\mathcal{A}$ depend (by definition) directly on the cardinality of the sets $T(z)$. Hence, the next result should come at no surprise.
 
@@ -97,11 +97,11 @@ Observe that
 \]
 by Lemma \ref{lem: rademacher complexity of family of sets}, where $T(z)$ is defined as in \eqref{eq: T(z)}. Since $T(z) \subset \set{0, 1}^n$, we have $\norm{b} \leq \sqrt{n}$ for all $b \in T(z)$ and all subsets $z = \set{z_1, \dots, z_n}$. Hence, by Lemma \ref{lem: bound on rademacher complexity of finite set}, we have
 \[
-    \mathcal{R}_n(\mathcal{A}) \leq \sup_z \sqrt{\frac{2 \log(2 \, \card{T(z)})}{n}}
+    \mathcal{R}_n(\mathcal{A}) \leq \sup_z \sqrt{\frac{2 \log(2 \abs{T(z)})}{n}}
 \]
 Finally, by the definition of the shatter coefficients of $\mathcal{A}$, we have
 \[
-    \card{T(z)} \leq \sup_z \card{T(z)} = \mathcal{S}_{\mathcal{A}}(n),
+    \abs{T(z)} \leq \sup_z \abs{T(z)} = \mathcal{S}_{\mathcal{A}}(n),
 \]
 and hence
 \[

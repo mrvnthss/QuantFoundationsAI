@@ -31,7 +31,7 @@ This is straightforward: by the definition of the set $T(z)$ in \eqref{eq: T(z)}
 Let us briefly investigate the set $T(z)$ and its cardinality to get a better understanding. First, even though the cardinality of $\mathcal{A}$ can be infinite, the cardinality of $T(z)$ is at most $2^n$. To further illustrate the concept, let us look at an example: for the set $z = \set{z_1, z_2, z_3, z_4}$, the binary pattern $(1, 1, 0, 1)$ is contained in $T(z)$ if and only if there exists some set $A \in \mathcal{A}$ such that $z \cap A = \set{z_1, z_2, z_4}$, i.e., the set of points $\set {z_1, z_2, z_4}$ can be separated from the remaining points in $z$ by a set $A$ in $\mathcal{A}$. In this case, the set of points $\set{z_1, z_2, z_4}$ is said to be \emph{picked up} by $\mathcal{A}$. Hence, the cardinality of $T(z)$ equals the number of elements of the power set $\mathcal{P}(z)$ that can be picked up by $\mathcal{A}$, i.e.,
 \[
     \highlightMath{
-        \card{T(z)} = \card{z \cap \mathcal{A}},
+        \abs{T(z)} = \abs{z \cap \mathcal{A}},
     }
 \]
 where
@@ -43,7 +43,7 @@ This leads to the following definition:
 \begin{definition}
 A family of sets $\mathcal{A}$ \emph{shatters} the set of points $z = \set{z_1, \dots, z_n}$, if
 \[
-    \card{z \cap \mathcal{A}} = 2^n.
+    \abs{z \cap \mathcal{A}} = 2^n.
 \]
 \end{definition}
 
@@ -52,7 +52,7 @@ Clearly, a family of sets $\mathcal{A}$ shatters the set of points $\set{z_1, \d
 \begin{definition}
 The \emph{$n$-th shatter coefficient} $\mathcal{S}_{\mathcal{A}}(n)$ of a family of sets $\mathcal{A}$ is given by
 \[
-    \mathcal{S}_{\mathcal{A}}(n) = \sup_z \card{T(z)} = \sup_z \card{z \cap \mathcal{A}},
+    \mathcal{S}_{\mathcal{A}}(n) = \sup_z \abs{T(z)} = \sup_z \abs{z \cap \mathcal{A}},
 \]
 where the suprema range over all subsets $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$.
 \end{definition}
@@ -75,7 +75,7 @@ Note that this definition only makes sense if $\mathcal{S}_{\mathcal{A}}(n) < 2^
     \label{fig: VC dimension of half-lines}
 \end{figure}
 
-Let us consider an example to get a better understanding of all of the terms introduced in this section. Take, for example, $\mathcal{A} = \set{(-\infty, a] \with a \in \R} \cup \set{[a, \infty) \with a \in \R}$ to be the set of half-lines, and let our sample space be the real line $\R$. Clearly, $\card{\mathcal{A}} = \infty$. As it turns out, we can shatter every set of two points $\set{z_1, z_2}$: WLOG, assume $z_1 < z_2$ and let $\varepsilon = (z_2 - z_1)/2 > 0$. Then,
+Let us consider an example to get a better understanding of all of the terms introduced in this section. Take, for example, $\mathcal{A} = \set{(-\infty, a] \with a \in \R} \cup \set{[a, \infty) \with a \in \R}$ to be the set of half-lines, and let our sample space be the real line $\R$. Clearly, $\abs{\mathcal{A}} = \infty$. As it turns out, we can shatter every set of two points $\set{z_1, z_2}$: WLOG, assume $z_1 < z_2$ and let $\varepsilon = (z_2 - z_1)/2 > 0$. Then,
 \begin{itemize}
     \item $A = (-\infty, z_1 - 1]$ picks up the empty set,
 

@@ -59,18 +59,18 @@ where $\mathcal{R}_n(T_l(z))$ is the Rademacher complexity of the subset $T_l(z)
 \label{prop: bound on rademacher complexity for general loss}
 Let $\mathcal{F}$ be a \emph{finite} set of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$ and let $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function taking values in the unit interval. Then,
 \[
-    \mathcal{R}_n(l \circ \mathcal{F}) \leq \sqrt{\frac{2 \log(2 \, \card{\mathcal{F}})}{n}}.
+    \mathcal{R}_n(l \circ \mathcal{F}) \leq \sqrt{\frac{2 \log(2 \abs{\mathcal{F}})}{n}}.
 \]
 \end{proposition}
 
 \begin{proof}
 By \eqref{eq: rademacher complexity for general loss} and Lemma \ref{lem: bound on rademacher complexity of finite set} (applied to the set $T_l(z) \subset \R^n$), we have
 \[
-    \mathcal{R}_n(l \circ \mathcal{F}) = \sup_z \mathcal{R}_n(T_l(z)) \leq \sup_z \max_{f \in \mathcal{F}} \norm{l_f(z)} \frac{\sqrt{2 \log(2 \, \card{T_l(z)})}}{n},
+    \mathcal{R}_n(l \circ \mathcal{F}) = \sup_z \mathcal{R}_n(T_l(z)) \leq \sup_z \max_{f \in \mathcal{F}} \norm{l_f(z)} \frac{\sqrt{2 \log(2 \abs{T_l(z)})}}{n},
 \]
-where $l_f(z) = ( l(f(x_1), y_1), \dots, l(f(x_n), y_n) ) \in T_l(z)$, and $z$ ranges over all sets $z = \set{(x_1, y_1), \dots, (x_n, y_n)}$. By definition of $T_l(z)$, we have $\card{T_l(z)} \leq \card{\mathcal{F}}$. Further, since the loss function $l$ takes values in $[0, 1]$, we know that $\norm{l_f(z)} \leq \sqrt{n}$. Plugging everything back in, we see that
+where $l_f(z) = ( l(f(x_1), y_1), \dots, l(f(x_n), y_n) ) \in T_l(z)$, and $z$ ranges over all sets $z = \set{(x_1, y_1), \dots, (x_n, y_n)}$. By definition of $T_l(z)$, we have $\abs{T_l(z)} \leq \abs{\mathcal{F}}$. Further, since the loss function $l$ takes values in $[0, 1]$, we know that $\norm{l_f(z)} \leq \sqrt{n}$. Plugging everything back in, we see that
 \[
-    \mathcal{R}_n(l \circ \mathcal{F}) \leq \sup_z \max_{f \in \mathcal{F}} \norm{l_f(z)} \frac{\sqrt{2 \log(2 \, \card{T_l(z)})}}{n} \leq \sqrt{\frac{2 \log(2 \, \card{\mathcal{F}})}{n}}.
+    \mathcal{R}_n(l \circ \mathcal{F}) \leq \sup_z \max_{f \in \mathcal{F}} \norm{l_f(z)} \frac{\sqrt{2 \log(2 \abs{T_l(z)})}}{n} \leq \sqrt{\frac{2 \log(2 \abs{\mathcal{F}})}{n}}.
 \]
 \end{proof}
 

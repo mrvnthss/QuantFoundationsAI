@@ -10,22 +10,22 @@ where $\bar h \in \mathcal{H}$ is the oracle, i.e., the classifier in $\mathcal{
 \[
     L(\hat h) - L(\bar h) < \sqrt{\frac{2 \log(2M / \delta)}{n}}
 \]
-holds with probability at least $1 - \delta$, if $\mathcal{H}$ is a \emph{finite} family of $M$ classifiers. Note that this upper bound for finite $\mathcal{H}$ cannot be applied to the case that $\mathcal{H}$ is \emph{infinite}. Essentially, to extend our previous results to the infinite case, we would need to show that only finitely many elements in a possibly infinite dictionary $\mathcal{H}$ \qq{really matter}. This exactly is the goal of the Vapnik-Chervonenkis (VC) theory developed in 1971.
+holds with probability at least $1 - \delta$, if $\mathcal{H}$ is a \emph{finite} family of $M$ classifiers. Note that this upper bound for finite $\mathcal{H}$ cannot be extended to the case that $\mathcal{H}$ is \emph{infinite}. Essentially, to extend our previous results to the infinite case, we would need to show that only finitely many elements in a possibly infinite dictionary $\mathcal{H}$ \qq{really matter}. This exactly is the goal of the Vapnik-Chervonenkis (VC) theory developed in 1971.
 
-We start with the somewhat unrealistic case that our family $\mathcal{H}$ of classifiers is (again) finite and that there exists a classifier $\bar h \in \mathcal{H}$ with zero error probability. In that case, the empirical risk minimizer $\hat h$ satisfies $\hat L_n(\hat h) = 0$ almost surely. Since $\hat h$ is the classifier in $\mathcal{H}$ minimizing the empirical risk, observe that
+We start (nonetheless) with the unrealistic case that our family $\mathcal{H}$ of classifiers is (again) finite and that the oracle $\bar h \in \mathcal{H}$ has zero error probability. In that case, the empirical risk minimizer $\hat h$ satisfies $\hat L_n(\hat h) = 0$ almost surely, which can be seen as follows: Since $\hat h$ is the classifier in $\mathcal{H}$ minimizing the empirical risk, we have
 \[
     \Ex{\hat L_n(\hat h)} = \Ex{\min_{h \in \mathcal{H}} \hat L_n(h)} \leq \min_{h \in \mathcal{H}} \, \Ex{\hat L_n(h)} = \min_{h \in \mathcal{H}} L(h) = L(\bar h) = 0.
 \]
-Because $\hat L_n(\hat h)$ is non-negative, this implies that $\P(\hat L_n(\hat h) = 0) = 1$. While this tells us that the ERM almost surely has no \emph{empirical} error, we can also bound its \emph{true} error as follows:
+Because $\hat L_n(\hat h)$ is non-negative, this implies that $\P(\hat L_n(\hat h) = 0) = 1$. We can also bound the \emph{true} error of the ERM as follows:
 
 \begin{theorem}[Vapnik and Chervonenkis, 1974]
-Let $\card{\mathcal{H}} < \infty$ and $L(\bar h) = \min_{h \in \mathcal{H}} L(h) = 0$. Then, for every $n \in \N$, the empirical risk minimzer $\hat h$ satisfies
+Let $\mathcal{H}$ be finite and assume $L(\bar h) = \min_{h \in \mathcal{H}} L(h) = 0$. Then, for every $n \in \N$, the empirical risk minimzer $\hat h$ satisfies
 \[
-    \P(L(\hat h) > \varepsilon) \leq \e^{-n \varepsilon} \, \card{\mathcal{H}}, \quad \varepsilon > 0
+    \P(L(\hat h) > \varepsilon) \leq \abs{\mathcal{H}} \e^{-n \varepsilon}, \quad \varepsilon > 0
 \]
 and
 \[
-    \ex{L(\hat h)} \leq \frac{1 + \log(\card{\mathcal{H}})}{n}.
+    \ex{L(\hat h)} \leq \frac{1 + \log(\abs{\mathcal{H}})}{n}.
 \]
 \end{theorem}
 
@@ -37,7 +37,7 @@ Since $\hat L_n(\hat h) = 0$ almost surely, we have $\hat h \in \{h \in \mathcal
 \end{align*}
 Since the probability $\P(\hat L_n(h) = 0)$ that no $(X_i, Y_i)$ falls in the set $\set{(x, y) \with h(x) \neq y}$ is at most $(1 - \varepsilon)^n$ if the probability of this set\footnote{This is precisely the true loss $L(h) = \Pr{h(X) \neq Y}$, which is larger than $\varepsilon$ by assumption.} is larger than $\varepsilon$, we conclude
 \[
-    \P(L(\hat h_n) > \varepsilon) \leq \sum_{h\in\mathcal{H}, \, L(h) > \varepsilon} \P(\hat L_n(h) = 0) \leq (1 - \varepsilon)^n \, \card{\mathcal{H}} \leq \e^{-n \varepsilon} \, \card{\mathcal{H}}.
+    \P(L(\hat h_n) > \varepsilon) \leq \sum_{h\in\mathcal{H}, \, L(h) > \varepsilon} \P(\hat L_n(h) = 0) \leq \abs{\mathcal{H}} (1 - \varepsilon)^n \leq \abs{\mathcal{H}} \e^{-n \varepsilon}.
 \]
 
 To bound the expected error probability of $\hat h$ for $n \in \N$, first recall that the expected value of a non-negative random variable $Z \geq 0$ can be computed as follows:
@@ -47,7 +47,7 @@ To bound the expected error probability of $\hat h$ for $n \in \N$, first recall
 Hence, we have
 \begin{align*}
     \ex{L(\hat h)} &= \int_0^\infty \P(L(\hat h) > t) \dt \\
-        &\leq u + \int_u^\infty \P(L(\hat h) > t) \dt \leq u + \card{\mathcal{H}} \int_u^\infty \e^{-nt} \dt = u + \frac{\e^{-nu}}{n} \, \card{\mathcal{H}}.
+        &\leq u + \int_u^\infty \P(L(\hat h) > t) \dt \leq u + \abs{\mathcal{H}} \int_u^\infty \e^{-nt} \dt = u + \abs{\mathcal{H}} \frac{\e^{-nu}}{n}.
 \end{align*}
-Since $u > 0$ was arbitrary, we can minimize the RHS to obtain $u = \log(\card{\mathcal{H}}) / n$, giving the desired result.
+Since $u > 0$ was arbitrary, we can minimize the RHS to obtain the optimal solution $u^* = \log(\abs{\mathcal{H}}) / n$, giving the desired result.
 \end{proof}

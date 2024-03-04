@@ -75,7 +75,7 @@ Hoeffding's inequality (Theorem \ref{thm: hoeffding}) bounds the probability tha
 \]
 Additionally, for finite $\mathcal{A}$, we have
 \[
-    \P\big( \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } \geq t \big) \leq 2\e^{-2nt^2} \card{\mathcal{A}}, \quad t > 0
+    \P\big( \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } \geq t \big) \leq 2 \abs{\mathcal{A}} \e^{-2nt^2}, \quad t > 0
 \]
 by applying a simple union bound (again, cf. Theorem \ref{thm: empirical vs true risk}). However, for infinite $\mathcal{A}$ (i.e., infinite dictionaries $\mathcal{H}$), the most powerful tools to attack these problems are distribution-free large deviation type inequalities proved by Vapnik and Chervonenkis (1971).
 
