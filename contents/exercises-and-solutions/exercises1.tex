@@ -11,7 +11,7 @@
 \begin{exercise}
 In the setting of Proposition \ref{prop: decomposition of mean-squared error}, prove that
 \[
-    \Ex{(f_i(X) - \Ex{Y_i \given X}) (\Ex{Y_i \given X} - Y_i)} = 0
+    \Exp[(f_i(X) - \Exp[Y_i \given X]) (\Exp[Y_i \given X] - Y_i)] = 0
 \]
 for all $i = 1, \dots, d$, where $f_i \colon \mathcal{X} \to \R$ are measurable functions.
 \end{exercise}
@@ -21,16 +21,16 @@ for all $i = 1, \dots, d$, where $f_i \colon \mathcal{X} \to \R$ are measurable 
 \begin{exercise}
 Let $H$ be a random variable that almost surely takes values in the unit interval $[0, 1]$. Prove that
 \[
-    \Ex{\min(1-H, H)} = \frac{1}{2} - \frac{1}{2}\Ex{\abs{2H - 1}}.
+    \Exp[\min(1-H, H)] = \frac{1}{2} - \frac{1}{2}\Exp[\abs{2H - 1}].
 \]
 \end{exercise}
 
 
 % EXERCISE 3
 \begin{exercise}
-Let $f^*$ be the Bayes classifier and let $L^*$ be the Bayes error. Prove that
+Let $h^*$ be the Bayes classifier and let $L^*$ be the Bayes error. Prove that
 \[
-    \min_{f \colon \R^d \to \R} \Ex{\abs{f(X) - Y}} = \Ex{\abs{f^*(X) - Y}} = L^*.
+    \min_{h \colon \R^d \to \R} \Exp[\abs{h(X) - Y}] = \Exp[\abs{h^*(X) - Y}] = L^*.
 \]
 \end{exercise}
 
@@ -39,14 +39,14 @@ Let $f^*$ be the Bayes classifier and let $L^*$ be the Bayes error. Prove that
 \begin{exercise}
 Assume that $X$ has a density $f$ with respect to the Lebesgue measure, i.e.,
 \[
-    \P(X \in A) = \int_A f(x) \dx,
+    \Prob(X \in A) = \int_A f(x) \dx,
 \]
 and assume further that the class-conditional densities $f_i$ of $X$ given $Y = i$ exist for $i = 1, 2$, i.e.,
 \[
-    \P(X \in A \given Y = i) = \int_A f_i(x) \dx, \quad i = 1, 2.
+    \Prob(X \in A \given Y = i) = \int_A f_i(x) \dx, \quad i = 1, 2.
 \]
-Finally, we denote the class probabilities by $p = \P(Y = 1) = 1 - \P(Y = 0)$. Prove that
+Finally, we denote the class probabilities by $p = \Prob(Y = 1) = 1 - \Prob(Y = 0)$. Prove that
 \[
-    \P(Y = 1 \given X = x) = \frac{f_1(x)p}{f_1(x)p + f_0(x) (1-p)}.
+    \Prob(Y = 1 \given X = x) = \frac{f_1(x)p}{f_1(x)p + f_0(x) (1-p)}.
 \]
 \end{exercise}

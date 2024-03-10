@@ -1,23 +1,16 @@
 \ProvidesPackage{lecture-notes}
 
 %% PACKAGES %%
-\usepackage{geometry}   % page layout
-\usepackage{setspace}   % spacing of text
-\usepackage{enumerate}  % numbered lists
-\usepackage{caption}    % captions
-\usepackage{ccicons}    % icons for Creative Commons licenses
+\usepackage{geometry}         % page layout
+\usepackage{setspace}         % spacing of text
+\usepackage{enumitem}         % lists
+\usepackage{caption}          % captions
+\usepackage{calc}             % provides the '\widthof' command
+\usepackage[many]{tcolorbox}  % boxes, 'many' loads additional libraries
 
-\usepackage[dvipsnames]{xcolor}  % colors
-\usepackage{graphicx}            % images
-\graphicspath{ {./images/} }     % sets path for images
-
-\usepackage{tikz}  % TikZ
-\usetikzlibrary{
-    backgrounds,
-    calc,
-    shapes.callouts,
-    shapes.arrows
-}  % additional TikZ libraries
+\usepackage{ccicons}          % icons for Creative Commons licenses
+\usepackage{graphicx}         % images
+\graphicspath{{./images/}}    % sets path for images
 
 \usepackage{amsthm}     % theorem setup of AMS document classes
 \usepackage{amssymb}    % math symbols, operators, etc.
@@ -26,12 +19,20 @@
 \usepackage{physics}    % includes the \norm and \abs commands
 \usepackage{nicefrac}   % for typesetting "nice" fractions
 
-\usepackage[many]{tcolorbox}  % colorful boxes, option 'many' loads additional libraries
-\usepackage{calc}             % provides the '\widthof' command
+
+%% TIKZ %%
+\usepackage{tikz}
+\usetikzlibrary{
+    backgrounds,
+    calc,
+    shapes.callouts,
+    shapes.arrows
+}  % additional TikZ libraries
 
 
-%% FONT %%
-\renewcommand{\familydefault}{\sfdefault}
+%% FONT & LINE SPACING %%
+\renewcommand{\familydefault}{\sfdefault}  % sans-serif font
+\onehalfspacing                            % line spacing
 
 
 %% PAGE SETUP %%
@@ -45,9 +46,8 @@
     inner=16mm,
     outer=16mm,
     bottom=16mm,
-    headsep=26mm-(8mm+\pagemarkheight),  % distance between bottom of header and top of textbody
+    headsep=26mm-(8mm+\pagemarkheight)
 }
-\onehalfspacing
 
 
 %% HEADERS & FOOTERS %%
@@ -55,17 +55,35 @@
 \usepackage[
     automark,
     headsepline=0pt,
-    headwidth=\textwidth+8mm:0pt  % extend header an additional 8mm
+    headwidth=\textwidth+8mm:0pt  % extend header 8mm
 ]{scrlayer-scrpage}
 
-% Change font styles in header and footer
-\setkomafont{pageheadfoot}{\color{gray}\sffamily}
-\setkomafont{pagenumber}{\color{blue}\bfseries\sffamily}
+\setkomafont{pageheadfoot}{\color{gray}}
+\setkomafont{pagenumber}{\color{blue}\bfseries}
 
 % NOTE: Using the starred commands changes both page styles at once
-\ofoot*{}  % clear outer footer
+\ofoot*{}
 \rohead*{\headmark\hspace{8mm-\widthof{\pagemark}}\pagemark}
 \lehead*{\pagemark\hspace{8mm-\widthof{\pagemark}}\headmark}
+
+
+%% LISTS %%
+\setlist[1]{labelindent=\parindent}
+\setlist[enumerate, 1]{label = (\arabic*)}  % first level
+\setlist[enumerate, 2]{label = (\alph*)}    % second level
+
+
+%% CAPTIONS %%
+\addtokomafont{caption}{\small}        % font of caption text
+\setkomafont{captionlabel}{\bfseries}  % font of caption label
+\renewcommand*{\captionformat}{\quad}  % no colon as separator
+\setcaptionalignment{j}                % justify caption
+\setcapindent{0mm}                     % no indentation for multi-line captions
+\captionsetup{parindent=\parindent}    % controls paragraph indentation
+
+
+%% QUOTES %%
+\newcommand{\say}[1]{``#1''}
 
 
 %% COLORS %%
@@ -77,7 +95,145 @@
 \definecolor{yellow}{HTML}{FFBE00}
 \definecolor{green}{HTML}{00BD67}
 \definecolor{purple}{HTML}{4E00BB}
-\definecolor{pptx-green}{HTML}{70AD47}
+\definecolor{pptx-green}{HTML}{70AD47}  % DELETE
+
+
+%% BOXES %%
+\tcbset{
+    enhanced,
+    breakable,
+    sharp corners=all
+}
+
+\newtcolorbox{thm}{colback=blue!50!white, colframe=blue!50!white}
+\newtcolorbox{prop}{colback=blue!25!white, colframe=blue!25!white}
+\newtcolorbox{lem}{colback=lightblue, colframe=lightblue}
+\newtcolorbox{cor}{colback=lightblue, colframe=lightblue}
+\newtcolorbox{defi}{colback=gray!50!white, colframe=gray!50!white}
+
+
+%% MATH ENVIRONMENTS WITH BOXES %%
+\newtheorem{Theorem}{Theorem}[chapter]
+\newenvironment{theorem}{
+    \begin{thm}
+    \begin{Theorem}
+}{
+    \end{Theorem}
+    \end{thm}
+}
+
+\newtheorem{Proposition}[Theorem]{Proposition}
+\newenvironment{proposition}{
+    \begin{prop}
+    \begin{Proposition}
+}{
+    \end{Proposition}
+    \end{prop}
+}
+
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newenvironment{lemma}{
+    \begin{lem}
+    \begin{Lemma}
+}{
+    \end{Lemma}
+    \end{lem}
+}
+
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newenvironment{corollary}{
+    \begin{cor}
+    \begin{Corollary}
+}{
+    \end{Corollary}
+    \end{cor}
+}
+
+\newtheorem{Definition}[Theorem]{Definition}
+\newenvironment{definition}{
+    \begin{defi}
+    \begin{Definition}
+}{
+    \end{Definition}
+    \end{defi}
+}
+
+
+%% MATH ENVIRONMENTS WITHOUT BOXES %%
+\newtheorem{example}[Theorem]{Example}
+\newtheorem{remark}[Theorem]{Remark}
+
+
+%% HIGHLIGHT MATH DISPLAYS %%
+\newcommand{\highlightMath}[1]{
+    \tcboxmath[colback=gray!25!white, colframe=gray!25!white]{
+        #1
+    }
+}
+
+
+%% NUMBERING OF EQUATIONS %%
+\numberwithin{equation}{chapter}
+
+
+%% EXERCISES & SOLUTIONS %%
+\newtheorem{exercise}{Exercise}[]
+\newenvironment{solution}[1]{
+    \begin{proof}[\normalfont\textbf{Solution to Exercise #1}]
+}{
+    \end{proof}
+}
+
+
+%% MATH %%
+\newcommand*{\e}{\mathrm{e}}                     % Euler's number
+\newcommand*{\R}{\mathbb{R}}                     % real numbers
+\newcommand*{\N}{\mathbb{N}}                     % natural numbers
+\renewcommand*{\P}{\mathbb{P}}                   % probability measure
+
+\newcommand*{\set}[1]{\left\{#1\right\}}         % set notation
+\newcommand*{\given}[1][]{\mathrel{#1|}}         % vertical bar w/ spacing
+\newcommand*{\with}[1][]{\mathrel{#1|}}          % same as above
+\DeclareMathOperator{\power}{\wp}                % power set
+
+\DeclareMathOperator*{\argmax}{argmax}           % argmax
+\DeclareMathOperator*{\argmin}{argmin}           % argmin
+\DeclareMathOperator{\sgn}{sgn}                  % sign function
+\DeclareMathOperator{\Prob}{\P}                  % probability
+\DeclareMathOperator{\Exp}{\mathbb{E}}           % expectation
+\DeclareMathOperator{\Var}{Var}                  % variance
+\DeclareMathOperator{\MSE}{MSE}                  % mean squared error
+\DeclareMathOperator{\VC}{VC}                    % VC dimension
+
+\DeclareMathOperator{\Ber}{Ber}                  % Bernoulli distribution
+\DeclareMathOperator{\Rad}{Rad}                  % Rademacher distribution
+
+\newcommand*{\dx}{\, \mathrm{d}x}                % dx
+\newcommand*{\dt}{\, \mathrm{d}t}                % dt
+\newcommand*{\du}{\, \mathrm{d}u}                % du
+\renewcommand*{\dv}{\, \mathrm{d}v}              % dv
+\newcommand*{\dP}{\, \mathrm{d}\P}               % dP
+
+\newcommand*{\ind}[1]{\mathbf{1}_{#1}}           % indicator function
+\newcommand*{\indSet}[1]{\mathbf{1}_{\set{#1}}}  % indicator function (v2)
+
+
+%% SPACING BEFORE & AFTER DELIMITERS %%
+% Based on https://tex.stackexchange.com/questions/2607/spacing-around-left-and-right
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+
+%% COLORED DELIMITERS %%
+\newcommand{\cLeft}[2][.]{%
+    \begingroup\colorlet{leftColor}{.}
+    \color{#1}\left#2\color{leftColor}
+}  % left delimiter
+\newcommand{\cRight}[2][.]{%
+  \color{#1}\right#2\endgroup
+}  % right delimiter
 
 
 %% "PART" TITLE PAGES %%
@@ -97,10 +253,10 @@
     \thispagestyle{empty}%
     \begin{tikzpicture}[remember picture, overlay]
         % HEADLINE
-        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (headline) at ($(current page.south west) + (16mm, 72mm)$) {\fontsize{24pt}{34pt}\let\strut\relax\sffamily\bfseries #3\par};
+        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (headline) at ($(current page.south west) + (16mm, 72mm)$) {\fontsize{24pt}{34pt}\let\strut\relax\bfseries #3\par};
 
         % SUBHEADLINE
-        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (subheadline) at ($(headline.north west) + (0, 16mm)$) {\fontsize{12pt}{14pt}\sffamily\bfseries #2\par};
+        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (subheadline) at ($(headline.north west) + (0, 16mm)$) {\fontsize{12pt}{14pt}\bfseries #2\par};
 
         \begin{scope}[on background layer]
              % LIGHTBLUE BACKGROUND
@@ -114,111 +270,6 @@
         \end{scope}
     \end{tikzpicture}
 }
-
-
-%% MATH ENVIRONMENTS %%
-\newtheorem{Theorem}{Theorem}[chapter]
-\newtheorem{Proposition}[Theorem]{Proposition}
-\newtheorem{Lemma}[Theorem]{Lemma}
-\newtheorem{Corollary}[Theorem]{Corollary}
-\newtheorem{Definition}[Theorem]{Definition}
-\newtheorem{example}[Theorem]{Example}
-\newtheorem{remark}[Theorem]{Remark}
-\newtheorem{exercise}{Exercise}[]
-\numberwithin{equation}{chapter}
-
-
-%% ENVIRONMENT FOR EXERCISE SOLUTIONS %%
-\newenvironment{solution}[1]{%
-    \begin{proof}[\normalfont\textbf{Solution to Exercise #1}]}
-    {\end{proof}
-}
-
-
-%% BOXES %%
-\tcbset{
-    enhanced,
-    breakable,
-    sharp corners=all
-}
-
-\newtcolorbox{thm}{colback=blue!50!white, colframe=blue!50!white}
-\newtcolorbox{prop}{colback=blue!25!white, colframe=blue!25!white}
-\newtcolorbox{lem}{colback=lightblue, colframe=lightblue}
-\newtcolorbox{cor}{colback=lightblue, colframe=lightblue}
-\newtcolorbox{defi}{colback=gray!50!white, colframe=gray!50!white}
-
-
-%% MATH ENVIRONMENTS W/ BOXES %%
-\newenvironment{theorem}{\begin{thm}\begin{Theorem}}{\end{Theorem}\end{thm}}
-\newenvironment{proposition}{\begin{prop}\begin{Proposition}}{\end{Proposition}\end{prop}}
-\newenvironment{lemma}{\begin{lem}\begin{Lemma}}{\end{Lemma}\end{lem}}
-\newenvironment{corollary}{\begin{cor}\begin{Corollary}}{\end{Corollary}\end{cor}}
-\newenvironment{definition}{\begin{defi}\begin{Definition}}{\end{Definition}\end{defi}}
-\newcommand{\highlightMath}[1]{\tcboxmath[colback=gray!25!white, colframe=gray!25!white]{#1}}
-
-
-%% MATH %%
-\newcommand*{\e}{\mathrm{e}}                        % Euler's number
-\newcommand*{\R}{\mathbb{R}}                        % real numbers
-\newcommand*{\C}{\mathbb{C}}                        % complex numbers
-\newcommand*{\N}{\mathbb{N}}                        % natural numbers
-
-\newcommand*{\set}[1]{\left\{#1\right\}}            % set notation
-\newcommand*{\given}[1][]{\mathrel{#1|}}            % vertical bar w/ spacing
-\newcommand*{\with}[1][]{\mathrel{#1|}}             % same as above
-\DeclareMathOperator*{\argmax}{argmax}              % argmax
-\DeclareMathOperator*{\argmin}{argmin}              % argmin
-\newcommand*{\bigAbs}[1]{\big\lvert#1\big\rvert}    % absolute value (of fixed size)
-
-\newcommand*{\sgn}{\mathrm{sgn}}                    % sign function
-\newcommand*{\dx}{\,\mathrm{d}x}                    % dx
-\newcommand*{\dt}{\,\mathrm{d}t}                    % dt
-\newcommand*{\dP}[2]{\,\mathrm{d}\P_{#1}(#2)}       % e.g., dP_X(x)
-
-\renewcommand*{\P}{\mathbb{P}}                      % probability measure
-\renewcommand*{\Pr}[1]{\mathbb{P}\left(#1\right)}   % probability
-\newcommand*{\Ex}[1]{\mathbb{E}\left[#1\right]}     % expected value
-\newcommand*{\colEx}[2][.]{%
-    \mathbb{E}\cLeft[#1][#2\cRight[#1]]
-}                                                   % expected value w/ colored parentheses
-\newcommand*{\ex}[1]{\mathbb{E}[#1]}                % expected value w/o scaling of brackets
-\newcommand*{\Var}{\mathrm{Var}}                    % variance
-\newcommand*{\Cov}{\mathrm{Cov}}                    % covariance
-
-
-%% INDICATOR FUNCTION %%
-\newcommand*{\indicator}[1]{\mathbf{1}_{#1}}           % classical
-\newcommand*{\indSet}[1]{\mathbf{1}_{\set{#1}}}        % set
-
-
-%% COLORED DELIMITERS %%
-\newcommand{\cLeft}[2][.]{%
-    \begingroup\colorlet{leftColor}{.}
-    \color{#1}\left#2\color{leftColor}
-}  % left delimiter
-\newcommand{\cRight}[2][.]{%
-  \color{#1}\right#2\endgroup
-}  % right delimiter
-
-
-%% CAPTIONS %%
-\addtokomafont{caption}{\sffamily\small}        % font of caption text
-\setkomafont{captionlabel}{\sffamily\bfseries}  % font of caption label
-\renewcommand*{\captionformat}{\quad}           % no colon as separator
-\setcaptionalignment{j}                         % justify caption
-\setcapindent{0mm}                              % no indentation for multi-line captions
-\captionsetup{parindent=\parindent}             % controls paragraph indentation
-
-
-%% OTHER %%
-\renewcommand{\qq}[1]{``#1''}  % quote command (double quotes)
-\newcommand{\titleOfDoc}{%
-    Quantitative Foundations\\ of Artificial Intelligence%
-}  % title of document
-\newcommand{\subtitleOfDoc}{%
-    Justus-Liebig-Universit\"at Gie{\ss}en \textbar{} Winter 2023/24%
-}  % subtitle of document
 
 
 %% BIBLIOGRAPHY %%

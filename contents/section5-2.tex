@@ -1,81 +1,81 @@
 %% SECTION 5.2 %%
 \section{Symmetrization and Rademacher Complexity}
 
-We have already introduced the technique of symmetrization and the concept of Rademacher complexity in Section \ref{sec: symmetrization}. The line of argument we use here is naturally very similar to the one employed before. We introduce a so-called \qq{ghost sample} $\mathcal{D}_n' = \set{(X_1', Y_1'), \dots, (X_n', Y_n')}$, which is a set of random variables identically distributed as and independent of the random variables $(X_i, Y_i)$ that make up our dataset $\mathcal{D}_n$. Using this ghost sample, we rewrite the error of $f$ as
+We have already introduced the technique of symmetrization and the concept of Rademacher complexity in Section \ref{sec: symmetrization}. The line of argument we use here is naturally very similar to the one employed before. We introduce a so-called \say{ghost sample} $\mathcal{D}_n' = \set{(X_1', Y_1'), \dots, (X_n', Y_n')}$, which is a set of random variables identically distributed as and independent of the random variables $(X_i, Y_i)$ that make up our dataset $\mathcal{D}_n$. Using this ghost sample, we rewrite the error of $f$ as
 \[
-    L(f) = \Ex{l(f(X), Y)} = \Ex{\frac{1}{n} \sum_{i=1}^n l(f(X_i'), Y_i')} = \Ex{\frac{1}{n} \sum_{i=1}^n l(f(X_i'), Y_i') \,\Big\vert\, \mathcal{D}_n} = \ex{\hat L_n'(f) \given \mathcal{D}_n},
+    L(f) = \Exp[l(f(X), Y)] = \Exp\left[\frac{1}{n} \sum_{i=1}^n l(f(X_i'), Y_i')\right] = \Exp\left[\frac{1}{n} \sum_{i=1}^n l(f(X_i'), Y_i') \given[\Big] \mathcal{D}_n\right] = \Exp[\hat{L}_n'(f) \given \mathcal{D}_n],
 \]
-where $\hat L_n'(f) = \frac{1}{n} \sum_{i=1}^n l(f(X_i'), Y_i')$, since $(X_1', Y_1'), \dots, (X_n', Y_n')$ are identically distributed as $(X, Y)$, and are independent of $\mathcal{D}_n$. Since the empirical error $\hat L_n(f)$ is $\sigma(Z_1, \dots, Z_n)$-measurable, where $Z_i = (X_i, Y_i)$, we have
+where $\hat{L}_n'(f) = \frac{1}{n} \sum_{i=1}^n l(f(X_i'), Y_i')$, since $(X_1', Y_1'), \dots, (X_n', Y_n')$ are identically distributed as $(X, Y)$, and are independent of $\mathcal{D}_n$. Since the empirical error $\hat{L}_n(f)$ is $\sigma(Z_1, \dots, Z_n)$-measurable, where $Z_i = (X_i, Y_i)$, we have
 \begin{align*}
-    \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } &= \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - \ex{\hat L_n'(f) \given \mathcal{D}_n}} } \\[4pt]
-        &= \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\ex{\hat L_n(f) -\hat L_n'(f) \given \mathcal{D}_n}} } \leq \Ex{ \sup_{f \in \mathcal{F}} \ex{ \bigAbs{\hat L_n(f) -\hat L_n'(f)} \given \mathcal{D}_n} }
+    \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] &= \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - \Exp[\hat{L}_n'(f) \given \mathcal{D}_n}]] \\[4pt]
+    &= \Exp[\sup_{f \in \mathcal{F}} \abs*{\Exp[\hat{L}_n(f) - \hat{L}_n'(f) \given \mathcal{D}_n]}] \leq \Exp[\sup_{f \in \mathcal{F}} \Exp[\abs*{\hat{L}_n(f) -\hat{L}_n'(f)} \given \mathcal{D}_n]]
 \end{align*}
 by Jensen's inequality. For the same reasons as in Section \ref{sec: symmetrization}, we can pull the supremum over $f \in \mathcal{F}$ inside the conditional expectation, and then apply the law of total expectation to arrive at
 \[
-    \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } \leq \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) -\hat L_n'(f)} } = \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n (l(f(X_i), Y_i) - l(f(X_i'), Y_i'))} }.
+    \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)}] \leq \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) -\hat{L}_n'(f)}] = \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n (l(f(X_i), Y_i) - l(f(X_i'), Y_i'))}\right].
 \]
-Using the same symmetry arguments, we can introduce i.i.d. $\mathrm{Rad}(\nicefrac{1}{2})$ variables $\sigma_1, \dots, \sigma_n$, independent of both samples $\mathcal{D}_n$ and $\mathcal{D}_n'$, to obtain
+Using the same symmetry arguments, we can introduce i.i.d.\ $\Rad(\nicefrac{1}{2})$ variables $\sigma_1, \dots, \sigma_n$, independent of both samples $\mathcal{D}_n$ and $\mathcal{D}_n'$, to obtain
 \begin{align*}
-    \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n (l(f(X_i), Y_i) - l(f(X_i'), Y_i'))} } &= \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i (l(f(X_i), Y_i) - l(f(X_i'), Y_i'))} } \\[4pt]
-        &\leq 2 \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i l(f(X_i), Y_i)}},
+    \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n (l(f(X_i), Y_i) - l(f(X_i'), Y_i'))}\right] &= \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i (l(f(X_i), Y_i) - l(f(X_i'), Y_i'))}\right] \\[4pt]
+    &\leq 2 \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i l(f(X_i), Y_i)}\right],
 \end{align*}
-i.e., we are essentially in the exact same situation as in Section \ref{sec: symmetrization}, the only difference being that the binary loss function $\indSet{f(X) \neq Y}$ has been replaced by a more general loss function $l(f(X), Y)$ taking values in the unit interval $[0, 1]$. To get rid of the dependence of the bound on the sampled data $(X_1, Y_1), \dots, (X_n, Y_n)$, we generalize the concept of Rademacher complexity of a family of sets in order to apply it to the current context.
+i.e., we are essentially in the same situation as in Section \ref{sec: symmetrization}, the only difference being that the binary loss function $\indSet{f(X) \neq Y}$ has been replaced by a more general loss function $l(f(X), Y)$ taking values in the unit interval $[0, 1]$. To get rid of the dependence of the bound on the sampled data $(X_1, Y_1), \dots, (X_n, Y_n)$, we generalize the concept of Rademacher complexity of a family of sets in order to apply it to the current context. As before, we write $\mathcal{Z} = \mathcal{X} \times \mathcal{Y}$ and $z_i = (x_i, y_i) \in \mathcal{X} \times \mathcal{Y}$.
 
 \begin{definition}
 \label{def: rademacher complexity for general loss}
-Let $\mathcal{F}$ be a class of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$, and let $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function. The \emph{Rademacher complexity} of $\mathcal{F}$ given $l$ and a sample size $n$ is defined as
+Let $\mathcal{F}$ be a class of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$, and let $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function. The \emph{Rademacher complexity} of $\mathcal{F}$ given $l$ is defined as
 \[
-    \mathcal{R}_n(l \circ \mathcal{F}) = \sup_{\mathcal{D}_n} \Ex{ \sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i l(f(X_i), Y_i)}},
+    \mathfrak{R}_n(l \circ \mathcal{F}) = \sup_{z \in \power(\mathcal{Z})} \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i l(f(x_i), y_i)}\right],
 \]
-where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ random variables drawn from the Rademacher distribution, and the supremum is taken over all possible observations $\mathcal{D}_n = \set{(X_1, Y_1), \dots, (X_n, Y_n)}$.
+where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$, and $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables.
 \end{definition}
 Taking into account our result obtained by symmetrization, we conclude that
 \[
-    \Ex{ \sup_{f \in \mathcal{F}} \bigAbs{\hat L_n(f) - L(f)} } \leq 2 \mathcal{R}_n(l \circ \mathcal{F}).
+    \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)}] \leq 2 \mathfrak{R}_n(l \circ \mathcal{F}).
 \]
 
 In Section \ref{sec: shattering}, we introduced the following notation: for a set of points $z = \set{z_1, \dots, z_n} \subset \mathcal{X} \times \mathcal{Y}$, we let $T(z)$ be the set of all binary patterns $(\indSet{z_1 \in A}, \dots, \indSet{z_n \in A})$ created by sets $A \in \mathcal{A}$. In the context of minimizing the empirical risk, we defined a family of sets $\mathcal{A}_{\mathcal{F}} = \set{A_f \with f \in \mathcal{F}}$, where $A_f = \set{(x, y) \in \mathcal{X} \times \mathcal{Y} \with f(x) \neq y}$. In that setting, the set $T(z)$ thus consisted of elements
 \[
-    (\indSet{f(x_1) \neq y_1}, \dots, \indSet{f(x_n) \neq y_n}) \in \R^n, \quad f \in \mathcal{F},
+    (\indSet{f(x_1) \neq y_1}, \dots, \indSet{f(x_n) \neq y_n})^{\top} \in \R^n, \quad f \in \mathcal{F},
 \]
-i.e., all possible vectors in $\R^n$ that could be generated by evaluating the binary loss function $\indSet{f(x) \neq y}$ on a given set of points $\set{(x_1, y_1), \dots, (x_n, y_n)}$ for all functions $f \in \mathcal{F}$ in the class of functions under consideration. We had also observed (see Lemma \ref{lem: rademacher complexity of family of sets}) that the Rademacher complexity of $\mathcal{A}_{\mathcal{F}}$ could be expressed in terms of the Rademacher complexity of the sets $T(z)$, i.e.,
+i.e., all possible vectors in $\R^n$ that could be generated by evaluating the binary loss function $\indSet{f(x) \neq y}$ on a given set of points $\set{z_1, \dots, z_n}$ for all functions $f \in \mathcal{F}$ in the class of functions under consideration. We had also observed (see Lemma \ref{lem: rademacher complexity of family of sets}) that the Rademacher complexity of $\mathcal{A}_{\mathcal{F}}$ could be expressed in terms of the Rademacher complexity of the sets $T(z)$, i.e.,
 \[
-    \mathcal{R}_n(\mathcal{A}_{\mathcal{F}}) = \sup_{z} \mathcal{R}_n(T(z)),
+    \mathfrak{R}_n(\mathcal{A}_{\mathcal{F}}) = \sup_{z \in \power(\mathcal{Z})} \mathfrak{R}_n(T(z)),
 \]
-where the supremum is taken over all sets $z = \set{(x_1, y_1), \dots, (x_n, y_n)} \subset \mathcal{X} \times \mathcal{Y}$. We can easily adopt this line of thought to the current situation by replacing the binary loss function in the definition of $T(z)$ with a general loss function $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$:
+where the supremum is taken over all sets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$. We can easily adopt this line of thought to the current situation by replacing the binary loss function in the definition of $T(z)$ with a general loss function $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$:
 \begin{equation}
-    T_l(z) = \set{( l(f(x_1), y_1), \dots, l(f(x_n), y_n) ) \with f \in \mathcal{F}}
+    T_l(z) = \{(l(f(x_1), y_1), \dots, l(f(x_n), y_n))^{\top} \with f \in \mathcal{F}\}
 \end{equation}
 Exactly as in Lemma \ref{lem: rademacher complexity of family of sets}, we have
 \begin{equation}
 \label{eq: rademacher complexity for general loss}
     \highlightMath{
-        \mathcal{R}_n(l \circ \mathcal{F}) = \sup_z \mathcal{R}_n(T_l(z)),
+        \mathfrak{R}_n(l \circ \mathcal{F}) = \sup_{z \in \power(\mathcal{Z})} \mathfrak{R}_n(T_l(z)),
     }
 \end{equation}
-where $\mathcal{R}_n(T_l(z))$ is the Rademacher complexity of the subset $T_l(z)$ of $\R^n$. Using this identity, we can bound the Rademacher complexity of a \emph{finite} class of regression functions $\mathcal{F}$ as follows:
+where $\mathfrak{R}_n(T_l(z))$ is the Rademacher complexity of the subset $T_l(z)$ of $\R^n$. Using this identity, we can bound the Rademacher complexity of a \emph{finite} class of regression functions $\mathcal{F}$ as follows:
 
 \begin{proposition}
 \label{prop: bound on rademacher complexity for general loss}
 Let $\mathcal{F}$ be a \emph{finite} set of regression functions $f \colon \mathcal{X} \to \mathcal{Y}$ and let $l \colon \mathcal{Y} \times \mathcal{Y} \to [0, 1]$ be a loss function taking values in the unit interval. Then,
 \[
-    \mathcal{R}_n(l \circ \mathcal{F}) \leq \sqrt{\frac{2 \log(2 \abs{\mathcal{F}})}{n}}.
+    \mathfrak{R}_n(l \circ \mathcal{F}) \leq \sqrt{\frac{2 \log(2 \abs{\mathcal{F}})}{n}}.
 \]
 \end{proposition}
 
 \begin{proof}
 By \eqref{eq: rademacher complexity for general loss} and Lemma \ref{lem: bound on rademacher complexity of finite set} (applied to the set $T_l(z) \subset \R^n$), we have
 \[
-    \mathcal{R}_n(l \circ \mathcal{F}) = \sup_z \mathcal{R}_n(T_l(z)) \leq \sup_z \max_{f \in \mathcal{F}} \norm{l_f(z)} \frac{\sqrt{2 \log(2 \abs{T_l(z)})}}{n},
+    \mathfrak{R}_n(l \circ \mathcal{F}) = \sup_{z \in \power(\mathcal{Z})} \mathfrak{R}_n(T_l(z)) \leq \sup_{z \in \power(\mathcal{Z})} \max_{f \in \mathcal{F}} \norm{l_f(z)}_2 \frac{\sqrt{2 \log(2 \abs{T_l(z)})}}{n},
 \]
-where $l_f(z) = ( l(f(x_1), y_1), \dots, l(f(x_n), y_n) ) \in T_l(z)$, and $z$ ranges over all sets $z = \set{(x_1, y_1), \dots, (x_n, y_n)}$. By definition of $T_l(z)$, we have $\abs{T_l(z)} \leq \abs{\mathcal{F}}$. Further, since the loss function $l$ takes values in $[0, 1]$, we know that $\norm{l_f(z)} \leq \sqrt{n}$. Plugging everything back in, we see that
+where $l_f(z) = (l(f(x_1), y_1), \dots, l(f(x_n), y_n))^{\top} \in T_l(z)$, and $z$ ranges over all sets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$. By definition of $T_l(z)$, we have $\abs{T_l(z)} \leq \abs{\mathcal{F}}$. Further, since the loss function $l$ takes values in $[0, 1]$, we know that $\norm{l_f(z)}_2 \leq \sqrt{n}$. Plugging everything back in, we see that
 \[
-    \mathcal{R}_n(l \circ \mathcal{F}) \leq \sup_z \max_{f \in \mathcal{F}} \norm{l_f(z)} \frac{\sqrt{2 \log(2 \abs{T_l(z)})}}{n} \leq \sqrt{\frac{2 \log(2 \abs{\mathcal{F}})}{n}}.
+    \mathfrak{R}_n(l \circ \mathcal{F}) \leq \sup_{z \in \power(\mathcal{Z})} \max_{f \in \mathcal{F}} \norm{l_f(z)}_2 \frac{\sqrt{2 \log(2 \abs{T_l(z)})}}{n} \leq \sqrt{\frac{2 \log(2 \abs{\mathcal{F}})}{n}}. \qedhere
 \]
 \end{proof}
 
 Remember that we had proven a very similar result in the setting of binary classification, namely Proposition \ref{prop: bound on rademacher complexity of family of sets}. There, we showed that, for a family of sets $\mathcal{A}$, we have
 \[
-    \mathcal{R}_n(\mathcal{A}) \leq \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n))}{n}}.
+    \mathfrak{R}_n(\mathcal{A}) \leq \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n))}{n}}.
 \]
 The proof of that result was nearly identical to the proof of Proposition \ref{prop: bound on rademacher complexity for general loss}, the only difference being that (to prove Proposition \ref{prop: bound on rademacher complexity of family of sets}) we bounded the cardinality of $T(z)$ by the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ of $\mathcal{A}$, which turned out to be at most polynomial in $n$ for a family $\mathcal{A}$ with finite VC dimension (Sauer-Shelah lemma). To generalize Proposition \ref{prop: bound on rademacher complexity for general loss} to general (i.e., not necessarily finite) families $\mathcal{F}$ of regression functions, we will need to introduce a suitable alternative to the notion of the VC dimension of a family of sets. This is what we will do in the next section, where we discuss covering numbers.

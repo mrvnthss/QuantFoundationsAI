@@ -1,82 +1,87 @@
 %% SECTION 2.1 %%
 \section{Bayes Classifier}
 
-First, we define an optimal classifier in the setting of binary classification, the so-called \emph{Bayes classifier}. This is the classifier that (somehow) is aware of the regression function $\eta(X)$, and, based on an observation $X = x$, predicts the class $Y$ that has the higher a posteriori probability $\Pr{Y = 1 \given X = x}$. This is the classifier we would use \emph{if} we knew the distribution of $Y \vert X$.
+First, we define an optimal classifier in the setting of binary classification, the so-called \emph{Bayes classifier}. This is the classifier that (somehow) is aware of the regression function $\eta(X)$, and, based on an observation $X = x$, predicts the class $Y$ that has the higher a posteriori probability $\Prob(Y = 1 \given X = x)$. This is the classifier we \emph{would} use \emph{if} we knew the distribution of $Y \given X$.
 
 \begin{definition}
 The Bayes classifier $h^* \colon \mathcal{X} \to \set{0,1}$ is defined by
 \[
     h^* \colon \mathcal{X} \to \set{0, 1}, \quad x \mapsto \begin{cases}
-    1, \quad &\eta(x) > 1/2 \\
-    0, \quad &\eta(x) \leq 1/2
+        1, \quad & \eta(x) > 1/2 \\
+        0, \quad & \eta(x) \leq 1/2
     \end{cases}
 \]
 \end{definition}
 
-It follows from the definition of $h^*$ that $h^*(X) = 1$ whenever $\Pr{Y = 1 \given X} > \Pr{Y = 0 \given X}$. To quantify the performance of a classifier $h \colon \mathcal{X} \to \set{0, 1}$, we use the \emph{error probability} defined by
+It follows from the definition that $h^*$ equals $1$ whenever $\Prob(Y = 1 \given X) > \Prob(Y = 0 \given X)$ or, equivalently, $\eta(X) > 1 - \eta(X)$. To quantify the performance of a classifier $h \colon \mathcal{X} \to \set{0, 1}$ in a binary classification tasks, we use the binary loss function
+\[
+    l(y_1, y_2) = \indSet{y_1 \neq y_2} = \begin{cases}
+        1, \quad & y_1 \neq y_2 \\
+        0, \quad & y_1 = y_2
+    \end{cases}
+\]
+Hence, the expected error of a classifier $h$ is given by its \emph{error probability}:
 \[
     \highlightMath{
-        L(h) = \Pr{h(X) \neq Y}.
+        L(h) = \Exp[\indSet{h(X) \neq Y}] = \Prob(h(X) \neq Y).
     }
 \]
-Note that the error probability equals the expected absolute deviation of the prediction $h(X)$ from the true label $Y$, i.e.,
+Further, note that the error probability equals the expected absolute deviation of the prediction $h(X)$ from the true label $Y$, i.e.,
 \[
-    \highlightMath{
-        L(h) = \Ex{\bigAbs{ h(X) - Y }},
-    }
+    L(h) = \Exp[\abs{h(X) - Y}],
 \]
-since $\set{h(X) \neq Y} = \set{\bigAbs{ h(X) - Y } = 1}$, which in turn is a consequence of $h$ and $Y$ only taking values in $\set{0, 1}$.
+since $\set{h(X) \neq Y} = \set{\abs{h(X) - Y} = 1}$, which in turn is a consequence of $h$ and $Y$ only taking values in $\set{0, 1}$.
 
-As stated at the beginning of this section, the Bayes classifier is optimal in the sense that no other classifier can have a lower error probability.
+The Bayes classifier is optimal in the sense that no other classifier can have a lower error probability.
 
 \begin{theorem}
 \label{thm: bayes classifier}
 The Bayes classifier satisfies the following two properties:
-\begin{enumerate}[(i)]
+\begin{enumerate}
     \item The error probability $L^* = L(h^*)$ of the Bayes classifier is given by
-        \begin{equation}
-            \label{eq: bayes error}
-            L^* = \Ex{\min(1 - \eta(X), \eta(X))} = \frac{1}{2} - \frac{1}{2} \Ex{\bigAbs{ 2\eta(X) - 1 }} \leq \frac{1}{2} \, .
-        \end{equation}
+    \begin{equation}
+        \label{eq: bayes error}
+        L^* = \Exp[\min(1 - \eta(X), \eta(X))] = \frac{1}{2} - \frac{1}{2} \Exp[\abs{2\eta(X) - 1}] \leq \frac{1}{2} \, .
+    \end{equation}
 
     \item For each classifier $h \colon \mathcal{X} \to \set{0, 1}$, we have
-        \begin{equation}
-            \label{eq: excess risk}
-            L(h) - L^* = \Ex{\bigAbs{ 2\eta(X) - 1 } \cdot \mathbf{1}_{\set{h(X) \neq h^*(X)}}} = \int_{h \neq h^*} \bigAbs{ 2\eta(x) - 1 }\dP{X}{x} > 0 \, .
-        \end{equation}
+    \begin{equation}
+        \label{eq: excess risk}
+        L(h) - L^* = \Exp[\abs{2\eta(X) - 1} \indSet{h(X) \neq h^*(X)}] = \int_{h \neq h^*} \abs{2\eta(x) - 1} \dP_X(x) > 0 \, .
+    \end{equation}
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
 For every classifier $h \colon \mathcal{X} \to \set{0, 1}$, we have
 \begin{align*}
-    L(h) = \Pr{h(X) \neq Y} &= \Pr{h(X) = 0, Y = 1} + \Pr{h(X) = 1, Y = 0} \\
-        &= \Ex{\indSet{h(X) = 0} \cdot \indSet{Y = 1}} + \Ex{\indSet{h(X) = 1} \cdot \indSet{Y = 0}} \\
-        &= \Ex{\Ex{\indSet{h(X) = 0} \cdot Y \given X}} + \Ex{\Ex{\indSet{h(X) = 1} \cdot (1 - Y) \given X}},
+    L(h) = \Prob(h(X) \neq Y) &= \Prob(h(X) = 0, Y = 1) + \Prob(h(X) = 1, Y = 0) \\
+    &= \Exp[\indSet{h(X) = 0} \indSet{Y = 1}] + \Exp[\indSet{h(X) = 1} \indSet{Y = 0}] \\
+    &= \Exp[\Exp[Y \indSet{h(X) = 0} \given X]] + \Exp[\Exp[(1 - Y) \indSet{h(X) = 1} \given X]],
 \end{align*}
 where the last identity follows from the law of total expectation and the observation that $\indSet{Y = 1} = Y$ and $\indSet{Y = 0} = 1 - Y$. Since the function $\indSet{h(X) = c}$ is $\sigma(X)$-measurable ($c = 0, 1$), we can rewrite the previous line as
 \[
-    \Ex{\indSet{h(X) = 0} \cdot \Ex{Y \given X}} + \Ex{\indSet{h(X) = 1} \cdot \Ex{1 - Y \given X}}.
+    \Exp[\Exp[Y \given X] \indSet{h(X) = 0}] + \Exp[\Exp[1 - Y \given X] \indSet{h(X) = 1}].
 \]
-As $\eta(X) = \Ex{Y \given X}$, we conclude that
+As $\eta(X) = \Exp[Y \given X]$, we conclude that
 \begin{equation}
     \label{eq: error probability}
     \highlightMath{
-        L(h) = \Ex{\indSet{h(X) = 0} \cdot \eta(X) + \indSet{h(X) = 1} \cdot (1 - \eta(X))}.
+        L(h) = \Exp[\eta(X) \indSet{h(X) = 0} + (1 - \eta(X)) \indSet{h(X) = 1}].
     }
 \end{equation}
 By definition, $\set{h^*(X) = 0} = \set{\eta(X) \leq 1/2}$. Thus, for the Bayes classifier $h^*$, identity \eqref{eq: error probability} yields
 \[
-    L^* = \Ex{\indSet{\eta(X) \leq \nicefrac{1}{2}} \cdot \eta(X) + \indSet{\eta(X) > \nicefrac{1}{2}} \cdot (1 - \eta(X))} = \Ex{\min(\eta(X), 1 - \eta(X))},
+    L^* = \Exp[\eta(X) \indSet{\eta(X) \leq \nicefrac{1}{2}} + (1 - \eta(X)) \indSet{\eta(X) > \nicefrac{1}{2}}] = \Exp[\min(\eta(X), 1 - \eta(X))],
 \]
-which proves the first assertion of \emph{(i)}. The identity
+which proves the first assertion of (1). The identity
 \[
-    \Ex{\min(\eta(X), 1 - \eta(X))} = \frac{1}{2} - \frac{1}{2} \Ex{\bigAbs{ 2\eta(X) - 1 }}
+    \Exp[\min(\eta(X), 1 - \eta(X))] = \frac{1}{2} - \frac{1}{2} \Exp[\abs{2\eta(X) - 1 }]
 \]
-is left as an exercise. To prove \emph{(ii)}, first observe that
+is left as an exercise. To prove (2), first observe that
 \begin{align*}
-    L(h) - L^*& = \Ex{(\indSet{h(X) = 0} - \indSet{h^*(X) = 0}) \eta(X) + (\indSet{h(X) = 1} - \indSet{h^*(X) = 1}) (1 - \eta(X))} \\
-        &= \Ex{(2 \eta(X) - 1) (\indSet{h(X) = 0} - \indSet{h^*(X) = 0})}
+    L(h) - L^* &= \Exp[\eta(X) (\indSet{h(X) = 0} - \indSet{h^*(X) = 0}) + (1 - \eta(X)) (\indSet{h(X) = 1} - \indSet{h^*(X) = 1})] \\
+    &= \Exp[(2\eta(X) - 1) (\indSet{h(X) = 0} - \indSet{h^*(X) = 0})]
 \end{align*}
 by \eqref{eq: error probability}, where we have again used the fact that the identity $\indSet{h(X) = 1} = 1 - \indSet{h(X) = 0}$ holds for any function $h \colon \mathcal{X} \to \set{0, 1}$. Further, a straightforward case analysis shows that
 \[
@@ -87,15 +92,15 @@ by \eqref{eq: error probability}, where we have again used the fact that the ide
 \]
 and hence
 \[
-    L(h) - L^* = \Ex{(2\eta(X) - 1) \cdot \sgn(\eta(X) - 1/2) \cdot \indSet{h(X) \neq h^*(X)}} = \Ex{\bigAbs{ 2\eta(X) - 1 } \cdot \mathbf{1}_{\set{h(X) \neq h^*(X)}}},
+    L(h) - L^* = \Exp[(2\eta(X) - 1) \sgn(\eta(X) - 1/2) \indSet{h(X) \neq h^*(X)}] = \Exp[\abs{2\eta(X) - 1} \indSet{h(X) \neq h^*(X)}],
 \]
 completing this proof.
 \end{proof}
 
 \begin{example}[Bayes error]
-Let us consider the prediction of a student's performance in a course. We denote a passing grade by $Y=1$ and a failing grade by $Y=0$. Our only observation is the number $X \colon \Omega \to [0, \infty)$ of hours of study per week. It is (somewhat) reasonable to assume that the a posteriori probability
+Let's consider the prediction of a student's performance in a final exam. We denote a passing grade by $Y = 1$ and a failing grade by $Y = 0$. Our only observation is the number $X \colon \Omega \to [0, \infty)$ of hours of study per week. It is (somewhat) reasonable to assume that the a posteriori probability
 \[
-    \eta \colon [0, \infty) \to [0, 1], \quad x \mapsto \Pr{Y = 1 \given X = x},
+    \eta \colon [0, \infty) \to [0, 1], \quad x \mapsto \Prob(Y = 1 \given X = x),
 \]
 is monotonically increasing in $x$. We further assume that $\eta$ is given by
 \[
@@ -104,22 +109,22 @@ is monotonically increasing in $x$. We further assume that $\eta$ is given by
 for some constant $c > 0$. In this case, the Bayes classifier is simply
 \[
     h^*(x) = \begin{cases}
-        1, \quad &x > c \\
-        0, \quad &x \leq c
+        1, \quad & x > c \\
+        0, \quad & x \leq c
     \end{cases}
 \]
 By \eqref{eq: bayes error}, the Bayes error is given by
 \[
-    L^* = \Ex{\min(\eta(X), 1-\eta(X))} = \Ex{\frac{\min(X, c)}{X + c}},
+    L^* = \Exp[\min(\eta(X), 1 - \eta(X))] = \Exp\left[\frac{\min(X, c)}{X + c}\right],
 \]
 since $1 - \eta(x) = c / (x+c)$ for $x \geq 0$.
 
-\begin{enumerate}[(i)]
-    \item Assume that $\Pr{X = c} = 1$, i.e., (almost surely) every student studies exactly $c$ hours. In this scenario, the Bayes error is equal to $1/2$, i.e., as large as it can be. This is due to the fact that $\eta(X) = 1/2$ (a.s.), i.e., completely uninformative.
+\begin{enumerate}
+    \item Assume that $\Prob(X = c) = 1$, i.e., (almost surely) every student studies exactly $c$ hours. In this scenario, the Bayes error is equal to $1/2$, i.e., as large as possible. This is due to the fact that $\eta(X)$ is constantly equal to $1/2$ and thus, completely uninformative.
     
     \item Assume that $X \sim U(0, 4c)$. Then,
     \[
-        L^* = \frac{1}{4c} \int_0^{4c} \frac{\min(x, c)}{x + c} \dx = \frac{1}{4c} \left( \int_0^c \frac{x}{x + c} \dx + \int_c^{4c} \frac{c}{x + c} \dx \right) = \frac{1}{4} \log\left(\frac{5\mathrm{e}}{4}\right) \approx 0.305785.
+        L^* = \frac{1}{4c} \int_0^{4c} \frac{\min(x, c)}{x + c} \dx = \frac{1}{4c} \left( \int_0^c \frac{x}{x + c} \dx + \int_c^{4c} \frac{c}{x + c} \dx \right) = \frac{1}{4} \log(\frac{5\e}{4}) \approx 0.305785.
     \]
 \end{enumerate}
 \end{example}
@@ -127,33 +132,35 @@ since $1 - \eta(x) = c / (x+c)$ for $x \geq 0$.
 \begin{remark}
 We can rewrite \eqref{eq: error probability} as
 \[
-    L(h) = 1 - \Ex{\indSet{h(X) = 1} \cdot \eta(X) + \indSet{h(X) = 0} \cdot (1 - \eta(X))},
+    L(h) = 1 - \Exp[\eta(X) \indSet{h(X) = 1} + (1 - \eta(X)) \indSet{h(X) = 0}].
 \]
-and in particular
+In particular, for the Bayes classifier, we have
 \[
-    L^* = 1 - \Ex{\indSet{\eta(X) > \nicefrac{1}{2}} \cdot \eta(X) + \indSet{\eta(X) \leq \nicefrac{1}{2}} \cdot (1 - \eta(X))}.
+    L^* = 1 - \Exp[\eta(X) \indSet{\eta(X) > \nicefrac{1}{2}} + (1 - \eta(X)) \indSet{\eta(X) \leq \nicefrac{1}{2}}].
 \]
 Further, we observe that, by Proposition \ref{prop: decomposition of mean-squared error}, the a posteriori probability
 \[
-    \eta(x) = \Pr{Y=1 \given X=x} = \Ex{Y \given X=x}
+    \eta(x) = \Prob(Y = 1 \given X = x) = \Exp[Y \given X = x]
 \]
-minimizes the squared error when $Y$ is to be predicted by $h(X)$ for a function $h \colon \mathcal{X} \to \R$, i.e., the inequality
+minimizes the mean squared error when $Y$ is to be predicted by $h(X)$ for a function $h \colon \mathcal{X} \to \R$, i.e., the inequality
 \[
-    \Ex{(\eta(X) - Y)^2} \leq \Ex{(h(X) - Y)^2}
+    \Exp[(\eta(X) - Y)^2] \leq \Exp[(h(X) - Y)^2]
 \]
-holds for all $h \colon \mathcal{X} \to \R$. In the exercises, we will see that the Bayes classifier is even more closely related to the \emph{$L^1$-error} of a function $h \colon \mathcal{X} \to \R$ defined as
+holds for all $h \colon \mathcal{X} \to \R$. In the exercises, we will see that the Bayes classifier is closely related to the \emph{mean absolute error}
 \[
-    \Ex{\bigAbs{ h(X) - Y }},
+    \highlightMath{
+        \Exp[\abs{h(X) - Y}],
+    }
 \]
-in the sense that $h^*$ minimizes the $L^1$-error, i.e.,
+in the sense that $h^*$ minimizes this error, i.e.,
 \[
-    L^* = \min_f \, \Ex{\bigAbs{ h(X) - Y }}.
+    L^* = \min_{h \in \R^{\mathcal{X}}} \Exp[\abs{h(X) - Y}].
 \]
-A function minimizing the $L^1$-error is called the \emph{conditional median} of $Y$ given $X$.
+A function minimizing the mean absolute error is called the \emph{conditional median} of $Y$ given $X$.
 \end{remark}
 
 \begin{remark}
-    \begin{enumerate}[(i)]
+    \begin{enumerate}
         \item For a classifier $h \colon \mathcal{X} \to \R$, the quantity
         \[
             \highlightMath{
@@ -162,45 +169,45 @@ A function minimizing the $L^1$-error is called the \emph{conditional median} of
         \]
         is called the \emph{excess risk} of $h$.
         
-        \item The risk of the Bayes classifier equals $1/2$ if and only if $\eta(X) = 1/2$ almost surely. This is the case precisely when the feature variable $X$ does not provide any insight into the correct label $Y$. Essentially, the label $Y$ is predicted by a coin flip, regardless of the information provided by the feature variable $X$. Further, \eqref{eq: excess risk} reveals that the excess risk weighs the discrepancy between the Bayes classifier $h^*$ and any arbitrary classifier $h$ based on how far $\eta$ is from $1/2$. When $\eta$ is close to $1/2$, any classifier will perform poorly and the excess risk is low. As $\eta$ moves further away from $1/2$, the Bayes classifier performs well and classifiers that fail to do so are penalized more heavily.
+        \item The error of the Bayes classifier equals $1/2$ if and only if $\eta(X) = 1/2$ almost surely. This is the case precisely when the feature variable $X$ does not provide \emph{any} insight into the correct label $Y$. Essentially, the label $Y$ is predicted by a coin flip, regardless of the information provided by the feature variable $X$. Further, \eqref{eq: excess risk} reveals that the excess risk weighs the discrepancy between the Bayes classifier $h^*$ and any arbitrary classifier $h$ based on how far $\eta$ is from $1/2$. When $\eta$ is close to $1/2$, any classifier will perform poorly and the excess risk is low. As $\eta$ moves further away from $1/2$, the Bayes classifier performs well and classifiers that fail to do so are penalized more heavily.
     \end{enumerate}
 \end{remark}
 
-So far, we have seen that the Bayes risk can be expressed as
+So far, we have seen that the expected error of the Bayes classifier can be expressed as
 \[
-    L^* = \min_h \Pr{h(X) \neq Y} = \Ex{\min(\eta(X), 1-\eta(X))} = \frac{1}{2} - \frac{1}{2} \Ex{\bigAbs{ 2\eta(X) - 1 }}
+    L^* = \min_{h \in \R^{\mathcal{X}}} \Prob(h(X) \neq Y) = \Exp[\min(\eta(X), 1 - \eta(X))] = \frac{1}{2} - \frac{1}{2} \Exp[\abs{2\eta(X) - 1}].
 \]
-for $h \colon \mathcal{X} \to \set{0, 1}$. Next, we will look at a special case for which we can deduce other helpful ways of expressing the Bayes risk. That is, we assume that $X$ has a density $f$ with respect to the Lebesgue measure, i.e.,
+Next, we will look at special cases for which we can deduce other helpful ways of expressing the Bayes error. First, we assume that $X$ has a density $f$ with respect to the Lebesgue measure, i.e.,
 \[
-    \Pr{X \in A} = \int_A f(x) \dx.
+    \Prob(X \in A) = \int_{A} f(x) \dx.
 \]
-Further, let $f_i$ denote the conditional density of $X$ given $Y = i$ for $i = 0, 1$. These are called \emph{class-conditional densities}. The values $p = \Pr{Y = 1}$ and $1 - p = \Pr{Y = 0}$ are called \emph{class probabilities}. Recall that, if $X$ is continuous with density $f_X$ and $Y$ is discrete, Bayes rule states that
+Further, let $f_i$ denote the conditional density of $X$ given $Y = i$ for $i = 0, 1$. These are called \emph{class-conditional densities}. The values $p = \Prob(Y = 1)$ and $1 - p = \Prob(Y = 0)$ are called \emph{class probabilities}. Recall that, if $X$ is continuous with density $f_X$ and $Y$ is discrete, Bayes rule states that
 \[
-    \Pr{Y=y \given X=x} = \frac{f_{X \given Y=y}(x) \, \Pr{Y=y}}{f_X(x)} \, .
+    \Prob(Y = y \given X = x) = \frac{f_{X \given Y = y}(x) \Prob(Y = y)}{f_X(x)} \, .
 \]
 In the setting above, this becomes
 \[
-    \eta(x) = \Pr{Y=1 \given X=x} = \frac{f_1(x) \, p}{f(x)} \, .
+    \eta(x) = \Prob(Y = 1 \given X = x) = \frac{f_1(x) p}{f(x)} \, .
 \]
-By the law of total probability, we can express the density $f(x)$ as $f_1(x)p + f_0(x)(1-p)$ and thus obtain
+By the law of total probability, we can express the density $f(x)$ as $f_1(x)p + f_0(x)(1 - p)$ and thus obtain
 \begin{equation}
     \highlightMath{
-        \eta(x) = \Pr{Y=1 \given X=x} = \frac{f_1(x) \, p}{f_1(x)p + f_0(x)(1-p)} \, .
+        \eta(x) = \Prob(Y = 1 \given X = x) = \frac{f_1(x) p}{f_1(x)p + f_0(x)(1 - p)} \, .
     }
 \end{equation}
 By solving $\eta(x) > 1/2$, we see that the Bayes classifier is given by
 \begin{equation}
 \label{eq: bayes classifier for X with density}
     h^*(x) = \begin{cases}
-        1, \quad & f_1(x)p > f_0(x)(1-p) \\
-        0, \quad &\text{else}
+        1, \quad & f_1(x)p > f_0(x)(1 - p) \\
+        0, \quad & \text{else}
     \end{cases}
 \end{equation}
 with error
 \[
-    L^* = \int_{\mathcal{X}} \min(\eta(x), 1-\eta(x)) f(x) \dx = \int_{\mathcal{X}} \min(f_1(x)p, f_0(x)(1-p)) \dx \, ,
+    L^* = \int_{\mathcal{X}} \min(\eta(x), 1 - \eta(x)) f(x) \dx = \int_{\mathcal{X}} \min(f_1(x)p, f_0(x)(1 - p)) \dx,
 \]
-since $\eta(x)f(x) = f_1(x)p$ and $(1-\eta(x)) = f_0(x)(1-p)$. Obviously, if $f_1$ and $f_0$ are non-overlapping, i.e., $\int f_0 f_1 = 0$, then $L^* = 0$.
+since $\eta(x)f(x) = f_1(x)p$ and $(1 - \eta(x)) = f_0(x)(1 - p)$. Obviously, if $f_1$ and $f_0$ are non-overlapping, i.e., $\int f_0 f_1 = 0$, then $L^* = 0$.
 \begin{figure}
     \centering
     \resizebox{9cm}{!}{\input{images/other/bayes-classifier}}
@@ -208,15 +215,15 @@ since $\eta(x)f(x) = f_1(x)p$ and $(1-\eta(x)) = f_0(x)(1-p)$. Obviously, if $f_
         Illustration of the Bayes classifier in case the distribution of $X$ is given by a density $f$ and conditional densities $f_0$ and $f_1$ exist. The classifier equals $0$ on the interval $[a, b]$ and $1$ elsewhere.
     }
 \end{figure}
-If we additionally assume that both classes are equally likely, i.e., $p = 1-p = 1/2$, the Bayes classifier becomes
+If we additionally assume that both classes are equally likely, i.e., $p = 1 - p = 1/2$, the Bayes classifier becomes
 \[
     h^*(x) = \begin{cases}
         1, \quad & f_1(x) > f_0(x) \\
-        0, \quad &\text{else}
+        0, \quad & \text{else}
     \end{cases}
 \]
 and its error is given by
 \[
-    L^* = \frac{1}{2} \int_{\mathcal{X}} \min(f_1(x), f_0(x)) \dx = \frac{1}{2} \int_{\mathcal{X}} f_1(x) - (f_1(x) - f_0(x))^+ \dx = \frac{1}{2} - \frac{1}{4} \int_{\mathcal{X}} \bigAbs{ f_1(x) - f_0(x) } \dx \, ,
+    L^* = \frac{1}{2} \int_{\mathcal{X}} \min(f_1(x), f_0(x)) \dx = \frac{1}{2} \int_{\mathcal{X}} f_1(x) - (f_1(x) - f_0(x))^{+} \dx = \frac{1}{2} - \frac{1}{4} \int_{\mathcal{X}} \abs{f_1(x) - f_0(x)} \dx,
 \]
-where $g^+ = \max(g, 0)$ denotes the positive part of a function $g$. This demonstrates that the Bayes error is directly related to the $L^1$-distance between the class densities $f_1$ and $f_0$.
+where $g^{+} = \max(g, 0)$ denotes the positive part of a function $g \in \R^{\mathcal{X}}$. This demonstrates that the Bayes error is directly related to the $L^1$-distance between the class densities $f_1$ and $f_0$.

@@ -1,23 +1,23 @@
 %% SECTION 3.2 %%
 \section{Bounded Differences Inequality}
 
-Although the Azuma-Hoeffding Inequality is a strong result, it can be challenging to apply to a specific problem. Its complete usefulness is often wasted. Thankfully, there is a natural choice of the filtration $\set{\mathcal{F}_i}_{i\in\N}$ and the MDS $\set{\Delta_i}_{i\in\N}$ that provides an equally potent result that is easier to use. Before we can state said result, we need to introduce yet another definition.
+Although the Azuma-Hoeffding Inequality is a strong result, it can be challenging to apply to a specific problem, and its complete usefulness is often wasted. Thankfully, there is a natural choice of the filtration $\set{\mathcal{F}_i}_{i \in \N}$ and the MDS $\set{\Delta_i}_{i \in \N}$ that provides an equally potent result that is easier to use. Before we can state said result, we need to introduce yet another definition.
 
 \begin{definition}
-A function $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$ satisfies the \emph{bounded differences condition (for constants $c_1, \dots, c_n \in \R$)}, if the inequality
+A function $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$ satisfies the \emph{bounded differences condition for constants $c_1, \dots, c_n \in \R$}, if the inequality
 \[
-    \sup_{\tilde{x}_i \in \mathcal{X}_i} \bigAbs{ g(x_1, \dots, x_n) - g(x_1, \dots, \tilde{x}_i, \dots, x_n) } \leq c_i
+    \sup_{\tilde{x}_i \in \mathcal{X}_i} \abs{g(x_1, \dots, x_n) - g(x_1, \dots, \tilde{x}_i, \dots, x_n)} \leq c_i
 \]
 holds for all $i = 1, \dots, n$ and all $x_1 \in \mathcal{X}_1, \dots, x_n \in \mathcal{X}_n$.
 \end{definition}
 
-Intuitively, $g$ meets the bounded differences condition if changing only one coordinate of $g$ at a time cannot cause the value of $g$ to deviate too far. For example, the empirical risk $\hat L_n(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i}$ of a classifier $h$ satisfies the bounded differences condition for $c_i = \frac{1}{n}$. Similarly, the empirical mean $\frac{1}{n} \sum_{i=1}^n X_i$ of bounded random variables $X_i \in (a_i, b_i)$ satisfies the bounded differences inequality for $c_i = b_i - a_i$. It is not too surprising that these types of functions thus concentrate somewhat strongly around their average, and this intuition is made precise by the following result.
+Intuitively, $g$ meets the bounded differences condition if changing only one coordinate of $g$ at a time cannot cause the value of $g$ to deviate too far. For example, the empirical risk $\hat{L}_n(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i}$ of a classifier $h$ satisfies the bounded differences condition for $c_i = \frac{1}{n}$. Similarly, the empirical mean $\frac{1}{n} \sum_{i=1}^n X_i$ of bounded random variables $X_i \in (a_i, b_i)$ satisfies the bounded differences inequality for $c_i = b_i - a_i$. It is not too surprising that these types of functions concentrate somewhat strongly around their average, and this intuition is made precise by the following result.
 
 \begin{theorem}[Bounded Differences Inequality {[McDiarmid, 1989]}]
 \label{thm: bounded differences inequality}
-Let $X_1, \dots, X_n$ be independent random variables and let $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$ be a function satisfying the bounded differences condition for constants $c_1, \dots, c_n$. Then,
+Let $X_1, \dots, X_n$ be independent random variables and let $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$ be a function satisfying the bounded differences condition for constants $c_1, \dots, c_n \in \R$. Then,
 \[
-    \Pr{g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)} \geq t } \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
+    \Prob(g(X_1, \dots, X_n) - \Exp[g(X_1, \dots, X_n)] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
 \]
 \end{theorem}
 
@@ -29,58 +29,53 @@ Every function $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$
 \end{lemma}
 
 \begin{proof}
-Let $c_1, \dots, c_n$ be the constants of the bounded differences condition and let $x_1, \dots, x_n \in \mathcal{X}$ and $y_1, \dots, y_n \in \mathcal{X}$. Then, by the triangle inequality
+Assume that $g$ satisfies the bounded differences inequality for constants $c_1, \dots, c_n \in \R$. Further, let $x_i, y_i \in \mathcal{X}_i$, for $i = 1, \dots, n$. Then, by the triangle inequality
 \begin{align*}
-    \bigAbs{ g(x_1, \dots, x_n) - g(y_1, \dots, y_n) } &\leq \bigAbs{ (g(x_1, \dots, x_n) - g(x_1, y_2, \dots, y_n) } + \bigAbs{ g(x_1, y_2, \dots, y_n) - g(y_1, \dots, y_n) } \\
-        &\leq \bigAbs{ (g(x_1, \dots, x_n) - g(x_1, y_2, \dots, y_n) } + c_1.
+    \abs{g(x_1, \dots, x_n) - g(y_1, \dots, y_n)} &\leq \abs{(g(x_1, \dots, x_n) - g(x_1, y_2, \dots, y_n)} + \abs{g(x_1, y_2, \dots, y_n) - g(y_1, \dots, y_n)} \\
+    &\leq \abs{(g(x_1, \dots, x_n) - g(x_1, y_2, \dots, y_n)} + c_1.
 \end{align*}
-Iteratively applying the triangle inequality in this manner yields
-\[
-    \bigAbs{ g(x_1, \dots, x_n) - g(y_1, \dots, y_n) } \leq \sum_{i=1}^n c_i,
-\]
-showing that $g$ is indeed bounded, since the RHS is independent of the chosen $x_i$ and $y_i$.
+Iteratively applying the triangle inequality in this manner yields $\abs{g(x_1, \dots, x_n) - g(y_1, \dots, y_n)} \leq \sum_{i=1}^n c_i$, showing that $g$ is indeed bounded, since the RHS is independent of the chosen $x_i$ and $y_i$.
 \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm: bounded differences inequality}]
 Since $g$ is bounded by Lemma \ref{lem: bounded differences condition}, the random variable $g(X_1, \dots, X_n)$ is integrable. Hence, we can construct the \emph{Doob martingale}\footnote{See \href{https://en.wikipedia.org/wiki/Doob_martingale}{here}. The original paper by J.~L.~Doob can be found \href{https://www.ams.org/journals/tran/1940-047-03/S0002-9947-1940-0002052-6/S0002-9947-1940-0002052-6.pdf}{here}.}
-\begin{align*}
-    M_0 &= \Ex{g(X_1, \dots, X_n)}, \\
-    M_i &= \Ex{g(X_1, \dots, X_n) \given \mathcal{F}_i}, \quad i = 1, \dots, n,
-\end{align*}
-where $\mathcal{F}_i = \sigma(X_1, \dots, X_i)$ is the $\sigma$-algebra generated by the $X_i$. We have already observed that, in the case that $\set{M_i}_i$ is a martingale, $\set{\Delta_i}_i$ is a martingale difference sequence, where $\Delta_i = M_i - M_{i-1}$. Next, for each $i = 1, \dots, n$, we define
-\begin{align*}
-    L_i &= \inf_{x \in \mathcal{X}_i} \Ex{g(X_1, \dots, X_{i-1}, x, X_{i+1}, \dots, X_n) \given \mathcal{F}_{i-1}, X_i = x} - \Ex{g(X_1, \dots, X_n) \given \mathcal{F}_{i-1}}, \\[4pt]
-    U_i &= \sup_{x \in \mathcal{X}_i} \Ex{g(X_1, \dots, X_{i-1}, x, X_{i+1}, \dots, X_n) \given \mathcal{F}_{i-1}, X_i = x} - \Ex{g(X_1, \dots, X_n) \given \mathcal{F}_{i-1}}.
-\end{align*}
-Since $X_1, \dots, X_n$ are independent, conditioning on $X_i = x$ does not affect $X_1, \dots, X_{i-1}$, so that
-\begin{align*}
-    L_i &= \inf_{x \in \mathcal{X}_i} \Ex{g(X_1, \dots, X_{i-1}, x, X_{i+1}, \dots, X_n) - g(X_1, \dots, X_n) \given \mathcal{F}_{i-1}}, \\[4pt]
-    U_i &= \sup_{x \in \mathcal{X}_i} \Ex{g(X_1, \dots, X_{i-1}, x, X_{i+1}, \dots, X_n) - g(X_1, \dots, X_n) \given \mathcal{F}_{i-1}}.
-\end{align*}
-Clearly, $L_i \leq \Delta_i \leq U_i$, and further,
-\begin{align*}
-    U_i - L_i &= \sup_{u, l \in \mathcal{X}_i} \Ex{g(X_1, \dots, X_{i-1}, u, X_{i+1}, \dots, X_n) - g(X_1, \dots, X_{i-1}, l, X_{i+1}, \dots, X_n) \given \mathcal{F}_{i-1}} \\[4pt]
-        &\leq \Ex{c_i \given \mathcal{F}_i} = c_i,
-\end{align*}
-since $g$ satisfies the bounded differences condition with constants $c_1, \dots, c_n$. Finally, observe that
 \[
-    \sum_{i=1}^n \Delta_i = g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)}.
+    M_0 = \Exp[g(X_1, \dots, X_n)], \qquad M_i = \Exp[g(X_1, \dots, X_n) \given \mathcal{F}_i], \quad i = 1, \dots, n,
+\]
+where $\mathcal{F}_i = \sigma(X_1, \dots, X_i)$ is the $\sigma$-algebra generated by the $X_i$. From this martingale, we can construct a MDS $\set{\Delta_i}_i$ by setting $\Delta_i = M_i - M_{i-1}$, $i = 1, \dots, n$. Next, for each $i = 1, \dots, n$, we define
+\begin{align*}
+    L_i &= \inf_{x \in \mathcal{X}_i} \Exp[g(X_1, \dots, X_{i-1}, x, X_{i+1}, \dots, X_n) \given \mathcal{F}_i] - \Exp[g(X_1, \dots, X_n) \given \mathcal{F}_{i-1}], \\[4pt]
+    &= \inf_{x \in \mathcal{X}_i} \Exp[g(X_1, \dots, X_{i-1}, x, X_{i+1}, \dots, X_n) - g(X_1, \dots, X_n) \given \mathcal{F}_{i-1}],
+\end{align*}
+and similarly
+\begin{align*}
+    U_i &= \sup_{x \in \mathcal{X}_i} \Exp[g(X_1, \dots, X_{i-1}, x, X_{i+1}, \dots, X_n) \given \mathcal{F}_i] - \Exp[g(X_1, \dots, X_n) \given \mathcal{F}_{i-1}], \\[4pt]
+    &= \sup_{x \in \mathcal{X}_i} \Exp[g(X_1, \dots, X_{i-1}, x, X_{i+1}, \dots, X_n) - g(X_1, \dots, X_n) \given \mathcal{F}_{i-1}].
+\end{align*}
+We have $L_i \leq \Delta_i \leq U_i$ by construction, and further,
+\begin{align*}
+    U_i - L_i &= \sup_{u, l \in \mathcal{X}_i} \Exp[g(X_1, \dots, X_{i-1}, u, X_{i+1}, \dots, X_n) - g(X_1, \dots, X_{i-1}, l, X_{i+1}, \dots, X_n) \given \mathcal{F}_{i-1}] \\[4pt]
+    &\leq \Exp[c_i \given \mathcal{F}_i] = c_i,
+\end{align*}
+since $g$ satisfies the bounded differences condition for constants $c_1, \dots, c_n \in \R$. Finally, observe that
+\[
+    \sum_{i=1}^n \Delta_i = g(X_1, \dots, X_n) - \Exp[g(X_1, \dots, X_n)].
 \]
 Hence, we can apply the Azuma-Hoeffding inequality (Theorem \ref{thm: azuma-hoeffding}) to obtain
 \[
-    \Pr{g(X_1, \dots, X_n) - \Ex{g(X_1, \dots, X_n)} \geq t} = \Pr{\sum_{i=1}^n \Delta_i \geq t} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
+    \Prob(g(X_1, \dots, X_n) - \Exp[g(X_1, \dots, X_n)] \geq t) = \Prob\left(\sum_{i=1}^n \Delta_i \geq t\right) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}). \qedhere
 \]
 \end{proof}
 
 Observe that, assuming $X_1, \dots, X_n$ are independent random variables such that $a_i \leq X_i \leq b_i$ (almost surely), we can recover Hoeffding's inequality (Theorem \ref{thm: hoeffding}) by applying Theorem \ref{thm: bounded differences inequality} to $g(x_1, \dots, x_n) = \sum_{i=1}^n x_i$, since, in this case, $g$ satisfies the bounded differences condition for constants $c_i = b_i - a_i$.
 
-Another drawback of Hoeffding's inequality is that it completely ignores the random variables' variances\footnote{Nevertheless, this also makes Hoeffding's inequality so powerful, because it assumes so little about the random variables that are involved.}. When the random variables' variances are known, an ideal concentration inequality should capture the idea that the variance of a random variable is a measure of concentration to some degree, and thus should include it in the inequality. This is exactly what Bernstein's inequality does. Most importantly, when the variance of the random variables involved is small, Bernstein's inequality provides a sharper bound than Hoeffding's inequality.
+Another drawback of Hoeffding's inequality is that it completely ignores the random variables' variances\footnote{However, this also makes Hoeffding's inequality so powerful, because it assumes so little about the random variables that are involved!}. When the random variables' variances are known, an ideal concentration inequality should capture the idea that the variance of a random variable is a measure of concentration to some degree, and thus should include it in the inequality. This is exactly what Bernstein's inequality does. Most importantly, when the variance of the random variables involved is small, Bernstein's inequality provides a sharper bound than Hoeffding's inequality.
 
 \begin{theorem}[Bernstein's Inequality]
 \label{thm: bernstein}
 Let $X_1, \dots, X_n$ be independent, centered random variables such that $\abs{X_i} \leq c$ for $i = 1, \dots, n$. Then,
 \[
-    \Pr{\sum_{i=1}^n X_i \geq t} \leq \exp(\frac{-\frac{1}{2}t^2}{\sum_{i=1}^n \Ex{X_i^2} + \frac{1}{3}ct}).
+    \Prob\left(\sum_{i=1}^n X_i \geq t\right) \leq \exp(\frac{-\frac{1}{2}t^2}{\sum_{i=1}^n \Exp[X_i^2] + \frac{1}{3}ct}).
 \]
 \end{theorem}
 
@@ -90,39 +85,39 @@ We aim to make use of the fact that we know the random variables' variances to o
 \label{lem: bernstein}
 Let $X$ be a centered random variable satisfying $\abs{X} \leq c$. For any $s > 0$, the moment generating function of $X$ satisfies
 \[
-    \Ex{\e^{sX}} \leq \exp( s^2 \ex{X^2} \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ).
+    \Exp[\e^{sX}] \leq \exp(s^2 \Exp[X^2] \left(\frac{\e^{sc} - 1 - sc}{(sc)^2} \right)).
 \]
 \end{lemma}
 
 \begin{proof}
 First, observe that
 \[
-    \ex{X^k} \leq \ex{X^2 \abs{X}^{k-2}} \leq \ex{X^2} c^{k-2}, \quad k \geq 2.
+    \Exp[X^k] \leq \Exp[X^2 \abs{X}^{k-2}] \leq \Exp[X^2] c^{k-2}, \quad k \geq 2.
 \]
 Hence, we have
 \[
-    \sum_{k=2}^\infty \frac{s^{k-2} \ex{X^k}}{\ex{X^2} k!} \leq \sum_{k=2}^\infty \frac{s^{k-2} \ex{X^2} c^{k-2}}{\ex{X^2} k!} = \frac{1}{(sc)^2} \sum_{k=2}^\infty \frac{(sc)^k}{k!} = \frac{\e^{sc} - 1 - sc}{(sc)^2}
+    {\color{blue} \sum_{k=2}^{\infty} \frac{s^{k-2} \Exp[X^k]}{\Exp[X^2] k!}} \leq \sum_{k=2}^{\infty} \frac{s^{k-2} \Exp[X^2] c^{k-2}}{\Exp[X^2] k!} = \frac{1}{(sc)^2} \sum_{k=2}^{\infty} \frac{(sc)^k}{k!} = {\color{red} \frac{\e^{sc} - 1 - sc}{(sc)^2}},
 \]
 and thus
 \[
-    \Ex{\e^{sX}} = \Ex{1 + sX + \sum_{k=2}^\infty \frac{s^k X^k}{k!}} = 1 + s^2 \ex{X^2} \sum_{k=2}^\infty \frac{s^{k-2} \ex{X^k}}{\ex{X^2} k!} \leq 1 + s^2 \ex{X^2} \frac{\e^{sc} - 1 - sc}{(sc)^2},
+    \Exp[\e^{sX}] = \Exp\left[1 + sX + \sum_{k=2}^{\infty} \frac{s^k X^k}{k!}\right] = 1 + s^2 \Exp[X^2] {\color{blue} \sum_{k=2}^{\infty} \frac{s^{k-2} \Exp[X^k]}{\Exp[X^2] k!}} \leq 1 + s^2 \Exp[X^2] {\color{red} \frac{\e^{sc} - 1 - sc}{(sc)^2}},
 \]
-since $\ex{sX} = s \ex{X} = 0$. Finally, by applying the inequality $1 + x \leq \e^x$, we obtain
+since $\Exp[sX] = s \Exp[X] = 0$. Finally, by applying the inequality $1 + x \leq \e^x$, we obtain
 \[
-    \Ex{\e^{sX}} \leq 1 + s^2 \ex{X^2} \frac{\e^{sc} - 1 - sc}{(sc)^2} \leq \exp( s^2 \ex{X^2} \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ).
+    \Exp[\e^{sX}] \leq 1 + s^2 \Exp[X^2] \frac{\e^{sc} - 1 - sc}{(sc)^2} \leq \exp(s^2 \Exp[X^2] \left(\frac{\e^{sc} - 1 - sc}{(sc)^2} \right)). \qedhere
 \]
 \end{proof}
 
-Equipped with this result, we can continue to prove Bernstein's inequality.
+Equipped with this result, we can prove Bernstein's inequality.
 
 \begin{proof}[Proof of Theorem \ref{thm: bernstein}]
 As in the proof of Hoeffding's inequality, we have
 \[
-    \Pr{\sum_{i=1}^n X_i \geq t} \leq \e^{-st} \prod_{i=1}^n \ex{e^{sX_i}} \leq \e^{-st} \exp( s^2 \sum_{i=1}^n \ex{X_i^2} \left( \frac{\e^{sc} - 1 - sc}{(sc)^2} \right) ), \quad s > 0,
+    \Prob\left(\sum_{i=1}^n X_i \geq t\right) \leq \e^{-st} \prod_{i=1}^n \Exp[e^{sX_i}] \leq \e^{-st} \exp(s^2 \sum_{i=1}^n \Exp[X_i^2] \left(\frac{\e^{sc} - 1 - sc}{(sc)^2}\right)), \quad s > 0,
 \]
 where the second inequality is a consequence of Lemma \ref{lem: bernstein}. The RHS can be written as
 \[
-    \exp(s^2 \left( \sum_{i=1}^n \ex{X_i^2} \right) g(s) - st ), \quad g(s) = \frac{\e^{sc} - 1 - sc}{(sc)^2},
+    \exp(s^2 \left(\sum_{i=1}^n \Exp[X_i^2]\right) g(s) - st), \quad g(s) = \frac{\e^{sc} - 1 - sc}{(sc)^2},
 \]
 and optimizing this expression over $s > 0$ yields the desired result.
 \end{proof}

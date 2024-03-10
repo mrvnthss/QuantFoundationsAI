@@ -2,8 +2,8 @@
 
 % Provide information for title page
 \subject{\sffamily Lecture Notes}
-\title{\titleOfDoc}
-\subtitle{\subtitleOfDoc}
+\title{Quantitative Foundations\\ of Artificial Intelligence}
+\subtitle{Justus-Liebig-Universit\"at Gie{\ss}en \textbar{} Winter 2023/24}
 \author{\textbf{Lecturer}: Prof.~Dr.~Ludger Overbeck}  % NOTE: \author is being misused to refer to the lecturer
 \date{Last edited on \today}
 \publishers{By Marvin Thei{\ss}}
@@ -21,10 +21,10 @@
         \end{scope}
 
         % HEADLINE
-        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (headline) at ($(current page.south west) + (16mm, 32mm)$) {\fontsize{24pt}{34pt}\let\strut\relax\bfseries \titleOfDoc \par};
+        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (headline) at ($(current page.south west) + (16mm, 32mm)$) {\fontsize{24pt}{34pt}\let\strut\relax\bfseries Quantitative Foundations\\ of Artificial Intelligence \par};
 
         % SUBHEADLINE
-        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (subheadline) at ($(headline.north west) + (0, 8mm)$) {\fontsize{12pt}{14pt}\bfseries \subtitleOfDoc \par};
+        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (subheadline) at ($(headline.north west) + (0, 8mm)$) {\fontsize{12pt}{14pt}\bfseries Justus-Liebig-Universit\"at Gie{\ss}en \textbar{} Winter 2023/24 \par};
 
         \begin{scope}[on background layer]
             % BLUE TEXTBOX

@@ -2,12 +2,12 @@
 \section{The VC Inequality}
 \label{sec: VC inequality}
 
-We have now introduced all the necessary concepts to formulate the main result of this chapter: the VC inequality.
+We have now introduced all the concepts required to formulate the main result of this chapter: the VC inequality.
 
 \begin{theorem}[VC Inequality]
-Every family of sets $\mathcal{A}$ with VC dimension $VC(\mathcal{A}) = D$ satisfies
+Every family of sets $\mathcal{A}$ with VC dimension $\VC(\mathcal{A}) = D$ satisfies
 \[
-    \Ex{ \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} } \leq 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}}.
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \sqrt{\frac{2D \log(2\e n / D)}{n}}.
 \]
 \end{theorem}
 
@@ -16,130 +16,118 @@ We split the proof of this result into three steps:
 \begin{enumerate}
     \item Using symmetrization, we prove that
     \[
-        \Ex{ \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} } \leq 2 \mathcal{R}_n(\mathcal{A}).
+        \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \mathfrak{R}_n(\mathcal{A}).
     \]
     Note that this is precisely the bound \eqref{eq: symmetrization bound} obtained in Section \ref{sec: symmetrization}.
 
     \item We bound the Rademacher complexity of $\mathcal{A}$ using shatter coefficients:
     \[
-        \mathcal{R}_n(\mathcal{A}) \leq \sqrt{ \frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n)) }{n} }.
+        \mathfrak{R}_n(\mathcal{A}) \leq \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n))}{n}}.
     \]
 
-    \item Finally, we bound the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ by the VC dimension $VC(\mathcal{A})$:
+    \item Finally, we bound the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ by the VC dimension $\VC(\mathcal{A})$:
     \[
-        \mathcal{S}_{\mathcal{A}}(n) \leq \left( \frac{\e n}{D} \right)^D, \quad D = \mathrm{VC}(\mathcal{A}).
+        \mathcal{S}_{\mathcal{A}}(n) \leq \left(\frac{\e n}{D}\right)^D, \quad D = \VC(\mathcal{A}).
     \]
     This is known as the \emph{Sauer-Shelah} lemma.
 \end{enumerate}
 
-Since the first step is already done, let's tackle step number 2. As an intermediate result, we prove a bound for the Rademacher complexity of finite subsets in $\R^n$. This will turn out to be immensely useful, as we can express the Rademacher complexity of a family of sets $\mathcal{A}$ in terms of the Rademacher complexity of finite subsets in $\R^n$, i.e., $\mathcal{R}_n(\mathcal{A}) = \sup_z \mathcal{R}_n(T(z))$, where $T(z)$ is defined as in \eqref{eq: T(z)}.
+Since the first step is already done, let's tackle step number 2. As an intermediate result, we prove a bound of the Rademacher complexity of finite subsets in $\R^n$. This will turn out to be immensely useful, as we can express the Rademacher complexity of a family of sets $\mathcal{A}$ in terms of the Rademacher complexity of finite subsets in $\R^n$, i.e., $\mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \power(\mathcal{Z})} \mathfrak{R}_n(T(z))$, where $T(z)$ is defined as in \eqref{eq: T(z)}.
 
 \begin{lemma}
 \label{lem: bound on rademacher complexity of finite set}
 For a \emph{finite} set $B \subset \R^n$, it holds
 \[
-    \mathcal{R}_n(B) \leq \max_{b \in B} \norm{b} \frac{\sqrt{2 \log(2 \abs{B})}}{n},
+    \mathfrak{R}_n(B) \leq \max_{b \in B} \norm{b}_2 \frac{\sqrt{2 \log(2 \abs{B})}}{n},
 \]
-where $\norm{\cdot}$ denotes the Euclidean norm on $\R^d$.
+where $\norm{\cdot}_2$ denotes the Euclidean norm on $\R^d$.
 \end{lemma}
 
 \begin{proof}
 By definition,
 \[
-    n \mathcal{R}_n(B) = \Ex{ \max_{b \in B} \abs{Z_b} },
+    n \mathfrak{R}_n(B) = \Exp[\max_{b \in B} \abs{Z_b}],
 \]
 where $Z_b = \sum_{i=1}^n \sigma_i b_i$. Since $-\abs{b_i} \leq \sigma_i b_i \leq \abs{b_i}$ holds almost surely, Hoeffding's lemma (Lemma \ref{lem: hoeffding}) bounds the moment generating function of $Z_b$ by
 \begin{equation}
 \label{eq: proof of bound on rademacher complexity of finite set}
-    \Ex{\exp(s Z_b)} = \prod_{i=1}^n \Ex{\exp(s \sigma_i b_i)} \leq \prod_{i=1}^n \exp(s^2 b_i^2 / 2) = \mathrm{exp}(s^2 \norm{b}^2 / 2).
+    \Exp[\exp(s Z_b)] = \prod_{i=1}^n \Exp[\exp(s \sigma_i b_i)] \leq \prod_{i=1}^n \exp(s^2 b_i^2 / 2) = \operatorname{exp}(s^2 \norm{b}_2^2 / 2).
 \end{equation}
-To bound the quantity $\Ex{\max_{b \in B} \abs{Z_b}}$ we are interested in, let $\overline{B} = B \cup -B$, where $-B = \set{-b \with b \in B}$. For $s>0$,
+To bound the quantity $\Exp[\max_{b \in B} \abs{Z_b}]$ we are interested in, let $\overline{B} = B \cup -B$, where $-B = \set{-b \with b \in B}$. For $s>0$,
 \[
-    \Ex{\max_{b \in B} \abs{Z_b}} = \Ex{\max_{b \in \overline{B}} Z_b} = \frac{1}{s} \log( \exp( s \Ex{\max_{b \in \overline{B}} Z_b} )) \leq \frac{1}{s} \log \left( {\color{blue} \Ex{\exp( s \max_{b \in \overline{B}} Z_b )}} \right),
+    \Exp[\max_{b \in B} \abs{Z_b}] = \Exp[\max_{b \in \overline{B}} Z_b] = s^{-1} \operatorname{log}(\operatorname{exp}(s \Exp[\max_{b \in \overline{B}} Z_b])) \leq s^{-1} \operatorname{log}({\color{blue} \Exp[\operatorname{exp}(s \max_{b \in \overline{B}} Z_b)]}),
 \]
-where the last inequality follows from Jensen's inequality applied to the function $x \mapsto \exp(sx)$. Since the logarithm is increasing, we can bound
-\[
-    {\color{blue} \Ex{ \exp( s \max_{b \in \overline{B}} Z_b )} } \leq \sum_{b \in \overline{B}} \underbrace{\Ex{\exp(s Z_b)}}_{\geq 0}
-\]
-to obtain
+where the last inequality follows from Jensen's inequality applied to the function $x \mapsto \exp(sx)$. Since the logarithm is increasing, we can bound ${\color{blue} \Exp[\operatorname{exp}(s \max_{b \in \overline{B}} Z_b)]} \leq \sum_{b \in \overline{B}} \Exp[\exp(s Z_b)]$ to obtain
 \begin{align*}
-    \Ex{\max_{b \in B} \abs{Z_b}} &\leq \frac{1}{s} \log( \sum_{b \in \overline{B}} \Ex{\exp(s Z_b)} ) \leq \frac{1}{s} \log( \sum_{b \in \overline{B}} \mathrm{exp}(s^2 \norm{b}^2 / 2) ) \\[4pt]
-        &\leq \frac{\log(2 \abs{B})}{s} + \frac{s}{2} \max_{b \in B} \norm{b}^2 = \frac{2 \log(2 \abs{B}) + s^2 \max_{b \in B} \norm{b}^2}{2s},
+    \Exp[\max_{b \in B} \abs{Z_b}] &\leq s^{-1} \log(\sum_{b \in \overline{B}} \Exp[\exp(s Z_b)]) \leq s^{-1} \log(\sum_{b \in \overline{B}} \operatorname{exp}(s^2 \norm{b}_2^2 / 2) ) \\[4pt]
+    &\leq \frac{\log(2 \abs{B})}{s} + \frac{s}{2} \max_{b \in B} \norm{b}_2^2 = \frac{2 \log(2 \abs{B}) + s^2 \max_{b \in B} \norm{b}_2^2}{2s},
 \end{align*}
-where the second inequality follows from \eqref{eq: proof of bound on rademacher complexity of finite set}, and the third inequality follows from the observation that $\max_{b \in \overline{B}} \norm{b}^2 = \max_{b \in B} \norm{b}^2$ and $\abs{\overline{B}} \leq 2 \abs{B}$. Optimizing the RHS over $s$ yields the optimal solution
+where the second inequality follows from \eqref{eq: proof of bound on rademacher complexity of finite set}, and the third inequality follows from the observation that $\max_{b \in \overline{B}} \norm{b}_2^2 = \max_{b \in B} \norm{b}_2^2$ and $\abs{\overline{B}} \leq 2 \abs{B}$. Optimizing the RHS over $s$ yields the optimal solution
 \[
-    s^* = \sqrt{\frac{2 \log(2 \abs{B})}{\max_{b \in B} \norm{b}^2}}.
+    s^* = \sqrt{\frac{2 \log(2 \abs{B})}{\max_{b \in B} \norm{b}_2^2}}.
 \]
 Plugging this back in yields the desired result, i.e.,
 \[
-    n \mathcal{R}_n(B) = \Ex{ \max_{b \in B} \abs{Z_b} } \leq \max_{b \in B} \norm{b} \sqrt{2 \log(2 \abs{B})}.
+    n \mathfrak{R}_n(B) = \Exp[\max_{b \in B} \abs{Z_b}] \leq \max_{b \in B} \norm{b}_2 \sqrt{2 \log(2 \abs{B})}. \qedhere
 \]
 \end{proof}
 
 By applying the previous result to the finite set $T(z)$, we obtain
 \[
-    \mathcal{R}_n(T(z)) \leq \max_{b \in T(z)} \norm{b} \frac{\sqrt{2 \log(2 \abs{T(z)})}}{n}.
+    \mathfrak{R}_n(T(z)) \leq \max_{b \in T(z)} \norm{b}_2 \frac{\sqrt{2 \log(2 \abs{T(z)})}}{n}.
 \]
-Since each entry of a vector in $T(z)$ takes values in the set $\set{0, 1}$, we know that the norm $\norm{b}$ of any vector $b \in T(z)$ is at most $\sqrt{n}$. Further, we know that the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ of $\mathcal{A}$ depend (by definition) directly on the cardinality of the sets $T(z)$. Hence, the next result should come at no surprise.
+Since each entry of a vector in $T(z)$ takes values in the set $\set{0, 1}$, we know that the Euclidean norm $\norm{b}_2$ of any vector $b \in T(z)$ is at most $\sqrt{n}$. Further, we know that the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ of $\mathcal{A}$ depend directly on the cardinality of the sets $T(z)$. Hence, the next result should come at no surprise.
 
 \begin{proposition}
 \label{prop: bound on rademacher complexity of family of sets}
 For a family of sets $\mathcal{A}$, it holds
 \[
-    \mathcal{R}_n(\mathcal{A}) \leq \sqrt{ \frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n)) }{n} }.
+    \mathfrak{R}_n(\mathcal{A}) \leq \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n)) }{n}}.
 \]
 \end{proposition}
 
 \begin{proof}
-Observe that
+Observe that $\mathfrak{R}_n(\mathcal{A}) = \sup_z \mathfrak{R}_n(T(z))$, by Lemma \ref{lem: rademacher complexity of family of sets}, where $T(z)$ is defined as in \eqref{eq: T(z)}. Since $T(z) \subset \set{0, 1}^n$, we have $\norm{b}_2 \leq \sqrt{n}$ for all $b \in T(z)$ and all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$. Hence, by Lemma \ref{lem: bound on rademacher complexity of finite set}, we have
 \[
-    \mathcal{R}_n(\mathcal{A}) = \sup_z \mathcal{R}_n(T(z)),
+    \mathfrak{R}_n(\mathcal{A}) \leq \sup_{z \in \power(\mathcal{Z})} \sqrt{\frac{2 \log(2 \abs{T(z)})}{n}} \, .
 \]
-by Lemma \ref{lem: rademacher complexity of family of sets}, where $T(z)$ is defined as in \eqref{eq: T(z)}. Since $T(z) \subset \set{0, 1}^n$, we have $\norm{b} \leq \sqrt{n}$ for all $b \in T(z)$ and all subsets $z = \set{z_1, \dots, z_n}$. Hence, by Lemma \ref{lem: bound on rademacher complexity of finite set}, we have
+Finally, by the definition of the shatter coefficients of $\mathcal{A}$, we have $\abs{T(z)} \leq \sup_z \abs{T(z)} = \mathcal{S}_{\mathcal{A}}(n)$, and hence
 \[
-    \mathcal{R}_n(\mathcal{A}) \leq \sup_z \sqrt{\frac{2 \log(2 \abs{T(z)})}{n}}
-\]
-Finally, by the definition of the shatter coefficients of $\mathcal{A}$, we have
-\[
-    \abs{T(z)} \leq \sup_z \abs{T(z)} = \mathcal{S}_{\mathcal{A}}(n),
-\]
-and hence
-\[
-    \mathcal{R}_n(\mathcal{A}) \leq \sqrt{ \frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n)) }{n} }.
+    \mathfrak{R}_n(\mathcal{A}) \leq \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n)) }{n}}. \qedhere
 \]
 \end{proof}
 
 Up to this point, we have shown that
 \begin{equation}
 \label{eq: precursor to VC inequality}
-    \Ex{ \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} } \leq 2 \mathcal{R}_n(\mathcal{A}) \leq 2 \sqrt{ \frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n)) }{n} }.
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \mathfrak{R}_n(\mathcal{A}) \leq 2 \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n))}{n}}.
 \end{equation}
 Note that this bound would not be informative (in the sense that it does not imply convergence of the uniform deviations to zero as the sample size $n$ goes to infinity) if the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ were exponential in $n$. For example, if $\mathcal{S}_{\mathcal{A}}(n) = 2^n$ for $n \leq D$ and $\mathcal{S}_{\mathcal{A}}(n) = 2^n - 1$ for all $n > D$, the RHS of \eqref{eq: precursor to VC inequality} would be greater than $2$ for all $n$. The VC inequality suggests that this cannot be the case, and indeed, if the VC dimension of a family of sets is \emph{finite}, the shatter coefficients of $\mathcal{A}$ can be at most \emph{polynomial} in $n$. This result is known as the Sauer-Shelah lemma, which we now turn to.
 
 \begin{lemma}[Sauer-Shelah]
-For a family of sets $\mathcal{A}$ with finite VC dimension $VC(\mathcal{A}) = D$, the shatter coefficients satisfy
+For a family of sets $\mathcal{A}$ with finite VC dimension $\VC(\mathcal{A}) = D$, the shatter coefficients satisfy
 \[
-    \mathcal{S}_{\mathcal{A}}(n) \leq \sum_{k=0}^D \binom{n}{k} \leq \left( \frac{\e n}{D} \right)^D, \quad n \in \N.
+    \mathcal{S}_{\mathcal{A}}(n) \leq \sum_{k=0}^D \binom{n}{k} \leq \left(\frac{\e n}{D}\right)^D, \quad n \in \N.
 \]
 \end{lemma}
 
 For a proof of this result, we refer the reader to Theorem 13.2 of Section 13.1 in \cite[p.~216]{devroye1996probabilistic}. Replacing $\mathcal{S}_{\mathcal{A}}(n)$ with $(\e n/D)^D$ in \eqref{eq: precursor to VC inequality} clearly yields the VC inequality
 \[
-    \Ex{ \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} } \leq 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}}.
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}}.
 \]
 
 Recall that, using the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}), we had shown that the bound
 \[
-    \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } < \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
+    \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] + \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 holds with probability at least $1 - \delta$. Hence, we conclude:
 
 \begin{corollary}[VC Inequality]
-For a family of sets $\mathcal{A}$ with finite VC dimension $VC(\mathcal{A}) = D$, the upper bound
+For a family of sets $\mathcal{A}$ with finite VC dimension $\VC(\mathcal{A}) = D$, the upper bound
 \[
-    \sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) } < 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
+    \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 holds with probability at least $1 - \delta$.
 \end{corollary}
 
-Note that, while this bound can be improved, it is always of rate $\sqrt{\log(n) / n}$, which is a \qq{slow rate}.
+Note that, while this bound can be improved, it is always of rate $\sqrt{\log(n) / n}$, which is a \say{slow rate}.

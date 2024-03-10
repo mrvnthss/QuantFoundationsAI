@@ -5,42 +5,10 @@
 \chapter{Formal Setting}
 \label{ch: formal setting}
 
-The primary object in much of what we will cover is the \emph{joint distribution} $\P_{(X, Y)}$ of two random variables $X \colon \Omega \to \mathcal{X}$ and $Y \colon \Omega \to \mathcal{Y}$ defined on some probability space $(\Omega, \mathcal{A}, \P)$. Theoretically, these random variables can take values in arbitrary measurable spaces $(\mathcal{X}, \mathcal{F}_{\mathcal{X}})$ and $(\mathcal{Y}, \mathcal{F}_{\mathcal{Y}})$, respectively. In practice, these will most often be some $d$-dimensional Euclidean space $\R^d$ equipped with the Borel $\sigma$-algebra $\mathcal{B}(\R^d)$. Recall that, in the abstract setting, the \emph{joint cumulative distribution function} $F_{(X, Y)}$ is given by
-\[
-    \highlightMath{
-        F_{(X, Y)}(A \times B) = \Pr{X \in A, Y \in B}, \quad A \in \mathcal{F}_{\mathcal{X}}, B \in \mathcal{F}_{\mathcal{Y}}.
-    }
-\]
-If $X$ and $Y$ take values in $R^k$ and $\R^l$, respectively, we write
-\[
-    \highlightMath{
-        F_{(X, Y)}(\mathbf{x}, \mathbf{y}) = \Pr{X_1 \leq x_1, \dots, X_k \leq x_k, Y_1 \leq y_1, \dots, Y_l \leq y_l}
-    }
-\]
-for $\mathbf{x} = (x_1, \dots, x_k) \in \R^k$ and $\mathbf{y} = (y_1, \dots, y_l) \in \R^l$.
+In this first chapter, we briefly describe the formal setting that will accompany us for the remainder of this course. We will introduce some common machine learning terminology and we will fix some notation.
 
-In machine learning, $Y$ will often be some output resulting from a given input $X$. In particular, we often want to approximate or predict the value of $Y$ given some input $X$. That is, we want to find a measurable function
+Throughout this course, we let $(X, Y)$ denote a pair of random variables defined on a common probability space $(\Omega, \mathcal{A}, \P)$, taking values in arbitrary spaces $(\mathcal{X}, \mathcal{F}_{\mathcal{X}})$ and $(\mathcal{Y}, \mathcal{F}_{\mathcal{Y}})$, respectively\footnote{$\mathcal{F}_{\mathcal{X}}$ and $\mathcal{F}_{\mathcal{Y}}$ denote $\sigma$-algebras on $\mathcal{X}$ and $\mathcal{Y}$, respectively. We won't be concerned with measurability in this course, so these won't play an important role.}. Most often, these spaces will be the Euclidean space $\R^d$ of dimension $d$. Also, we may sometimes just write $Z$ for the pair $(X, Y)$. We denote the joint distribution of $X$ and $Y$ by $\P_{(X, Y)}$, i.e.,
 \[
-    f \colon (\mathcal{X}, \mathcal{F}_{\mathcal{X}}) \to (\mathcal{Y}, \mathcal{F}_{\mathcal{Y}})
+    \P_{(X, Y)}(A, B) = \Pr{X \in A, Y \in B}, \quad A \in \mathcal{F}_{\mathcal{X}}, \; B \in \mathcal{F}_{\mathcal{Y}}.
 \]
-mapping $X$ to $f(X)$ in such a way that $f(X)$ is \qq{close} to $Y$. In order to quantify this, we will need some functional
-\[
-    \mathcal{E} \colon \mathcal{Y} \times \mathcal{Y} \to \R
-\]
-that measures the error $\mathcal{E}(f(X), Y)$ of our prediction $f(X)$. For $\mathcal{Y} = \R^d$, a typical example is
-\[
-    \highlightMath{
-        \mathcal{E}_p(Y_1, Y_2) = \Ex{\norm{Y_1 - Y_2}^p}, \quad p \geq 1,
-    }
-\]
-where $\norm{\cdot}$ denotes the Euclidean norm on $\R^d$. For a measurable function $f \colon \mathcal{X} \to \R^d$, we write
-\[
-    \highlightMath{
-        \mathcal{E}_p(f) = \mathcal{E}_p(f(X), Y) = \Ex{\norm{f(X) - Y}^p} = \int_{\mathcal{X} \times \mathcal{Y}} \norm{f(x) - y}^p \dP{(X, Y)}{x, y}.
-    }
-\]
-A popular choice is $p = 2$, which yields the \emph{mean-squared error}
-\[
-    \mathcal{E}_2(f) = \ex{\norm{f(X) - Y}^2}.
-\]
-Minimizing the mean-squared error $\mathcal{E}_2(f)$ amounts to finding a measurable function $f \colon \mathcal{X} \to \R^d$ that minimizes the $L^2$-distance of $f(X)$ from $Y$. Recall that this is precisely what the \emph{conditional expectation} $\Ex{Y \given X}$ of $Y$ given $X$ does. Since the concept of conditional expectation is a vital one when it comes to statistical learning, we will briefly revisit its definition and some of its most important properties in the next section.
+Similarly, we write $\P_X$ and $\P_Y$ for the marginal distributions of $X$ and $Y$, respectively. We will frequently be working with (hypothetical) data in this course. To this end, we let $\mathcal{D}_n = \set{(X_1, Y_1), \dots, (X_n, Y_n)}$ denote a set of $n$ pairs $Z_i = (X_i, Y_i)$, all of which are i.i.d.\ draws from the joint distribution of $(X, Y)$.

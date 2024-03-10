@@ -2,66 +2,64 @@
 \section{Symmetrization and Rademacher Complexity}
 \label{sec: symmetrization}
 
-\emph{Symmetrization} is a commonly used technique in machine learning. Let $\mathcal{D}_n = \set{Z_1, \dots, Z_n}$ be our sample set. We take another independent copy of the sample set, which we denote $\mathcal{D}_n' = \set{Z_1', \dots, Z_n'}$. In machine learning, this sample is sometimes referred to as a \qq{ghost sample}. We have
+\emph{Symmetrization} is a commonly used technique in machine learning. Let $\mathcal{D}_n = \set{Z_1, \dots, Z_n}$ be our sample set. We take another independent copy of the sample set, which we denote $\mathcal{D}_n' = \set{Z_1', \dots, Z_n'}$. In machine learning, this sample is sometimes referred to as a \say{ghost sample}. We have
 \[
-    \mu(A) = \Pr{Z \in A} = \Ex{\frac{1}{n} \sum_{i=1}^n \indSet{Z_i' \in A}} = \Ex{\frac{1}{n} \sum_{i=1}^n \indSet{Z_i' \in A} \,\Big\vert\, \mathcal{D}_n} = \Ex{\mu_n'(A) \given \mathcal{D}_n},
+    \mu(A) = \Prob(Z \in A) = \Exp\left[\frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}}\right] = \Exp\left[\frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}} \given[\Big] \mathcal{D}_n\right] = \Exp[\mu_n'(A) \given \mathcal{D}_n],
 \]
-where $\mu_n'(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i' \in A}$, since $Z_1', \dots, Z_n'$ are identically distributed as $Z$, and are independent of $\mathcal{D}_n$. Hence,
+where $\mu_n'(A) = \frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}}$, since $Z_1', \dots, Z_n'$ are identically distributed as $Z$, and are independent of $\mathcal{D}_n$. Hence,
 \begin{align*}
-    \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} &= \Ex{\sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \Ex{\mu_n'(A) \given \mathcal{D}_n} }} \\[4pt]
-        &= \Ex{\sup_{A \in \mathcal{A}} \abs{ \Ex{\mu_n(A) - \mu_n'(A) \given \mathcal{D}_n} }} \leq \Ex{\sup_{A \in \mathcal{A}} \Ex{\abs{ \mu_n(A) - \mu_n'(A) } \given \mathcal{D}_n} },
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] &= \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \Exp[\mu_n'(A) \given \mathcal{D}_n]}] \\[4pt]
+    &= \Exp[\sup_{A \in \mathcal{A}} \abs*{\Exp[\mu_n(A) - \mu_n'(A) \given \mathcal{D}_n]}] \leq \Exp[\sup_{A \in \mathcal{A}} \Exp[\abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n]],
 \end{align*}
-where we have used the fact that $\mu_n(A)$ is $\sigma(Z_1, \dots, Z_n)$-measurable, and then applied Jensen's inequality to the conditional expectation. Clearly, $\abs{ \mu_n(A) - \mu_n'(A) } \leq \sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \mu_n'(A) }$ for all $A \in \mathcal{A}$, and thus,
+where we have used the fact that $\mu_n(A)$ is $\sigma(Z_1, \dots, Z_n)$-measurable, and then applied Jensen's inequality to the conditional expectation. Clearly, $\abs*{\mu_n(A) - \mu_n'(A)} \leq \sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)}$ for all $A \in \mathcal{A}$, and thus,
 \[
-    \Ex{\abs{ \mu_n(A) - \mu_n'(A) } \given \mathcal{D}_n} \leq \Ex{\sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \mu_n'(A) } \given \mathcal{D}_n}
+    \Exp[\abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n] \leq \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n]
 \]
 by monotonicity of conditional expectation. Taking the supremum over all $A \in \mathcal{A}$ and then applying monotonicity of expectation, we get
 \[
-    \Ex{\sup_{A \in \mathcal{A}} \Ex{\abs{ \mu_n(A) - \mu_n'(A) } \given \mathcal{D}_n} } \leq \Ex{\sup_{A \in \mathcal{A}} {\color{blue} \Ex{\sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \mu_n'(A) } \given \mathcal{D}_n} }}
+    \Exp[\sup_{A \in \mathcal{A}} \Exp[\abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n]] \leq \Exp[\sup_{A \in \mathcal{A}} {\color{blue} \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n}]].
 \]
 The expression highlighted in \textcolor{blue}{blue} no longer depends on $A \in \mathcal{A}$, so that we can drop the outer supremum to arrive at
 \[
-    \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} \leq \Ex{ {\color{blue} \Ex{\sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \mu_n'(A) } \given \mathcal{D}_n} }} = \Ex{\sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \mu_n'(A) }}
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq \Exp[{\color{blue} \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n}]] = \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)}]
 \]
 by the law of total expectation. By definition,
 \[
-    \mu_n(A) - \mu_n'(A) = \frac{1}{n} \sum_{i=1}^n \left(\indSet{Z_i \in A} - \indSet{Z_i' \in A}\right).
+    \mu_n(A) - \mu_n'(A) = \frac{1}{n} \sum_{i=1}^n (\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}}).
 \]
-Since our ghost sample $\mathcal{D}_n'$ has the same distribution as $\mathcal{D}_n$, by symmetry, $\indSet{Z_i \in A} - \indSet{Z_i' \in A}$ has the same distribution as $\sigma_i \left(\indSet{Z_i \in A} - \indSet{Z_i' \in A}\right)$, where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\mathrm{Rad}(\nicefrac{1}{2})$, i.e., $\Pr{\sigma_i = \pm 1} = \nicefrac{1}{2}$, and $\sigma_1, \dots, \sigma_n$ are independent of both samples $\mathcal{D}_n$ and $\mathcal{D}_n'$. Thus,
+Since our ghost sample $\mathcal{D}_n'$ has the same distribution as $\mathcal{D}_n$, by symmetry, $\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}}$ has the same distribution as $\sigma_i (\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}})$, where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables\footnote{i.e., $\Prob(\sigma_i = \pm 1) = \nicefrac{1}{2}$} that are independent of both samples $\mathcal{D}_n$ and $\mathcal{D}_n'$. Thus,
 \[
-    \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} \leq \Ex{\sup_{A \in \mathcal{A}} \abs{ \mu_n(A) - \mu_n'(A) }} = \Ex{\sup_{A \in \mathcal{A}} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \left(\indSet{Z_i \in A} - \indSet{Z_i' \in A}\right) }}.
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)}] = \Exp\left[\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i (\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}})}\right].
 \]
 By the triangle inequality,
 \[
-    \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \left(\indSet{Z_i \in A} - \indSet{Z_i' \in A}\right) } \leq \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A} } + \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i' \in A} },
+    \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i (\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}}) } \leq \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} + \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \ind{\{Z_i' \in A\}}},
 \]
 so that finally
 \begin{equation}
 \label{eq: precursor to symmetrization bound}
-    \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} \leq 2 \Ex{\sup_{A \in \mathcal{A}} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}}},
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \Exp\left[\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}}\right],
 \end{equation}
-where we have again used the fact that $\mathcal{D}_n$ and $\mathcal{D}_n'$ are identically distributed. Altogether, we have managed to bound $\Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }}$ by a much nicer quantity. Nonetheless, we still want the upper bound to rely solely on the \emph{structure} of $\mathcal{A}$ and \emph{not} on the particular random sample $\set{Z_1, \dots, Z_n}$. To achieve this, we simply take the supremum over all possible observations $z_i \in \mathcal{X} \times \set{0, 1}$.
+where we have again used the fact that $\mathcal{D}_n$ and $\mathcal{D}_n'$ are identically distributed. Altogether, we have managed to bound $\Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}]$ by a much nicer quantity. Nonetheless, we still want the upper bound to rely solely on the \emph{structure} of $\mathcal{A}$ and \emph{not} on the particular random sample $\set{Z_1, \dots, Z_n}$. To achieve this, we simply take the supremum over all possible observations $z_i \in \mathcal{X} \times \set{0, 1}$.
 
 \begin{definition}
-The \emph{Rademacher complexity of a family of sets} $\mathcal{A}$ in a space $\mathcal{Z}$ is defined to be the quantity
+The \emph{Rademacher complexity of a family of sets} $\mathcal{A}$ in a space $\mathcal{Z}$ is the quantity
 \[
-    \mathcal{R}_n(\mathcal{A}) = \sup_{z_1, \dots, z_n \in \mathcal{Z}} \Ex{\sup_{A \in \mathcal{A}} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}},
+    \mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \power(\mathcal{Z})} \Exp\left[\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}\right],
 \]
-where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ random variables drawn from the Rademacher distribution.
-
-The \emph{Rademacher complexity of a set} $B \subset \R^n$ is defined as 
+where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$, and $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables. The \emph{Rademacher complexity of a set} $B \subset \R^n$ is defined as 
 \[
-    \mathcal{R}_n(B) = \Ex{\sup_{b \in B} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i b_i}},
+    \mathfrak{R}_n(B) = \Exp\left[\sup_{b \in B} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i b_i}\right],
 \]
 where $\sigma_1, \dots, \sigma_n$ are defined as above.
 \end{definition}
 
-The Rademacher complexity measures the complexity of a set $B \subset \R^n$ in the following sense: The quantity $\abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i b_i}$ measures how well a vector $b \in B$ correlates with a random sign pattern $(\sigma_1, \dots, \sigma_n)$. The more complex $B$ is, the better some vector $b \in B$ can replicate a given sign pattern. For example, if $B = [-1, 1]^n$, then $\mathcal{R}_n(B) = 1$. If, instead, $B \subset [-1, 1]^n$ consists only of $k$-sparse vectors, then $\mathcal{R}_n(B) = k/n$.
+The Rademacher complexity measures the complexity of a set $B \subset \R^n$ in the following sense: The quantity $\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i b_i}$ measures how well a vector $b \in B$ correlates with a random sign pattern $(\sigma_1, \dots, \sigma_n)$. The more complex $B$ is, the better some vector $b \in B$ can replicate a given sign pattern. For example, if $B = [-1, 1]^n$, then $\mathfrak{R}_n(B) = 1$. If, instead, $B \subset [-1, 1]^n$ consists only of $k$-sparse vectors, then $\mathfrak{R}_n(B) = k/n$.
 
-From the definition of Rademacher complexity of a family of sets $\mathcal{A}$ and inequality \eqref{eq: precursor to symmetrization bound}, we conclude
+The definition of Rademacher complexity allows us to restate inequality \eqref{eq: precursor to symmetrization bound} as follows:
 \begin{equation}
 \label{eq: symmetrization bound}
     \highlightMath{
-        \Ex{\sup_{A \in \mathcal{A}} \bigAbs{ \mu_n(A) - \mu(A) }} \leq 2 \mathcal{R}_n(\mathcal{A}).
+        \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \mathfrak{R}_n(\mathcal{A}).
     }
 \end{equation}

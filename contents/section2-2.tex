@@ -2,72 +2,71 @@
 \section{Plug-In Decisions}
 \label{subsec: plug-in decisions}
 
-We know that the Bayes classifier $h^*(x) = \indSet{\eta(X) > 1/2}$ is our best guess of $Y$ based on the observation $X$. However, the function $\eta(x) = \Ex{Y \given X=x}$ is often unknown. Assume that we have a function $\tilde\eta \colon \mathcal{X} \to [0, 1]$ approximating $\eta$. In this case, it is natural to use the \emph{plug-in} decision function
+We know that the Bayes classifier $h^*(x) = \indSet{\eta(X) > \nicefrac{1}{2}}$ is our best guess of $Y$ based on the observation $X$. However, the function $\eta(x) = \Exp[Y \given X = x]$ is often unknown. Assume that we have a function $\tilde{\eta} \colon \mathcal{X} \to [0, 1]$ approximating $\eta$. In this case, it is natural to use the \emph{plug-in} classifier
 \begin{equation}
 \label{eq: plug-in classifier}
-    \tilde h(x) = \begin{cases}
-        1, \quad &\tilde\eta(x) > 1/2 \\
-        0, \quad &\tilde\eta(x) \leq 1/2
+    \tilde{h}(x) = \begin{cases}
+        1, \quad & \tilde{\eta}(x) > 1/2 \\
+        0, \quad & \tilde{\eta}(x) \leq 1/2
     \end{cases}
 \end{equation}
-
-The error probability of this plug-in classifier is close to the optimal classifier $h^*$.
+The error probability of this plug-in classifier is close to the Bayes error if $\tilde{\eta}$ is a good approximation of the regression function $\eta$.
 
 \begin{theorem}
 \label{thm: plug-in decision}
-The excess risk $R(\tilde h)$ of the plug-in classifier $\tilde h$ defined in \eqref{eq: plug-in classifier} satisfies
+The excess risk $R(\tilde{h})$ of the plug-in classifier $\tilde{h}$ defined in \eqref{eq: plug-in classifier} satisfies
 \[
-    R(\tilde h) = \ex{\abs{2 \eta(X) - 1} \cdot \indSet{\tilde h(X) \neq h^*(X)}} \leq 2 \, \Ex{\bigAbs{ \eta(X) - \tilde\eta(X) }}.
+    R(\tilde{h}) = \Exp[\abs{2\eta(X) - 1} \indSet{\tilde{h}(X) \neq h^*(X)}] \leq 2 \Exp[\abs{\eta(X) - \tilde{\eta}(X)}].
 \]
 \end{theorem}
 
 \begin{proof}
 The first identity is simply an application of Theorem \ref{thm: bayes classifier}. Thus, all we need to demonstrate is that the inequality
 \[
-    \bigAbs{ \eta(x) - 1/2 } \leq \bigAbs{ \eta(x) - \tilde\eta(x) }
+    \abs{\eta(x) - 1/2} \leq \abs{\eta(x) - \tilde{\eta}(x)}
 \]
-holds on the set $A = \{\tilde h \neq h^*\}$. First, assume that $\tilde h(x) = 0$ for $x \in A$. This implies that $h^*(x) = 1$. By definition of $\tilde h$ and $h^*$, we know that $\tilde\eta(x) \leq 1/2$ and $\eta(x) > 1/2$, and thus
+holds on the set $A = \{ \tilde{h} \neq h^* \}$. First, assume that $\tilde{h}(x) = 0$ for $x \in A$. This implies that $h^*(x) = 1$. By definition of $\tilde{h}$ and $h^*$, we know that $\tilde{\eta}(x) \leq 1/2$ and $\eta(x) > 1/2$, and thus
 \[
-    \tilde\eta(x) \leq 1/2 < \eta(x).
+    \tilde{\eta}(x) \leq 1/2 < \eta(x).
 \]
-If $\tilde h(x) = 1$, then $h^*(x) = 0$, and consequently $\tilde\eta(x) > 1/2$ and $\eta(x) \leq 1/2$. Altogether, we have
+If $\tilde{h}(x) = 1$, then $h^*(x) = 0$, and consequently $\tilde{\eta}(x) > 1/2$ and $\eta(x) \leq 1/2$. Altogether, we have
 \[
-    \eta(x) \leq 1/2 < \tilde\eta(x).
+    \eta(x) \leq 1/2 < \tilde{\eta}(x).
 \]
-This proves the inequality stated at the beginning of this proof.
+This proves the inequality stated at the beginning of this proof, and we're done.
 \end{proof}
 
-Since $\eta \colon \mathcal{X} \to [0, 1]$ takes values in the unit interval, the condition $\eta(x) > 1/2$ is equivalent to the inequality $\eta(x) > 1 - \eta(x)$. Assuming that we have two functions $\tilde\eta_1 \colon \mathcal{X} \to [0, 1]$ and $\tilde\eta_0 \colon \mathcal{X} \to [0, 1]$ such that $\tilde\eta_1$ approximates $\eta$ and $\tilde\eta_0$ approximates $1 - \eta$ with the constraint that $\tilde\eta_1$ and $\tilde\eta_0$ do \emph{not} sum to $1$, we can still build a plug-in classifier $\tilde h$ by plugging $\tilde\eta_1$ and $\tilde\eta_0$ into the condition $\eta(x) > 1 - \eta(x)$:
+Since $\eta \colon \mathcal{X} \to [0, 1]$ takes values in the unit interval, the condition $\eta(x) > 1/2$ is equivalent to the inequality $\eta(x) > 1 - \eta(x)$. Assuming that we have two functions $\tilde{\eta}_1 \colon \mathcal{X} \to [0, 1]$ and $\tilde{\eta}_0 \colon \mathcal{X} \to [0, 1]$ such that $\tilde{\eta}_1$ approximates $\eta$ and $\tilde{\eta}_0$ approximates $1 - \eta$ with the constraint that $\tilde{\eta}_1$ and $\tilde{\eta}_0$ do \emph{not} sum to $1$, we can still build a plug-in classifier $\tilde{h}$ by plugging $\tilde{\eta}_1$ and $\tilde{\eta}_0$ into the condition $\eta(x) > 1 - \eta(x)$:
 \begin{equation}
 \label{eq: plug-in classifier not summing to 1}
-    \tilde h(x) = \begin{cases}
-        1, \quad &\tilde\eta_1(x) > \tilde\eta_0(x) \\
-        0, \quad &\text{else}
+    \tilde{h}(x) = \begin{cases}
+        1, \quad & \tilde{\eta}_1(x) > \tilde{\eta}_0(x) \\
+        0, \quad & \text{else}
     \end{cases}
 \end{equation}
 While this puts us into a slightly different situation compared to Theorem \ref{thm: plug-in decision}, a bound similar to that in Theorem \ref{thm: plug-in decision} still holds.
 
 \begin{theorem}
-The excess risk $R(\tilde h)$ of the plug-in classifier $\tilde h$ defined in \eqref{eq: plug-in classifier not summing to 1} satisfies
+The excess risk $R(\tilde{h})$ of the plug-in classifier $\tilde{h}$ defined in \eqref{eq: plug-in classifier not summing to 1} satisfies
 \[
-    R(\tilde h) \leq \Ex{\abs{\eta(X) - \tilde{\eta}_1(X)}} + \Ex{\abs{(1 - \eta(X)) - \tilde{\eta}_0(X)}}.
+    R(\tilde{h}) \leq \Exp[\abs*{\eta(X) - \tilde{\eta}_1(X)}] + \Exp[\abs*{(1 - \eta(X)) - \tilde{\eta}_0(X)}].
 \]
 \end{theorem}
 
-The proof is left to the reader. Finally, assume that the class-conditional densities $f_0$ and $f_1$ exist and are approximated by $\tilde f_0$ and $\tilde f_1$. Further, let the class probabilities $p = \Pr{Y=1}$ and $1-p = \Pr{Y=0}$ be approximated by $\tilde p_1$ and $\tilde p_0$, respectively. In this case, one might use the plug-in decision
+The proof is left to the reader. Finally, assume that the class-conditional densities $f_0$ and $f_1$ exist and are approximated by $\tilde{f}_0$ and $\tilde{f}_1$. Further, let the class probabilities $p = \Prob(Y = 1)$ and $1 - p = \Prob(Y = 0)$ be approximated by $\tilde{p}_1$ and $\tilde{p}_0$, respectively. In this case, one might use the plug-in decision
 \begin{equation}
 \label{eq: plug-in classifier for X with density}
-    \tilde h(x) = \begin{cases}
-        1, \quad &\tilde f_1(x) \tilde p_1 > \tilde f_0(x) \tilde p_0 \\
-        0, \quad &\text{else}
+    \tilde{h}(x) = \begin{cases}
+        1, \quad & \tilde{f}_1(x) \tilde{p}_1 > \tilde{f}_0(x) \tilde{p}_0 \\
+        0, \quad & \text{else}
     \end{cases}
 \end{equation}
 which is based on the Bayes classifier established in \eqref{eq: bayes classifier for X with density}.
 
 \begin{proposition}
-The excess risk $R(\tilde h)$ of the plug-in classifier $\tilde h$ defined in \eqref{eq: plug-in classifier for X with density} satisfies
+The excess risk $R(\tilde{h})$ of the plug-in classifier $\tilde{h}$ defined in \eqref{eq: plug-in classifier for X with density} satisfies
 \[
-    R(\tilde h) \leq \int_{\mathcal{X}} \bigAbs{ p f_1(x) - \tilde p_1 \tilde f_1(x) } \dx + \int_{\mathcal{X}} \bigAbs{ (1-p) f_0(x) - \tilde p_0 \tilde f_0(x) } \dx \, .
+    R(\tilde{h}) \leq \int_{\mathcal{X}} \abs*{pf_1(x) - \tilde{p}_1\tilde{f}_1(x) } \dx + \int_{\mathcal{X}} \abs*{(1 - p)f_0(x) - \tilde{p}_0\tilde{f}_0(x)} \dx.
 \]
 \end{proposition}
 

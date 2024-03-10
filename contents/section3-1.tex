@@ -4,71 +4,73 @@
 To state the main result of this section, we first need to introduce the concept of \emph{martingales}.
 
 \begin{definition}
-Let $(\Omega, \mathcal{A}, \mathbb{P})$ be a probability space.
-\begin{enumerate}[(i)]
+Let $(\Omega, \mathcal{A}, \P)$ be a probability space.
+\begin{enumerate}
     \item A \emph{filtration} $\set{\mathcal{F}_n}_{n \in \N}$ is an increasing sequence of sub-$\sigma$-algebras $\mathcal{F}_n$ of $\mathcal{A}$, i.e.,
     \[
-        \mathcal{F}_1 \subseteq \mathcal{F}_2 \subseteq \dots \subseteq \mathcal{A}.
+        \mathcal{F}_1 \subset \mathcal{F}_2 \subset \dots \subset \mathcal{A}.
     \]
 
     \item A stochastic process $\set{X_n}_{n \in \N}$ is called a \emph{martingale} if, for every $n \in \N$,
-    \begin{enumerate}[(a)]
-        \item $X_n$ is $\mathcal{F}_n$-measurable and integrable, i.e., $\Ex{\abs{X_n}} < \infty$,
+    \begin{enumerate}
+        \item $X_n$ is $\mathcal{F}_n$-measurable and integrable, i.e., $\Exp[\abs{X_n}] < \infty$,
 
-        \item $\Ex{X_{n+1} \given \mathcal{F}_n} = X_n$ holds almost surely.
+        \item $\Exp[X_{n+1} \given \mathcal{F}_n] = X_n$ holds almost surely.
     \end{enumerate}
 \end{enumerate}
 \end{definition}
 
-Loosely speaking, martingales are a generalization of sums of zero-mean, independent random variables: Let $\set{X_n}_{n \in \N}$ be a sequence of independent random variables with $\Ex{X_n} = 0$, and let $S_n = \sum_{i=1}^n X_i$. Then, for $\mathcal{F}_n = \sigma(X_1, \dots, X_n)$, we have
+Loosely speaking, martingales are a generalization of sums of zero-mean, independent random variables: Let $\set{X_n}_{n \in \N}$ be a sequence of independent random variables with $\Exp[X_n] = 0$, and let $S_n = \sum_{i=1}^n X_i$. Then, for $\mathcal{F}_n = \sigma(X_1, \dots, X_n)$, we have
 \[
-    \Ex{S_{n+1} \given \mathcal{F}_n} = \Ex{X_{n+1} + S_n \given \mathcal{F}_n} = \Ex{X_{n+1}} + \Ex{S_n \given \mathcal{F}_n} = S_n,
+    \Exp[S_{n+1} \given \mathcal{F}_n] = \Exp[X_{n+1} + S_n \given \mathcal{F}_n] = \Exp[X_{n+1}] + \Exp[S_n \given \mathcal{F}_n] = S_n,
 \]
 since $X_{n+1}$ is centered and independent of $\mathcal{F}_n$, and $S_n$ is $\mathcal{F}_n$-measurable.
 
 Another definition we will need is that of a \emph{martingale difference sequence}.
 
 \begin{definition}
-Let $(\Omega, \mathcal{A}, \mathbb{P})$ be a probability space with filtration $\set{\mathcal{F}_n}_{n \in \N}$. A stochastic process $\set{X_n}_{n\in\N}$ is called a \emph{martingale difference sequence (MDS)}, if
-\begin{enumerate}[(i)]
-    \item $X_n$ is $\mathcal{F}_n$-measurable and integrable, i.e., $\Ex{\abs{X_n}} < \infty$,
+Let $(\Omega, \mathcal{A}, \P)$ be a probability space with filtration $\set{\mathcal{F}_n}_{n \in \N}$. A stochastic process $\set{X_n}_{n \in \N}$ is called a \emph{martingale difference sequence (MDS)}, if
+\begin{enumerate}
+    \item $X_n$ is $\mathcal{F}_n$-measurable and integrable, i.e., $\Exp[\abs{X_n}] < \infty$,
 
-    \item $\Ex{X_{n+1} \given \mathcal{F}_n} = 0$ holds almost surely.
+    \item $\Exp[X_{n+1} \given \mathcal{F}_n] = 0$ holds almost surely.
 \end{enumerate}
 \end{definition}
 
-Whenever we have a martingale $\set{X_n}_{n\in\N}$, we can construct a martingale difference sequence by setting $\Delta_n = X_n - X_{n-1}$, since then
+Whenever we have a martingale $\set{X_n}_{n \in \N}$, we can construct a martingale difference sequence by setting $\Delta_n = X_n - X_{n-1}$, since then
 \[
-    \Ex{\Delta_{n+1} \given \mathcal{F}_n} = \Ex{X_{n+1} - X_n \given \mathcal{F}_n} = \Ex{X_{n+1} \given \mathcal{F}_n} - X_n = 0.
+    \Exp[\Delta_{n+1} \given \mathcal{F}_n] = \Exp[X_{n+1} - X_n \given \mathcal{F}_n] = \Exp[X_{n+1} \given \mathcal{F}_n] - X_n = 0.
 \]
+
+With these definitions at hand, we can state the main result of this section:
 
 \begin{theorem}[Azuma-Hoeffding]
 \label{thm: azuma-hoeffding}
-Assume that $\set{\Delta_i}_{i\in\N}$ is a martingale difference sequence with respect to a filtration $\set{\mathcal{F}_i}_{i\in\N}$ and let $A_i, B_i$ be $\mathcal{F}_i$-measurable random variables such that
+Assume that $\set{\Delta_i}_{i \in \N}$ is a martingale difference sequence with respect to a filtration $\set{\mathcal{F}_i}_{i \in \N}$ and let $A_i, B_i$ be $\mathcal{F}_i$-measurable random variables such that
 \[
     A_i \leq \Delta_i \leq B_i
 \]
 holds almost surely for all $i \in \N$. Then,
 \[
-    \Pr{\sum_{i=1}^n \Delta_i \geq t} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n \norm{B_i - A_i}_\infty^2}).
+    \Prob\left(\sum_{i=1}^n \Delta_i \geq t\right) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n \norm{B_i - A_i}_{\infty}^2}).
 \]
 \end{theorem}
 
-In comparison to Hoeffding’s inequality, the Azuma-Hoeffding inequality allows for non-uniform boundedness and does not require independence of the random variables.
+In comparison to Hoeffding’s inequality, the Azuma-Hoeffding inequality allows for non-uniform boundedness and does \emph{not} require independence of the random variables.
 
 \begin{proof}
-As in the proof of Hoeffding's inequality, we first apply the generic Chernoff bound to obtain
+For ease of notation, we write $S_k = \sum_{i=1}^k \Delta_i$, with $k = 1, \dots, n$. As in the proof of Hoeffding's inequality, we first apply the generic Chernoff bound to obtain
 \begin{align*}
-    \Pr{\sum_{i=1}^n \Delta_i \geq t} \leq \e^{-st} \, \Ex{\e^{s\sum_i \Delta_i}} &= \e^{-st} \, \Ex{\Ex{\e^{s\sum_i \Delta_i} \given \mathcal{F}_{n-1}}} \\
-        &= \e^{-st} \, \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i} {\color{blue} \Ex{\e^{s\Delta_n} \given \mathcal{F}_{n-1}}}}.
+    \Prob(S_n \geq t) \leq \e^{-st} {\color{blue} \Exp[\exp(s S_n)]} &= \e^{-st} \Exp[\Exp[\exp(s S_n) \given \mathcal{F}_{n-1}]] \\
+    &= \e^{-st} \Exp[\exp(s S_{n-1}) {\color{red} \Exp[\exp(s \Delta_n) \given \mathcal{F}_{n-1}]}].
 \end{align*}
-Next, applying Hoeffding's lemma to the inner expectation $\Ex{\e^{s\Delta_n} \given \mathcal{F}_{n-1}}$ yields
+Next, applying Hoeffding's lemma (Lemma \ref{lem: hoeffding}) to the inner expectation ${\color{red} \Exp[\exp(s \Delta_n) \given \mathcal{F}_{n-1}]}$ yields
 \[
-    \Pr{\sum_{i=1}^n \Delta_i \geq t} \leq \e^{-st} \, \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i} {\color{blue} \e^{s^2\frac{(B_n - A_n)^2}{8}}}} \leq \e^{-st} \exp(\frac{s^2}{8}\norm{B_n - A_n}^2_\infty) \Ex{\e^{s\sum_{i=1}^{n-1} \Delta_i}}.
+    \Prob(S_n \geq t) \leq \e^{-st} \Exp\left[\exp(s S_{n-1}) \, {\color{red} \exp(s^2 \frac{(B_n - A_n)^2}{8})}\right] \leq \e^{-st} \exp(\frac{s^2}{8} \norm{B_n - A_n}_{\infty}^2) {\color{blue} \Exp[\exp(s S_{n-1})]}.
 \]
 Iteratively splitting off the $\Delta_i$ one-by-one and then applying Hoeffding's lemma, we eventually get
 \[
-    \Pr{\sum_{i=1}^n \Delta_i \geq t} \leq \e^{-st} \exp(\frac{s^2}{8}\sum_{i=1}^n \norm{B_i - A_i}_\infty^2).
+    \Prob(S_n \geq t) \leq \e^{-st} \exp(\frac{s^2}{8} \sum_{i=1}^n \norm{B_i - A_i}_{\infty}^2).
 \]
 Optimizing the RHS over $s$ yields the desired result.
 \end{proof}

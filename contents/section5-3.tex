@@ -1,24 +1,24 @@
 %% SECTION 5.3 %%
 \section{Covering Numbers}
 
-As pointed out in the previous section, we need a suitable generalization of VC theory to find a bound on the Rademacher complexity $\mathcal{R}_n(l \circ \mathcal{F})$ for arbitrary (i.e., possibly infinite) function classes $\mathcal{F}$. We have seen that, as in the case of binary classification, the cardinality of the set $T_l(z) = \set{(l(f(x_1), y_1), \dots, l(f(x_n), y_n) \with f \in \mathcal{F}}$ plays a significant role in bounding the Rademacher complexity of $l \circ \mathcal{F}$. When $\mathcal{F}$ is infinite, the set $T_l(z)$ will  most likely be infinite as well. Thus, we need to find a way that lets us treat points in this set that are close to each other as if they were identical. We start with the definition of \emph{covering numbers} of a class $\mathcal{F}$.
+As pointed out in the previous section, we need a suitable generalization of VC theory to find a bound on the Rademacher complexity $\mathfrak{R}_n(l \circ \mathcal{F})$ for arbitrary (i.e., possibly infinite) function classes $\mathcal{F}$. We have seen that, as in the case of binary classification, the cardinality of the set $T_l(z) = \{(l(f(x_1), y_1), \dots, l(f(x_n), y_n)^{\top} \with f \in \mathcal{F}\}$ plays a significant role in bounding the Rademacher complexity of $l \circ \mathcal{F}$. When $\mathcal{F}$ is infinite, the set $T_l(z)$ will  most likely be infinite as well. Thus, we need to find a way that lets us treat points in this set that are close to each other as if they were identical. We start with the definition of \emph{covering numbers} of a class $\mathcal{F}$.
 
 \begin{definition}
-Let $d$ be a pseudometric\footnote{The only difference between a metric and a \emph{pseudo}metric is the relaxation of the \emph{positivity} property. A metric requires every pair of distinct points $x$ and $y$ to have a positive distance $d(x, y)$ from each other. In other words, $d(x, y) = 0$ always implies $x = y$ when $d$ is a metric. For a pseudometric, this need not be true, i.e., there can be points $x \neq y$ such that $d(x, y) = 0$.} on a class $\mathcal{F}$ of functions and let $\varepsilon > 0$. An \emph{$\varepsilon$-covering} of $(\mathcal{F}, d)$ is a set of functions $V \subset \mathcal{F}$ such that every function $f \in \mathcal{F}$ is within distance of at most $\varepsilon$ to some function $g \in V$. In other words, for every $f \in \mathcal{F}$ there exists $g \in V$ such that $d(f, g) \leq \varepsilon$.
+Let $d$ be a pseudometric\footnote{The only difference between a metric and a \emph{pseudo}metric is the relaxation of the \emph{positivity} property. A metric requires every pair of distinct points $x$ and $y$ to have a positive distance $d(x, y)$ from each other. In other words, $d(x, y) = 0$ always implies $x = y$ when $d$ is a metric. For a pseudometric, this need not be true, i.e., there can be points $x \neq y$ such that $d(x, y) = 0$.} on a class of functions $\mathcal{F}$ and let $\varepsilon > 0$. An \emph{$\varepsilon$-covering} of $(\mathcal{F}, d)$ is a set of functions $V \subset \mathcal{F}$ such that every function $f \in \mathcal{F}$ is within distance of at most $\varepsilon$ to some function $g \in V$. In other words, for every $f \in \mathcal{F}$ there exists $g \in V$ such that $d(f, g) \leq \varepsilon$.
 
-The \emph{$\varepsilon$-covering number} $N(\mathcal{F}, d, \varepsilon)$ of $(\mathcal{F}, d)$ is the minimum number of functions needed to form an $\varepsilon$-covering of $(\mathcal{F}, d)$, i.e.,
+The \emph{$\varepsilon$-covering number} $\mathcal{N}(\mathcal{F}, d, \varepsilon)$ of $(\mathcal{F}, d)$ is the minimum number of functions needed to form an $\varepsilon$-covering of $(\mathcal{F}, d)$, i.e.,
 \[
-    N(\mathcal{F}, d, \varepsilon) = \inf\set{\abs{V} \with V \text{ is an } \varepsilon \text{-net of } (\mathcal{F}, d)}.
+    \mathcal{N}(\mathcal{F}, d, \varepsilon) = \inf\set{\abs{V} \with V \text{ is an } \varepsilon \text{-net of } (\mathcal{F}, d)}.
 \]
 
-Finally, an $\varepsilon$-covering $V$ of $\mathcal{F}$ is called \emph{minimal}, if $\abs{V} = N(\mathcal{F}, d, \varepsilon)$.
+Finally, an $\varepsilon$-covering $V$ of $\mathcal{F}$ is called \emph{minimal}, if $\abs{V} = \mathcal{N}(\mathcal{F}, d, \varepsilon)$.
 \end{definition}
 
 \begin{figure}
     \centering
     \begin{tikzpicture}
         \node[above right, inner sep=0] (image) at (0,0) {
-            \includegraphics[width=10cm]{other/epsilon-net}
+            \includegraphics[width=12cm]{other/epsilon-net}
         };
 
         % Create scope with normalized axes
@@ -43,7 +43,7 @@ Finally, an $\varepsilon$-covering $V$ of $\mathcal{F}$ is called \emph{minimal}
         \end{scope}
     \end{tikzpicture}
     \caption{%
-         A class $\mathcal{F}$ covered by an $\varepsilon$-net ${\color{red} V} = \set{{\color{red} g_1}, \dots, {\color{red} g_7}}$. Note, however, that $N(\mathcal{F}, d, \varepsilon) < 7$ since the $\varepsilon$-ball centered at $g_7$ and depicted in green is redundant (i.e., the remaining 6 $\varepsilon$-balls still cover all of $\mathcal{F}$).
+         A class $\mathcal{F}$ covered by an $\varepsilon$-net ${\color{red} V} = \set{{\color{red} g_1}, \dots, {\color{red} g_7}}$. Note, however, that $\mathcal{N}(\mathcal{F}, d, \varepsilon) < 7$ since the $\varepsilon$-ball centered at $g_7$ and depicted in green is redundant (i.e., the remaining 6 $\varepsilon$-balls still cover all of $\mathcal{F}$).
     }
     \label{fig: epsilon-net}
 \end{figure}
@@ -61,20 +61,20 @@ Next, we introduce the \emph{conditional Rademacher average} of a class\footnote
 \begin{definition}
 The \emph{conditional Rademacher average} of a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$ given a set of $n$ points $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ is defined as
 \[
-    \hat{\mathcal{R}}_n^z(\mathcal{F}) = \Ex{\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i f(z_i)}},
+    \hat{\mathfrak{R}}_n^z(\mathcal{F}) = \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i f(z_i)}\right],
 \]
-where $\sigma_1, \dots, \sigma_n$ are i.i.d. $\mathrm{Rad}(\nicefrac{1}{2})$ random variables.
+where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables.
 \end{definition}
 
-Notice that, if $\mathcal{F}$ is a class of functions $f \colon \mathcal{Z} \to \R$, and we define the Rademacher complexity of $\mathcal{F}$ as\footnote{This is simply the generalization of Definition \ref{def: rademacher complexity for general loss} to an arbitrary class $\mathcal{F}$ of functions.}
+Notice that, if $\mathcal{F}$ is a class of functions $f \colon \mathcal{Z} \to \R$, and we define the Rademacher complexity of $\mathcal{F}$ as\footnote{This is simply the generalization of Definition \ref{def: rademacher complexity for general loss} to an arbitrary class of functions $\mathcal{F}$.}
 \[
-    \mathcal{R}_n(\mathcal{F}) = \sup_z \Ex{ \sup_{f \in \mathcal{F}} \abs{ \frac{1}{n} \sum_{i=1}^n \sigma_i f(z_i) }},
+    \mathfrak{R}_n(\mathcal{F}) = \sup_{z \in \power(\mathcal{Z})} \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i f(z_i)}\right],
 \]
-where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$, then clearly
+where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$, then clearly
 \begin{equation}
 \label{eq: rademacher complexity and conditional rademacher average}
     \highlightMath{
-        \mathcal{R}_n(\mathcal{F}) = \sup_z \hat{\mathcal{R}}_n^z(\mathcal{F}).
+        \mathfrak{R}_n(\mathcal{F}) = \sup_{z \in \power(\mathcal{Z})} \hat{\mathfrak{R}}_n^z(\mathcal{F}).
     }
 \end{equation}
 
@@ -87,50 +87,50 @@ Given a set of points $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ and a clas
 \]
 \end{definition}
 
-With these definitions in place, we will prove an upper bound on the conditional Rademacher average of a class $\mathcal{F}$ that (besides the number of observations $n$) depends only on the $\varepsilon$-covering numbers of $\mathcal{F}$ with respect to the empirical $L^1$-distance $d_1^z$. In order for these (covering numbers) to be well-defined, we would have to show that the empirical $L^1$-distance defines a pseudometric on a given class $\mathcal{F}$ (since this is assumed to be the case in the definition of covering numbers presented earlier). This is indeed true, and it follows directly from the properties of the absolute value.
+With these definitions in place, we will prove an upper bound of the conditional Rademacher average of a class $\mathcal{F}$ that (besides the number of observations $n$) depends only on the $\varepsilon$-covering numbers of $\mathcal{F}$ with respect to the empirical $L^1$-distance $d_1^z$. In order for these (covering numbers) to be well-defined, we would have to show that the empirical $L^1$-distance defines a pseudometric on a given class $\mathcal{F}$ (since this is assumed to be the case in the definition of covering numbers presented earlier). This is indeed true, and it follows directly from the properties of the absolute value.
 
 \begin{theorem}
 \label{thm: bound on conditional rademacher average}
 Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to [-1, 1]$, and let $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ be a set of $n$ points. Then,
 \[
-    \hat{\mathcal{R}}_n^z(\mathcal{F}) \leq \inf_{\varepsilon > 0} \varepsilon + \sqrt{\frac{2 \log(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n}}.
+    \hat{\mathfrak{R}}_n^z(\mathcal{F}) \leq \inf_{\varepsilon > 0} \varepsilon + \sqrt{\frac{2 \log(2 \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon))}{n}}.
 \]
 \end{theorem}
 
 \begin{proof}
-We can assume $N(\mathcal{F}, d_1^z, \varepsilon) < \infty$, since the inequality is trivially true otherwise. Given $\varepsilon > 0$, we let $V_{\varepsilon}$ be a minimal $\varepsilon$-covering of $\mathcal{F}$, i.e., $\abs{V_{\varepsilon}} = N(\mathcal{F}, d_1^z, \varepsilon) < \infty$. For every function $f \in \mathcal{F}$, there exists $f^{\circ} \in V_{\varepsilon}$ such that $d_1^z(f, f^{\circ}) \leq \varepsilon$. By the triangle inequality, we have
+We can assume $\mathcal{N}(\mathcal{F}, d_1^z, \varepsilon) < \infty$, since the inequality is trivially true otherwise. Given $\varepsilon > 0$, we let $V_{\varepsilon}$ be a minimal $\varepsilon$-covering of $\mathcal{F}$, i.e., $\abs{V_{\varepsilon}} = \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon) < \infty$. For every function $f \in \mathcal{F}$, there exists $f^{\circ} \in V_{\varepsilon}$ such that $d_1^z(f, f^{\circ}) \leq \varepsilon$. By the triangle inequality, we have
 \[
-    \hat{\mathcal{R}}_n^z(\mathcal{F}) = \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f(z_i)} } \leq \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i ( f(z_i) - f^{\circ}(z_i))} } + \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} }.
+    \hat{\mathfrak{R}}_n^z(\mathcal{F}) = \Exp\left[\sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f(z_i)}\right] \leq \Exp\left[\sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i (f(z_i) - f^{\circ}(z_i))}\right] + \Exp\left[\sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)}\right].
 \]
 The triangle inequality also implies
 \[
-    \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i ( f(z_i) - f^{\circ}(z_i))} \leq \frac{1}{n} \sum_{i=1}^n \abs{ f(z_i) - f^{\circ}(z_i) } = d_1^z(f, f^{\circ}) \leq \varepsilon,
+    \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i (f(z_i) - f^{\circ}(z_i))} \leq \frac{1}{n} \sum_{i=1}^n \abs{f(z_i) - f^{\circ}(z_i)} = d_1^z(f, f^{\circ}) \leq \varepsilon,
 \]
 since $\abs{\sigma_i} = 1$ almost surely. Hence,
 \[
-    \hat{\mathcal{R}}_n^z(\mathcal{F}) \leq \varepsilon + \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} }.
+    \hat{\mathfrak{R}}_n^z(\mathcal{F}) \leq \varepsilon + \Exp\left[\sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)}\right].
 \]
 As $f^{\circ} \in V_{\varepsilon}$, we obtain
 \[
-    \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} } = \Ex{ \max_{g \in V_{\varepsilon}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i g(z_i)} } = \mathcal{R}_n(B),
+    \Exp\left[\sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)}\right] = \Exp\left[\max_{g \in V_{\varepsilon}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i g(z_i)}\right] = \mathfrak{R}_n(B),
 \]
-where $\mathcal{R}_n(B)$ denotes the Rademacher complexity of the \emph{finite} set $B = \set{ (g(z_1), \dots, g(z_n)) \with g \in V_{\varepsilon} } \subset \R^n$. Since every $g \in V_{\varepsilon} \subset \mathcal{F}$ takes values in $[-1, 1]$, we have $\max_{b \in B} \norm{b} \leq \sqrt{n}$, and Lemma \ref{lem: bound on rademacher complexity of finite set} hence tells us that
+where $\mathfrak{R}_n(B)$ denotes the Rademacher complexity of the \emph{finite} set $B = \set{(g(z_1), \dots, g(z_n))^{\top} \with g \in V_{\varepsilon}} \subset \R^n$. Since every $g \in V_{\varepsilon} \subset \mathcal{F}$ takes values in $[-1, 1]$, we have $\max_{b \in B} \norm{b}_2 \leq \sqrt{n}$, and Lemma \ref{lem: bound on rademacher complexity of finite set} hence tells us that
 \[
-    \mathcal{R}_n(B) \leq \sqrt{ \frac{2 \, \log(2 \abs{B})}{n} } \leq \sqrt{ \frac{2 \, \mathrm{log}(2 \abs{V_{\varepsilon}})}{n} } = \sqrt{ \frac{2 \, \mathrm{log}(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n} },
+    \mathfrak{R}_n(B) \leq \sqrt{\frac{2 \log(2 \abs{B})}{n}} \leq \sqrt{\frac{2 \operatorname{log}(2 \abs{V_{\varepsilon}})}{n}} = \sqrt{\frac{2 \operatorname{log}(2 \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon))}{n}},
 \]
-since $\abs{B} \leq \abs{V_{\varepsilon}} = N(\mathcal{F}, d_1^z, \varepsilon)$. Altogether,
+since $\abs{B} \leq \abs{V_{\varepsilon}} = \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon)$. Altogether,
 \[
-    \hat{\mathcal{R}}_n^z(\mathcal{F}) \leq \varepsilon + \Ex{ \sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)} } \leq \varepsilon + \sqrt{ \frac{2 \, \mathrm{log}(2 N(\mathcal{F}, d_1^z, \varepsilon))}{n} }.
+    \hat{\mathfrak{R}}_n^z(\mathcal{F}) \leq \varepsilon + \Exp\left[\sup_{f \in \mathcal{F}} \frac{1}{n} \abs{\sum_{i=1}^n \sigma_i f^{\circ}(z_i)}\right] \leq \varepsilon + \sqrt{\frac{2 \operatorname{log}(2 \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon))}{n}}.
 \]
 Since this is true for every $\varepsilon > 0$, we can take the infimum over $\varepsilon$ to arrive at the desired result.
 \end{proof}
 
-Observe that there is a trade-off in the upper bound of the previous result, since the $\varepsilon$-covering numbers $N(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ increase as $\varepsilon$ decreases, and vice versa. Next, we introduce another set of empirical distances.
+Observe that there is a trade-off in the upper bound of the previous result, since the $\varepsilon$-covering numbers $\mathcal{N}(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ increase as $\varepsilon$ decreases, and vice versa. Next, we introduce another set of empirical distances.
 
 \begin{definition}
 Given a set of points $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ and a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^p$-distance} between $f, g \in \mathcal{F}$ is given by
 \[
-    d_p^z(f, g) = \left( \frac{1}{n} \sum_{i=1}^n \abs{f(z_i) - g(z_i)}^p \right)^{\nicefrac{1}{p}}, \quad p \geq 1.
+    d_p^z(f, g) = \left(\frac{1}{n} \sum_{i=1}^n \abs{f(z_i) - g(z_i)}^p \right)^{\nicefrac{1}{p}}, \quad p \geq 1.
 \]
 For $p = \infty$, we set
 \[
@@ -144,68 +144,37 @@ Before we proceed to state the next result on $\varepsilon$-covering numbers, we
 \label{prop: hoelder}
 For any $r, s \geq 0$, and $x, y \in \R^n$, it holds
 \[
-    \left( \sum_{i=1}^n \abs{x_i}^r \abs{y_i}^s \right)^{r+s} \leq \left( \sum_{i=1}^n \abs{x_i}^{r+s} \right)^r \left( \sum_{i=1}^n \abs{y_i}^{r+s} \right)^s.
+    \left(\sum_{i=1}^n \abs{x_i}^r \abs{y_i}^s \right)^{r+s} \leq \left(\sum_{i=1}^n \abs{x_i}^{r+s}\right)^r \left(\sum_{i=1}^n \abs{y_i}^{r+s}\right)^s.
 \]
 \end{proposition}
 
 It is clear that the $\varepsilon$-covering numbers of a class $\mathcal{F}$ decrease as $\varepsilon$ increases. Essentially, this is due to the fact that the open balls $B_{d, \varepsilon}(f)$ increase in size\footnote{More precisely, $\varepsilon > \varphi$ implies $B_{d, \varepsilon}(f) \supset B_{d, \varphi}(f)$.} for larger $\varepsilon$, i.e.,
 \[
-    \varepsilon \uparrow \quad \Rightarrow \quad \text{size of } B_{d, \varepsilon}(f) \uparrow \quad \Rightarrow \quad N(\mathcal{F}, d, \varepsilon) \downarrow.
+    \varepsilon \uparrow \quad \Rightarrow \quad \text{size of } B_{d, \varepsilon}(f) \uparrow \quad \Rightarrow \quad \mathcal{N}(\mathcal{F}, d, \varepsilon) \downarrow.
 \]
 We will now show that something similar in spirit is true for the family of empirical distances $d_p^z$ we have defined above, namely,
 \[
-    p \uparrow \quad \Rightarrow \quad \text{size of } B_{d_p^z, \varepsilon}(f) \downarrow \quad \Rightarrow \quad N(\mathcal{F}, d_p^z, \varepsilon) \uparrow.
+    p \uparrow \quad \Rightarrow \quad \text{size of } B_{d_p^z, \varepsilon}(f) \downarrow \quad \Rightarrow \quad \mathcal{N}(\mathcal{F}, d_p^z, \varepsilon) \uparrow.
 \]
 
 \begin{proposition}
 Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to \R$ and fix a set of points $z = \set{z_1, \dots, z_n}$. For $1 \leq p \leq q < \infty$ and $\varepsilon > 0$, it holds
 \[
-    N(\mathcal{F}, d_p^z, \varepsilon) \leq N(\mathcal{F}, d_q^z, \varepsilon) \leq N(\mathcal{F}, d_{\infty}^z, \varepsilon).
+    \mathcal{N}(\mathcal{F}, d_p^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_q^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_{\infty}^z, \varepsilon).
 \]
 \end{proposition}
 
 \begin{proof}
-Throughout this proof, let us write $u_i = f(z_i) - g(z_i)$ and $u = \max_{i=1, \dots, n} \abs{u_i}$. We first tackle the inequality $N(\mathcal{F}, d_q^z, \varepsilon) \leq N(\mathcal{F}, d_{\infty}^z, \varepsilon)$. Since the functions $x \mapsto x^q$ and $x \mapsto x^{\nicefrac{1}{q}}$ are increasing on $[0, \infty)$, we have
+Throughout this proof, let us write $u_i = f(z_i) - g(z_i)$ and $u = \max_{i=1, \dots, n} \abs{u_i}$. We first tackle the inequality $\mathcal{N}(\mathcal{F}, d_q^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_{\infty}^z, \varepsilon)$. Since the functions $x \mapsto x^q$ and $x \mapsto x^{\nicefrac{1}{q}}$ are increasing on $[0, \infty)$, we have
 \[
-    d_q^z(f, g) = \left( \frac{1}{n} \sum_{i=1}^n \abs{u_i}^q \right)^{\nicefrac{1}{q}} \leq \left( \frac{1}{n} \sum_{i=1}^n u^q \right)^{\nicefrac{1}{q}} = u = \max_{i=1, \dots, n} \abs{u_i} = d_{\infty}^z(f, g).
+    d_q^z(f, g) = \left(\frac{1}{n} \sum_{i=1}^n \abs{u_i}^q\right)^{\nicefrac{1}{q}} \leq \left(\frac{1}{n} \sum_{i=1}^n u^q\right)^{\nicefrac{1}{q}} = u = \max_{i=1, \dots, n} \abs{u_i} = d_{\infty}^z(f, g).
 \]
-If $g \in B_{d_{\infty}^z, \varepsilon}(f)$, so that $d_{\infty}^z(f, g) < \varepsilon$, then the above inequality implies $d_q^z(f, g) \leq d_{\infty}^z(f, g) < \varepsilon$. Hence, $B_{d_{\infty}^z, \varepsilon}(f) \subset B_{d_q^z, \varepsilon}(f)$. This, in turn, implies that every $\varepsilon$-covering of $\mathcal{F}$ w.r.t. $d_{\infty}^z$ defines an $\varepsilon$-covering of $\mathcal{F}$ w.r.t. $d_q^z$, and thus, $N(\mathcal{F}, d_q^z, \varepsilon) \leq N(\mathcal{F}, d_{\infty}^z, \varepsilon)$.
+If $g \in B_{d_{\infty}^z, \varepsilon}(f)$, so that $d_{\infty}^z(f, g) < \varepsilon$, then the above inequality implies $d_q^z(f, g) \leq d_{\infty}^z(f, g) < \varepsilon$. Hence, $B_{d_{\infty}^z, \varepsilon}(f) \subset B_{d_q^z, \varepsilon}(f)$. This, in turn, implies that every $\varepsilon$-covering of $\mathcal{F}$ w.r.t.\ $d_{\infty}^z$ defines an $\varepsilon$-covering of $\mathcal{F}$ w.r.t.\ $d_q^z$, and thus, $\mathcal{N}(\mathcal{F}, d_q^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_{\infty}^z, \varepsilon)$.
 
-To prove the inequality $N(\mathcal{F}, d_p^z, \varepsilon) \leq N(\mathcal{F}, d_q^z, \varepsilon)$, we will make use of the version of H{\"o}lder's inequality stated in Proposition \ref{prop: hoelder}. With $r = \frac{1}{p} - \frac{1}{q} \geq 0$ and $s = \frac{1}{q} \geq 0$, we have $r + s = \frac{1}{p}$, and hence
+To prove the inequality $\mathcal{N}(\mathcal{F}, d_p^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_q^z, \varepsilon)$, we will make use of the version of H{\"o}lder's inequality stated in Proposition \ref{prop: hoelder}. With $r = \frac{1}{p} - \frac{1}{q} \geq 0$ and $s = \frac{1}{q} \geq 0$, we have $r + s = \frac{1}{p}$, and hence
 \begin{align*}
-    d_p^z(f, g) = \left( \frac{1}{n} \sum_{i=1}^n \abs{u_i}^p \right)^{\nicefrac{1}{p}} &= n^{-\nicefrac{1}{p}} \left( \sum_{i=1}^n \abs{1}^r \abs{u_i^{pq}}^s \right)^{r+s} \\[4pt]
-        &\leq n^{-\nicefrac{1}{p}} \left( \sum_{i=1}^n \abs{1}^{r+s} \right)^r \left( \sum_{i=1}^n \abs{u_i^{pq}}^{r+s} \right)^s = n^{-\nicefrac{1}{q}} \left( \sum_{i=1}^n \abs{u_i}^{q} \right)^{\nicefrac{1}{q}} = d_q^z(f, g).
+    d_p^z(f, g) = \left(\frac{1}{n} \sum_{i=1}^n \abs{u_i}^p\right)^{\nicefrac{1}{p}} &= n^{-\nicefrac{1}{p}} \left(\sum_{i=1}^n \abs{1}^r \abs{u_i^{pq}}^s\right)^{r+s} \\[4pt]
+    &\leq n^{-\nicefrac{1}{p}} \left(\sum_{i=1}^n \abs{1}^{r+s}\right)^r \left(\sum_{i=1}^n \abs{u_i^{pq}}^{r+s}\right)^s = n^{-\nicefrac{1}{q}} \left(\sum_{i=1}^n \abs{u_i}^{q}\right)^{\nicefrac{1}{q}} = d_q^z(f, g).
 \end{align*}
-By the same logic as before, the inequality $d_p^z(f, g) \leq d_q^z(f, g)$ implies $N(\mathcal{F}, d_p^z, \varepsilon) \leq N(\mathcal{F}, d_q^z, \varepsilon)$.
+By the same logic as before, the inequality $d_p^z(f, g) \leq d_q^z(f, g)$ implies $\mathcal{N}(\mathcal{F}, d_p^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_q^z, \varepsilon)$.
 \end{proof}
-
-\begin{example}
-We let $B_p^d(1) = \{x \in \R^d \with \norm{x}_p \leq 1\}$ be the closed ball of radius $1$ in $\R^d$ with respect to the $p$-norm $\norm{x}_p = (\sum_{j=1}^d \abs{x^j}^p)^{\nicefrac{1}{p}}$. In particular, $\norm{x}_{\infty} = \max_{j=1, \dots, n} \abs{x^j}$. Further, let
-\[
-    \mathcal{F} = \{f_a \colon B_1^d(1) \to [-1, 1], \; x \mapsto \langle a, x \rangle \with a \in B_{\infty}^d(1)\}
-\]
-be the class of linear functions on the closed ball $B_1^d(1)$. By H{\"o}lder's inequality\footnote{Here, we refer to its usual form, i.e., $\sum_{i=1}^d \abs{x_i y_i} \leq \norm{x}_p \norm{y}_q$, with $\nicefrac{1}{p} + \nicefrac{1}{q} = 1$ (where, by convention, $\nicefrac{1}{\infty} = 0$).}, we have
-\[
-    \abs{f_a(x)} = \abs{\langle a, x \rangle} \leq \sum_{j=1}^d \abs{a^j x^j} \leq \norm{a}_{\infty} \norm{x}_1 \leq 1, \quad x \in B_1^d(1),
-\]
-so that, indeed, $f_a \in \mathcal{F}$ takes values in $[-1, 1]$. Hence, we can apply Theorem \ref{thm: bound on conditional rademacher average} to bound the conditional Rademacher average of $\mathcal{F}$ given $x = \set{x_1, \dots, x_n} \subset B_1^d(1)$ by
-\[
-    \hat{\mathcal{R}}_n^x(\mathcal{F}) \leq \inf_{\varepsilon > 0} \varepsilon + \sqrt{\frac{2 \log(2 N(\mathcal{F}, d_1^x, \varepsilon))}{n}}.
-\]
-Next, we want to compute the covering numbers $N(\mathcal{F}, d_1^x, \varepsilon)$, where $d_1^x$ denotes the empirical $L^1$-distance
-\[
-    d_1^x(f_a, f_b) = \frac{1}{n} \sum_{i=1}^n \abs{f_a(x_i) - f_b(x_i)} = \frac{1}{n} \sum_{i=1}^n \abs{ \langle a - b, x_i \rangle }.
-\]
-We can apply H{\"o}lder's inequality once again to see that
-\[
-    \abs{ \langle a - b, x_i \rangle } \leq \sum_{j=1}^d \bigAbs{(a-b)^j x_i^j} \leq \norm{a-b}_{\infty} \norm{x_i}_1 \leq \norm{a-b}_{\infty},
-\]
-and hence, $d_1^x(f_a, f_b) \leq \norm{a - b}_{\infty}$. Notice that this bound on the empirical $L^1$-distance is independent of the set $x = \set{x_1, \dots, x_n}$. Hence, the bound on the $\varepsilon$-covering numbers $N(\mathcal{F}, d_1^x, \varepsilon)$ will not depend on $x$ either, and, finally, neither will the bound on the conditional Rademacher average $\hat{\mathcal{R}}_n^x(\mathcal{F})$. Also, since $\norm{a - b}_{\infty} = \max_{j = 1, \dots, d} \abs{a^j - b^j} = d_{\infty}(a, b)$ is the distance of $a, b \in B_{\infty}^d(1)$ with respect to the metric induced by the $\infty$-norm, finding an $\varepsilon$-covering on $(\mathcal{F}, d_1^x)$ amounts to finding an $\varepsilon$-covering on $(B_{\infty}^d(1), d_{\infty})$. To achieve the latter, we need to find a set $\set{b_1, \dots, b_M}$ such that for every $a \in B_{\infty}^d(1)$, there exists $k \in \set{1, \dots, M}$ with $\norm{a - b_k}_{\infty} \leq \varepsilon$. {\color{red} To do so, we divide the hypercube $B_{\infty}^d(1)$ into smaller hypercubes of side length $\varepsilon$ and choose the $b_k$'s to be the vertices of these smaller hypercubes.} As there are $c / \varepsilon^d$ vertices, for some constant $c > 0$, we conclude
-\[
-    N(\mathcal{F}, d_1^x, \varepsilon) \leq N(B_{\infty}^d(1), d_{\infty}, \varepsilon) \leq \frac{c}{\varepsilon^d}.
-\]
-Altogether, we have shown that
-\[
-    \mathcal{R}_n(\mathcal{F}) = \sup_x \hat{\mathcal{R}}_n^x(\mathcal{F}) \leq \sup_x \inf_{\varepsilon > 0} \varepsilon + \sqrt{\frac{2 \log(2 N(\mathcal{F}, d_1^x, \varepsilon))}{n}} \leq \inf_{\varepsilon > 0} \varepsilon + \sqrt{\frac{2 \log(2c / \varepsilon^d)}{n}}.
-\]
-\end{example}

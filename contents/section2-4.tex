@@ -5,48 +5,48 @@ An important technique for understanding the empirical error and classifiers bas
 
 \begin{prop}
 \begin{itemize}
-    \item \emph{Markov's inequality}: $\Pr{X \geq t} \leq \nicefrac{\Ex{X}}{t}$ for $X \geq 0$ and $t > 0$,
+    \item \emph{Markov's inequality}: $\Prob(X \geq t) \leq \nicefrac{\Exp[X]}{t}$ for $X \geq 0$ and $t > 0$,
 
-    \item \emph{Chebyshev’s inequality}: $\Pr{\abs{X - \Ex{X}} \geq t} \leq \nicefrac{\Var(X)}{t^2}$ for $X$ with $\Var(X) < \infty$ and $t > 0$.
+    \item \emph{Chebyshev’s inequality}: $\Prob(\abs{X - \Exp[X]} \geq t) \leq \nicefrac{\Var(X)}{t^2}$ for $X$ with $\Var(X) < \infty$ and $t > 0$.
 \end{itemize}
 \end{prop}
 
-\noindent The main result of this section is \emph{Hoeffding's inequality}, which we will subsequently apply in order to bound the estimation error $L(\hat h) - L(\bar h)$ (see Theorem \ref{thm: estimation error finite dictionary}).
+\noindent The main result of this section is \emph{Hoeffding's inequality}, which we will subsequently apply in order to bound the estimation error $L(\hat{h}) - L(\bar{h})$ (see Theorem \ref{thm: estimation error finite dictionary}).
 
-To prove Hoeffding's inequality, we will have to control the moment-generating function\footnote{Recall that the moment-generating function of a random variable $X$ is defined as $M_X(s) = \Ex{\e^{sX}}$. Its name reflects the fact that the $n$-th moment of $X$ (given that it exists) can be obtained by evaluating the $n$-th derivative of $M_X$ at $s=0$.} of a bounded random variable. Hence, we start with the following lemma:
+To prove Hoeffding's inequality, we will have to control the moment-generating function\footnote{Recall that the moment-generating function of a random variable $X$ is defined as $M_X(s) = \Exp[\e^{sX}]$. Its name reflects the fact that the $n$-th moment of $X$ (given that it exists) can be obtained by evaluating the $n$-th derivative of $M_X$ at $s=0$.} of a bounded random variable. Hence, we start with the following lemma:
 
 \begin{lemma}[Hoeffding's Lemma]
 \label{lem: hoeffding}
-Let $X$ be a random variable satisfying $a \leq X \leq b$ almost surely. Then, for any $s > 0$, the moment-generating function of $X - \Ex{X}$ satisfies
+Let $X$ be a random variable satisfying $a \leq X \leq b$ almost surely. Then, for any $s > 0$, the moment-generating function of $X - \Exp[X]$ satisfies
 \[
-    \Ex{\e^{s(X - \Ex{X})}} \leq \exp(\frac{s^2(b-a)^2}{8}).
+    \Exp[\e^{s(X - \Exp[X])}] \leq \exp(\frac{s^2(b - a)^2}{8}).
 \]
 \end{lemma}
 
 \begin{proof}
-Write $\mu = \Ex{X}$, and let $Z = X - \mu$, so that $\Ex{Z} = 0$ and $a - \mu \leq Z \leq b - \mu$. It suffices to prove that the \emph{cumulant-generating function} $\psi(s) = \log\Ex{\e^{sZ}}$ satisfies
+Write $\mu = \Exp[X]$, and let $Z = X - \mu$, so that $\Exp[Z] = 0$ and $a - \mu \leq Z \leq b - \mu$. It suffices to prove that the \emph{cumulant-generating function} $\psi(s) = \log(\Exp[\e^{sZ}])$ satisfies
 \[
-    \psi(s) \leq \frac{s^2(b-a)^2}{8}.
+    \psi(s) \leq \frac{s^2(b - a)^2}{8}.
 \]
 We can interchange the order of differentiation and integration since $Z$ is bounded. Doing so yields
 \[
-    \psi'(s) = \frac{\Ex{Z\e^{sZ}}}{\Ex{\e^{sZ}}}
+    \psi'(s) = \frac{\Exp[Z \e^{sZ}]}{\Exp[\e^{sZ}]}
 \]
 and
 \[
-    \psi''(s) = \frac{\Ex{Z^2\e^{sZ}} \Ex{\e^{sZ}} - \Ex{Z\e^{sZ}}^2}{\Ex{\e^{sZ}}^2} = \Ex{Z^2 \frac{\e^{sZ}}{\Ex{\e^{sZ}}}} - \left(\Ex{Z \frac{\e^{sZ}}{\Ex{\e^{sZ}}}}\right)^2.
+    \psi''(s) = \frac{\Exp[Z^2 \e^{sZ}] \Exp[\e^{sZ}] - \Exp[Z \e^{sZ}]^2}{\Exp[\e^{sZ}]^2} = \Exp\left[ Z^2 \frac{\e^{sZ}}{\Exp[\e^{sZ}]} \right] - \left(\Exp\left[ Z \frac{\e^{sZ}}{\Exp[\e^{sZ}]} \right]\right)^2.
 \]
-Since the term $\frac{\e^{sZ}}{\Ex{\e^{sZ}}}$ integrates to $1$, we can interpret $\psi''(s)$ as the variance of $Z$ with respect to the measure $\mathrm{d}\mathbb{Q} = \frac{\e^{sZ}}{\Ex{\e^{sZ}}} \mathrm{d}\P$, i.e.,
+Since the term $\frac{\e^{sZ}}{\Exp[\e^{sZ}]}$ integrates to $1$, we can interpret $\psi''(s)$ as the variance of $Z$ with respect to the measure $\mathrm{d}\mathbb{Q} = \frac{\e^{sZ}}{\Exp[\e^{sZ}]} \dP$, i.e.,
 \[
-    \psi''(s) = \mathbb{E}_{\mathbb{Q}}[Z^2] - \mathbb{E}_{\mathbb{Q}}[Z]^2 = \mathrm{Var}_{\mathbb{Q}}(Z) = \mathrm{Var}_{\mathbb{Q}}\left(Z + \mu - \frac{a+b}{2}\right).
+    \psi''(s) = \Exp_{\mathbb{Q}}[Z^2] - \Exp_{\mathbb{Q}}[Z]^2 = \Var_{\mathbb{Q}}(Z) = \Var_{\mathbb{Q}}\left( Z + \mu - \frac{a + b}{2} \right).
 \]
 The last identity in the previous computation holds since the variance of a random variable is not affected by constant shifts. From $Z + \mu \in [a,b]$ almost surely, it follows that $\abs{Z + \mu - \frac{a+b}{2}} \leq \frac{b-a}{2}$ almost surely, and hence
 \[
-    \psi''(s) = \mathrm{Var}_{\mathbb{Q}}\left(Z + \mu - \frac{a+b}{2}\right) \leq \mathbb{E}_{\mathbb{Q}}\left[\left(Z + \mu - \frac{a+b}{2}\right)^2\right] \leq \frac{(b-a)^2}{4}.
+    \psi''(s) = \Var_{\mathbb{Q}}\left( Z + \mu - \frac{a + b}{2} \right) \leq \Exp_{\mathbb{Q}}\left[\left( Z + \mu - \frac{a + b}{2} \right)^2\right] \leq \frac{(b - a)^2}{4}.
 \]
 Finally, the fundamental theorem of calculus yields
 \[
-    \psi(s) = \int_0^s\int_0^u \psi''(v) \, \mathrm{d}v \, \mathrm{d}u \leq \frac{(b-a)^2}{4} \int_0^s u \, \mathrm{d}u = \frac{(b-a)^2}{4} \frac{s^2}{2} = \frac{s^2(b-a)^2}{8},
+    \psi(s) = \int_0^s \int_0^u \psi''(v) \dv \du \leq \frac{(b - a)^2}{4} \int_0^s u \du = \frac{(b - a)^2}{4} \frac{s^2}{2} = \frac{s^2 (b - a)^2}{8},
 \]
 concluding the proof.
 \end{proof}
@@ -57,32 +57,32 @@ Equipped with this result, we can tackle Hoeffding's inequality:
 \label{thm: hoeffding}
 Let $X_1, \dots, X_n$ be independent random variables such that, almost surely, $a_i \leq X_i \leq b_i$, and denote the sum of the $X_i$ by $S_n = \sum_{i=1}^n X_i$. Then, for any $t>0$,
 \[
-    \Pr{S_n - \Ex{S_n} \geq t} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+    \Prob(S_n - \Exp[S_n] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
 In particular,
 \[
-    \Pr{\abs{S_n - \Ex{S_n}} \geq t} \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+    \Prob(\abs{S_n - \Exp[S_n]} \geq t) \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
 \end{theorem}
 
 \begin{proof}
 It suffices to prove the first inequality
 \[
-    \Pr{S_n - \Ex{S_n} \geq t} \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2})
+    \Prob(S_n - \Exp[S_n] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2})
 \]
 as the bound for the lower tail follows analogously. For any $s>0$, we have
 \[
-    \Pr{S_n - \Ex{S_n} \geq t} = \Pr{\exp(s(S_n - \Ex{S_n})) \geq \exp(st)} \leq \exp(-st) \Ex{\exp(s(S_n - \Ex{S_n}))},
+    \Prob(S_n - \Exp[S_n] \geq t) = \Prob(\exp(s(S_n - \Exp[S_n])) \geq \exp(st)) \leq \exp(-st) \Exp[\exp(s(S_n - \Exp[S_n]))],
 \]
-where we have applied Markov's inequality\footnote{This is what is referred to as the \emph{generic Chernoff bound}, which -- for a random variable $X$ -- is attained by applying Markov's inequality to $\e^{tX}$ with $t > 0$. Doing so yields $\Pr{X \geq a} = \Pr{\e^{tX} \geq \e^{ta}} \leq \e^{-ta} \Ex{e^{tX}} = \e^{-ta} M_X(t)$.}. Since the $X_i$ are independent, we have
+where we have applied Markov's inequality\footnote{This is what is referred to as the \emph{generic Chernoff bound}, which -- for a random variable $X$ -- is attained by applying Markov's inequality to $\e^{tX}$ with $t > 0$. Doing so yields $\Prob(X \geq a) = \Prob(\e^{tX} \geq \e^{ta}) \leq \e^{-ta} \Exp(e^{tX}) = \e^{-ta} M_X(t)$.}. Since the $X_i$ are independent, we have
 \[
-    \Ex{\exp(s(S_n - \Ex{S_n}))} = \Ex{\exp(\sum_{i=1}^n s(X_i - \Ex{X_i}))} = \prod_{i=1}^n \Ex{\exp(s(X_i - \Ex{X_i}))},
+    \Exp[\exp(s(S_n - \Exp[S_n]))] = \Exp\left[\exp(\sum_{i=1}^n s(X_i - \Exp[X_i]))\right] = \prod_{i=1}^n \Exp[\exp(s(X_i - \Exp[X_i]))],
 \]
 and hence, by Hoeffding's lemma,
 \[
-    \exp(-st) \prod_{i=1}^n \Ex{\exp(s(X_i - \Ex{X_i}))} \leq \exp(-st) \prod_{i=1}^n \exp(\frac{s^2 (b_i-a_i)^2}{8}) = \exp(-st + \frac{s^2}{8} \sum_{i=1}^n (b_i-a_i)^2).
+    \exp(-st) \prod_{i=1}^n \Exp[\exp(s(X_i - \Exp[X_i]))] \leq \exp(-st) \prod_{i=1}^n \exp(\frac{s^2 (b_i - a_i)^2}{8}) = \exp(-st + \frac{s^2}{8} \sum_{i=1}^n (b_i - a_i)^2).
 \]
-To optimize the bound, we want to minimize the expression inside the exponential function. For ease of notation, let $\lambda = \sum_{i=1}^n (b_i-a_i)^2$. With this notation, differentiating $f(s) = \frac{\lambda}{8} s^2 -ts$ and subsequently setting it equal to $0$ gives
+To optimize the bound, we want to minimize the expression inside the exponential function. For ease of notation, let $\lambda = \sum_{i=1}^n (b_i - a_i)^2$. With this notation, differentiating $f(s) = \frac{\lambda}{8} s^2 - ts$ and subsequently setting it equal to $0$ gives
 \[
     \frac{\lambda}{4} s - t = 0,
 \]
@@ -94,16 +94,16 @@ which is exactly the upper bound we wanted to prove.
 \end{proof}
 
 \begin{remark}
-Let $X_1, \dots, X_n$ be random variables satisfying the conditions of Theorem \ref{thm: hoeffding}, and write $\bar X = S_n/n$ for the arithmetic mean of the $X_i$. We have
+Let $X_1, \dots, X_n$ be random variables satisfying the conditions of Theorem \ref{thm: hoeffding}, and write $\bar{X} = S_n/n$ for the arithmetic mean of the $X_i$. We have
 \[
-    \Pr{\abs{\bar X - \ex{\bar X}} \geq t} = \Pr{\abs{S_n - \Ex{S_n}} \geq nt} \leq 2 \exp(\frac{-2n^2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+    \Prob(\abs*{\bar{X} - \Exp[\bar{X}]} \geq t) = \Prob(\abs{S_n - \Exp[S_n]} \geq nt) \leq 2 \exp(\frac{-2 n^2 t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
-Further, observe that the expression $\bar X - \ex{\bar X}$ can be rewritten as $\frac{1}{n} \sum_{i=1}^n (X_i - \Ex{X_i})$. Hence, Hoeffding's inequality ensures that the (absolute) average deviation of independent and (almost surely) bounded random variables from their respective means decays \emph{exponentially fast} in the number of observations $n$. Finally, if the random variables $X_1, \dots, X_n$ are i.i.d. random variables such that, almost surely, $a \leq X_i \leq b$, Hoeffding's inequality states that
+Further, observe that the expression $\bar{X} - \Exp[\bar{X}]$ can be rewritten as $\frac{1}{n} \sum_{i=1}^n (X_i - \Exp[X_i])$. Hence, Hoeffding's inequality ensures that the (absolute) average deviation of independent and (almost surely) bounded random variables from their respective means decays \emph{exponentially fast} in the number of observations $n$. Finally, if the random variables $X_1, \dots, X_n$ are i.i.d.\ random variables such that, almost surely, $a \leq X_i \leq b$, Hoeffding's inequality states that
 \[
-    \Pr{\abs{\bar X - \ex{X_1}} \geq t} \leq 2 \exp(\frac{-2nt^2}{(b - a)^2}).
+    \Prob(\abs*{\bar{X} - \Exp[X_1]} \geq t) \leq 2 \exp(\frac{-2nt^2}{(b - a)^2}).
 \]
 For random variables $X_i$ taking values in the unit interval, this reduces to
 \[
-    \Pr{\abs{\bar X - \ex{X_1}} \geq t} \leq 2 \e^{-2nt^2}.
+    \Prob(\abs*{\bar{X} - \Exp[X_1]} \geq t) \leq 2 \e^{-2nt^2}.
 \]
 \end{remark}
