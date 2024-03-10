@@ -17,11 +17,11 @@ where we have used the fact that $\mu_n(A)$ is $\sigma(Z_1, \dots, Z_n)$-measura
 \]
 by monotonicity of conditional expectation. Taking the supremum over all $A \in \mathcal{A}$ and then applying monotonicity of expectation, we get
 \[
-    \Exp[\sup_{A \in \mathcal{A}} \Exp[\abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n]] \leq \Exp[\sup_{A \in \mathcal{A}} {\color{blue} \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n}]].
+    \Exp[\sup_{A \in \mathcal{A}} \Exp[\abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n]] \leq \Exp[\sup_{A \in \mathcal{A}} {\color{blue} \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n]}].
 \]
 The expression highlighted in \textcolor{blue}{blue} no longer depends on $A \in \mathcal{A}$, so that we can drop the outer supremum to arrive at
 \[
-    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq \Exp[{\color{blue} \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n}]] = \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)}]
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq \Exp[{\color{blue} \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)} \given \mathcal{D}_n]}] = \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)}]
 \]
 by the law of total expectation. By definition,
 \[

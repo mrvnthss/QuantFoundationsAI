@@ -134,7 +134,7 @@ Given a set of points $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ and a clas
 \]
 For $p = \infty$, we set
 \[
-    d_{\infty}^z(f, g) = \max_{i = 1, \dots, n} \abs{f(z_i) - g(z_i)}.
+    d_{\infty}^z(f, g) = \max_{1 \leq i \leq n} \abs{f(z_i) - g(z_i)}.
 \]
 \end{definition}
 
@@ -165,9 +165,9 @@ Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to \R$ and fix 
 \end{proposition}
 
 \begin{proof}
-Throughout this proof, let us write $u_i = f(z_i) - g(z_i)$ and $u = \max_{i=1, \dots, n} \abs{u_i}$. We first tackle the inequality $\mathcal{N}(\mathcal{F}, d_q^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_{\infty}^z, \varepsilon)$. Since the functions $x \mapsto x^q$ and $x \mapsto x^{\nicefrac{1}{q}}$ are increasing on $[0, \infty)$, we have
+Throughout this proof, let us write $u_i = f(z_i) - g(z_i)$ and $u = \max_{1 \leq i \leq n} \abs{u_i}$. We first tackle the inequality $\mathcal{N}(\mathcal{F}, d_q^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_{\infty}^z, \varepsilon)$. Since the functions $x \mapsto x^q$ and $x \mapsto x^{\nicefrac{1}{q}}$ are increasing on $[0, \infty)$, we have
 \[
-    d_q^z(f, g) = \left(\frac{1}{n} \sum_{i=1}^n \abs{u_i}^q\right)^{\nicefrac{1}{q}} \leq \left(\frac{1}{n} \sum_{i=1}^n u^q\right)^{\nicefrac{1}{q}} = u = \max_{i=1, \dots, n} \abs{u_i} = d_{\infty}^z(f, g).
+    d_q^z(f, g) = \left(\frac{1}{n} \sum_{i=1}^n \abs{u_i}^q\right)^{\nicefrac{1}{q}} \leq \left(\frac{1}{n} \sum_{i=1}^n u^q\right)^{\nicefrac{1}{q}} = u = \max_{1 \leq i \leq n} \abs{u_i} = d_{\infty}^z(f, g).
 \]
 If $g \in B_{d_{\infty}^z, \varepsilon}(f)$, so that $d_{\infty}^z(f, g) < \varepsilon$, then the above inequality implies $d_q^z(f, g) \leq d_{\infty}^z(f, g) < \varepsilon$. Hence, $B_{d_{\infty}^z, \varepsilon}(f) \subset B_{d_q^z, \varepsilon}(f)$. This, in turn, implies that every $\varepsilon$-covering of $\mathcal{F}$ w.r.t.\ $d_{\infty}^z$ defines an $\varepsilon$-covering of $\mathcal{F}$ w.r.t.\ $d_q^z$, and thus, $\mathcal{N}(\mathcal{F}, d_q^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_{\infty}^z, \varepsilon)$.
 

@@ -89,7 +89,7 @@ In particular, $\mathcal{A}$ shatters the set $\set{z_1, z_2}$, and we can concl
 
 Let us discuss another example. Let $\mathcal{A}$ be the set of hyperrectangles in $\R^d$, i.e., $\mathcal{A} = \set{[\mathbf{a}, \mathbf{b}] \with \mathbf{a}, \mathbf{b} \in \R^d}$, where
 \[
-    [\mathbf{a}, \mathbf{b}] = \prod_{i=1}^d [a^{(i)}, b^{(i)}] = \set{(x^{(1)}, \dots, x^{(d)}) \in \R^d \with x^{(i)} \in [a^{(i)}, b^{(i)}] \text{ for } i = 1, \dots, d}
+    [\mathbf{a}, \mathbf{b}] = \prod_{i=1}^d [a^{(i)}, b^{(i)}] = \{(x^{(1)}, \dots, x^{(d)}) \in \R^d \with x^{(i)} \in [a^{(i)}, b^{(i)}] \text{ for } i = 1, \dots, d\}
 \]
 with $\mathbf{a} = (a^{(1)}, \dots, a^{(d)})^{\top}$ and $\mathbf{b} = (b^{(1)}, \dots, b^{(d)})^{\top}$ such that $a^{(i)} \leq b^{(i)}$ for all $i = 1, \dots, d$. For $d=2$, the family $\mathcal{A}$ shatters the set $\{(1, 0)^{\top}, (0, 1)^{\top}, (-1, 0)^{\top}, (0, -1)^{\top}\}$ of four points in $\R^2$, and, more generally, one can show that $\mathcal{A}$ always shatters a set of $2d$ points for arbitrary dimensions $d$. This tells us that $\mathcal{S}_{\mathcal{A}}(2d) = 2^{2d}$ and $\VC(\mathcal{A}) \geq 2d$. However, the family $\mathcal{A}$ can never shatter a set of $2d + 1$ points. The argument is similar in spirit to the one made earlier for half-lines. Let $B = \set{x_1, \dots, x_{2d+1}}$ be a set of $2d + 1$ points and define points $y_1, \dots, y_d$ and $z_1, \dots, z_d$ as follows:
 \[

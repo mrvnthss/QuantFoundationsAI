@@ -100,7 +100,7 @@ Hence, we have
 \]
 and thus
 \[
-    \Exp[\e^{sX}] = \Exp\left[1 + sX + \sum_{k=2}^{\infty} \frac{s^k X^k}{k!}\right] = 1 + s^2 \Exp[X^2] {\color{blue} \sum_{k=2}^{\infty} \frac{s^{k-2} \Exp[X^k]}{\Exp[X^2] k!}} \leq 1 + s^2 \Exp[X^2] {\color{red} \frac{\e^{sc} - 1 - sc}{(sc)^2}},
+    \Exp[\e^{sX}] = \Exp\left[1 + sX + \sum_{k=2}^{\infty} \frac{s^k X^k}{k!}\right] = 1 + s^2 \Exp[X^2] \, {\color{blue} \sum_{k=2}^{\infty} \frac{s^{k-2} \Exp[X^k]}{\Exp[X^2] k!}} \leq 1 + s^2 \Exp[X^2] \, {\color{red} \frac{\e^{sc} - 1 - sc}{(sc)^2}},
 \]
 since $\Exp[sX] = s \Exp[X] = 0$. Finally, by applying the inequality $1 + x \leq \e^x$, we obtain
 \[
