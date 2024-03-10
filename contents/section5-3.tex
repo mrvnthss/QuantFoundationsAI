@@ -18,7 +18,7 @@ Finally, an $\varepsilon$-covering $V$ of $\mathcal{F}$ is called \emph{minimal}
     \centering
     \begin{tikzpicture}
         \node[above right, inner sep=0] (image) at (0,0) {
-            \includegraphics[width=12cm]{other/epsilon-net}
+            \includegraphics[width=12cm]{other/epsilon-covering}
         };
 
         % Create scope with normalized axes
@@ -30,20 +30,32 @@ Finally, an $\varepsilon$-covering $V$ of $\mathcal{F}$ is called \emph{minimal}
             % \draw[help lines, step=0.1] (image.south west) grid ($(image.north east) + (0.001,0)$);
 
             % Annotate image
-            \node[] at (0.06,0.86) {$\mathcal{F}$};
-            \node[] at (0.74,0.90) {$\varepsilon$};
-            \node[] at (0.18,0.46) {$g_1$};
-            \node[] at (0.33,0.26) {$g_2$};
-            \node[] at (0.62,0.26) {$g_3$};
-            \node[] at (0.77,0.46) {$g_4$};
-            \node[] at (0.62,0.66) {$g_5$};
-            \node[] at (0.33,0.66) {$g_6$};
-            \node[] at (0.40,0.52) {$g_7$};
+            \node[] at (0.02,0.86) {$\mathcal{F}_1$};
+            \node[] at (0.36,0.90) {$\varepsilon_1$};
+            \node[] at (0.09,0.46) {$g_1$};
+            \node[] at (0.16,0.26) {$g_2$};
+            \node[] at (0.31,0.26) {$g_3$};
+            \node[] at (0.38,0.46) {$g_4$};
+            \node[] at (0.31,0.66) {$g_5$};
+            \node[] at (0.16,0.66) {$g_6$};
+            \node[] at (0.20,0.52) {$g_7$};
+
+            \node[] at (1.02,0.30) {$\mathcal{F}_2$};
+            \node[] at (0.89,0.88) {$\varepsilon_2$};
+            \node[] at (0.67,0.74) {$g_1$};
+            \node[] at (0.77,0.74) {$g_2$};
+            \node[] at (0.88,0.74) {$g_3$};
+            \node[] at (0.67,0.46) {$g_4$};
+            \node[] at (0.77,0.46) {$g_5$};
+            \node[] at (0.88,0.46) {$g_6$};
+            \node[] at (0.67,0.16) {$g_7$};
+            \node[] at (0.77,0.16) {$g_8$};
+            \node[] at (0.88,0.16) {$g_9$};
             
         \end{scope}
     \end{tikzpicture}
     \caption{%
-         A class $\mathcal{F}$ covered by an $\varepsilon$-net ${\color{red} V} = \set{{\color{red} g_1}, \dots, {\color{red} g_7}}$. Note, however, that $\mathcal{N}(\mathcal{F}, d, \varepsilon) < 7$ since the $\varepsilon$-ball centered at $g_7$ and depicted in green is redundant (i.e., the remaining 6 $\varepsilon$-balls still cover all of $\mathcal{F}$).
+         Coverings of two classes $\mathcal{F}_1$ and $\mathcal{F}_2$. \textbf{Left}, a class $\mathcal{F}_1$ covered by an $\varepsilon_1$-covering ${\color{red} V} = \set{{\color{red} g_1}, \dots, {\color{red} g_7}}$. Note, however, that $\mathcal{N}(\mathcal{F}, d, \varepsilon_1) < 7$ since the $\varepsilon_1$-ball centered at $g_7$ and depicted in green is redundant (i.e., the remaining 6 $\varepsilon_1$-balls still cover all of $\mathcal{F}_1$). \textbf{Right}, a class $\mathcal{F}_2$ covered by a \emph{minimal} $\varepsilon_2$-covering ${\color{red} V} = \set{{\color{red} g_1}, \dots, {\color{red} g_9}}$.
     }
     \label{fig: epsilon-net}
 \end{figure}
