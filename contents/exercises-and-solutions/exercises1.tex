@@ -9,7 +9,7 @@
 
 % EXERCISE 1
 \begin{exercise}
-In the setting of Proposition \ref{prop: decomposition of mean-squared error}, prove that
+In the setting of Proposition \ref{prop: decomposition of mean-squared error}, prove
 \[
     \Exp[(f_i(X) - \Exp[Y_i \given X]) (\Exp[Y_i \given X] - Y_i)] = 0
 \]
@@ -19,16 +19,16 @@ for all $i = 1, \dots, d$, where $f_i \colon \mathcal{X} \to \R$ are measurable 
 
 % EXERCISE 2
 \begin{exercise}
-Let $H$ be a random variable that almost surely takes values in the unit interval $[0, 1]$. Prove that
+Let $H$ be a random variable that almost surely takes values in the unit interval $[0, 1]$. Show
 \[
-    \Exp[\min(1-H, H)] = \frac{1}{2} - \frac{1}{2}\Exp[\abs{2H - 1}].
+    \Exp[\min(1-H, H)] = 1/2 - 1/2 \Exp[\abs{2H - 1}].
 \]
 \end{exercise}
 
 
 % EXERCISE 3
 \begin{exercise}
-Let $h^*$ be the Bayes classifier and let $L^*$ be the Bayes error. Prove that
+Let $h^*$ be the Bayes classifier and let $L^*$ be the Bayes error. For $Y \in \set{0, 1}$, prove
 \[
     \min_{h \colon \R^d \to \R} \Exp[\abs{h(X) - Y}] = \Exp[\abs{h^*(X) - Y}] = L^*.
 \]
@@ -45,7 +45,7 @@ and assume further that the class-conditional densities $f_i$ of $X$ given $Y = 
 \[
     \Prob(X \in A \given Y = i) = \int_A f_i(x) \dx, \quad i = 1, 2.
 \]
-Finally, we denote the class probabilities by $p = \Prob(Y = 1) = 1 - \Prob(Y = 0)$. Prove that
+Finally, denote the class probabilities by $p = \Prob(Y = 1) = 1 - \Prob(Y = 0)$. Demonstrate that
 \[
     \Prob(Y = 1 \given X = x) = \frac{f_1(x)p}{f_1(x)p + f_0(x) (1-p)}.
 \]
