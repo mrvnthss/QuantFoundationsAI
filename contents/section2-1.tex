@@ -159,6 +159,34 @@ in the sense that $h^*$ minimizes this error, i.e.,
 A function minimizing the mean absolute error is called the \emph{conditional median} of $Y$ given $X$.
 \end{remark}
 
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node[above right, inner sep=0] (image) at (0,0) {
+            \includegraphics[width=0.6\textwidth]{mit-ocw/regression-function}
+        };
+
+        % Create scope with normalized axes
+        \begin{scope}[
+            x={(image.south east)},
+            y={(image.north west)}]
+         
+            % Grid to properly align annotations
+            % \draw[help lines, step=0.1] (image.south west) grid ($(image.north east) + (0.001,0)$);
+
+            % Annotate image
+            \node[] at (1.01,0.04) {$x$};
+            \node[] at (0.02,1.00) {$\eta(x)$};
+            
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Illustration of the regression function $\eta$. \textcolor{dark-gray}{\textbf{Gray}}, the ideal case in which the observation $X$ perfectly predicts $Y$, i.e., $\eta \in \set{0, 1}$. \textcolor{dark-red}{\textbf{Red}}, a more realistic scenario in which the regression function $\eta$ takes values in the unit interval $[0, 1]$. \\
+        \indent\emph{Note}. Adapted from \say{Mathematics of Machine Learning (18.657),} by P.~Rigollet, Fall 2015, \emph{Massachusetts Institute of Technology: MIT OpenCouseWare}, p.~2 (\url{https://ocw.mit.edu/}). \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA 4.0}.
+    }
+    \label{fig: regression function}
+\end{figure}
+
 \begin{remark}
     \begin{enumerate}
         \item For a classifier $h \colon \mathcal{X} \to \R$, the quantity
