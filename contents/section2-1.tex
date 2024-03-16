@@ -41,7 +41,7 @@ The Bayes classifier satisfies the following two properties:
     \item The error probability $L^* = L(h^*)$ of the Bayes classifier is given by
     \begin{equation}
         \label{eq: bayes error}
-        L^* = \Exp[\min(1 - \eta(X), \eta(X))] = \frac{1}{2} - \frac{1}{2} \Exp[\abs{2\eta(X) - 1}] \leq \frac{1}{2} \, .
+        L^* = \Exp[\min(1 - \eta(X), \eta(X))] = 1/2 - 1/2 \Exp[\abs{2\eta(X) - 1}] \leq 1/2 \, .
     \end{equation}
 
     \item For each classifier $h \colon \mathcal{X} \to \set{0, 1}$, we have
@@ -76,7 +76,7 @@ By definition, $\set{h^*(X) = 0} = \set{\eta(X) \leq 1/2}$. Thus, for the Bayes 
 \]
 which proves the first assertion of (1). The identity
 \[
-    \Exp[\min(\eta(X), 1 - \eta(X))] = \frac{1}{2} - \frac{1}{2} \Exp[\abs{2\eta(X) - 1 }]
+    \Exp[\min(\eta(X), 1 - \eta(X))] = 1/2 - 1/2 \Exp[\abs{2\eta(X) - 1 }]
 \]
 is left as an exercise. To prove (2), first observe that
 \begin{align*}
