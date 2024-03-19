@@ -13,7 +13,7 @@ The Bayes classifier $h^* \colon \mathcal{X} \to \set{0,1}$ is defined by
 \]
 \end{definition}
 
-It follows from the definition that $h^*$ equals $1$ whenever $\Prob(Y = 1 \given X) > \Prob(Y = 0 \given X)$ or, equivalently, $\eta(X) > 1 - \eta(X)$. To quantify the performance of a classifier $h \colon \mathcal{X} \to \set{0, 1}$ in a binary classification tasks, we use the binary loss function
+It follows from the definition that $h^*$ equals $1$ whenever $\Prob(Y = 1 \given X) > \Prob(Y = 0 \given X)$ or, equivalently, $\eta(X) > 1 - \eta(X)$. To quantify the performance of a classifier $h \colon \mathcal{X} \to \set{0, 1}$ in a binary classification tasks, we use the \emph{$0$-$1$ loss function}
 \[
     l(y_1, y_2) = \indSet{y_1 \neq y_2} = \begin{cases}
         1, \quad & y_1 \neq y_2 \\
