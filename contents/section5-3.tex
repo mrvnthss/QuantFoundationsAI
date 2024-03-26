@@ -1,24 +1,27 @@
 %% SECTION 5.3 %%
 \section{Covering Numbers}
 
-As pointed out in the previous section, we need a suitable generalization of VC theory to find a bound on the Rademacher complexity $\mathfrak{R}_n(l \circ \mathcal{F})$ for arbitrary (i.e., possibly infinite) function classes $\mathcal{F}$. We have seen that, as in the case of binary classification, the cardinality of the set $T_l(z) = \{(l(f(x_1), y_1), \dots, l(f(x_n), y_n)^{\top} \with f \in \mathcal{F}\}$ plays a significant role in bounding the Rademacher complexity of $l \circ \mathcal{F}$. When $\mathcal{F}$ is infinite, the set $T_l(z)$ will  most likely be infinite as well. Thus, we need to find a way that lets us treat points in this set that are close to each other as if they were identical. We start with the definition of \emph{covering numbers} of a class $\mathcal{F}$.
+As pointed out in the previous section, we need a suitable generalization of VC theory to find a bound on the Rademacher complexity $\mathfrak{R}_n(l \circ \mathcal{F})$ for arbitrary (i.e., possibly infinite) function classes $\mathcal{F}$. We have seen that, as in the case of binary classification, the cardinality of the set $T_l(z) = \{(l(f(x_1), y_1), \dots, l(f(x_n), y_n))^{\top} \with f \in \mathcal{F}\}$ plays a significant role in bounding the Rademacher complexity of $l \circ \mathcal{F}$. When $\mathcal{F}$ is infinite, the set $T_l(z)$ will  most likely be infinite as well. Thus, we need to find a way that lets us treat points in this set that are close to each other as if they were identical. The concept of \emph{$\varepsilon$-coverings} will help us do just that.
 
 \begin{definition}
-Let $d$ be a pseudometric\footnote{The only difference between a metric and a \emph{pseudo}metric is the relaxation of the \emph{positivity} property. A metric requires every pair of distinct points $x$ and $y$ to have a positive distance $d(x, y)$ from each other. In other words, $d(x, y) = 0$ always implies $x = y$ when $d$ is a metric. For a pseudometric, this need not be true, i.e., there can be points $x \neq y$ such that $d(x, y) = 0$.} on a class of functions $\mathcal{F}$ and let $\varepsilon > 0$. An \emph{$\varepsilon$-covering} of $(\mathcal{F}, d)$ is a set of functions $V \subset \mathcal{F}$ such that every function $f \in \mathcal{F}$ is within distance of at most $\varepsilon$ to some function $g \in V$. In other words, for every $f \in \mathcal{F}$ there exists $g \in V$ such that $d(f, g) \leq \varepsilon$.
-
-The \emph{$\varepsilon$-covering number} $\mathcal{N}(\mathcal{F}, d, \varepsilon)$ of $(\mathcal{F}, d)$ is the minimum number of functions needed to form an $\varepsilon$-covering of $(\mathcal{F}, d)$, i.e.,
+Let $(X, d)$ be a pseudometric space, let $K$ be a subset of $X$, and let $\varepsilon > 0$. An \emph{external $\varepsilon$-covering} of $K$ is a set $V \subset X$ such that
 \[
-    \mathcal{N}(\mathcal{F}, d, \varepsilon) = \inf\set{\abs{V} \with V \text{ is an } \varepsilon \text{-net of } (\mathcal{F}, d)}.
+    K \subset \bigcup_{x \in V} B_{d, \varepsilon}(x),
 \]
+where $B_{d, \varepsilon}(x) = \set{y \in X \with d(x, y) \leq \varepsilon}$ is the closed ball of radius $\varepsilon$ centered at $x \in X$. $V$ is called an \emph{internal $\varepsilon$-covering} of $K$, if $V \subset K$.
 
-Finally, an $\varepsilon$-covering $V$ of $\mathcal{F}$ is called \emph{minimal}, if $\abs{V} = \mathcal{N}(\mathcal{F}, d, \varepsilon)$.
+The \emph{external $\varepsilon$-covering number} $\mathcal{N}^{\text{ext}}(K, d, \varepsilon)$ of $K$ is the minimum number of elements needed to form an external $\varepsilon$-covering of $K$, i.e.,
+\[
+    \mathcal{N}^{\text{ext}}(K, d, \varepsilon) = \inf\set{\abs{V} \with V \text{ is an external } \varepsilon \text{-covering of } K}.
+\]
+An external $\varepsilon$-covering $V$ of $K$ is called \emph{minimal}, if $\abs{V} = \mathcal{N}^{\text{ext}}(K, d, \varepsilon)$. Finally, \emph{internal $\varepsilon$-covering numbers} $\mathcal{N}^{\text{int}}(K, d, \varepsilon)$ and \emph{minimal} internal $\varepsilon$-coverings are defined analogously.
 \end{definition}
 
 \begin{figure}
     \centering
     \begin{tikzpicture}
         \node[above right, inner sep=0] (image) at (0,0) {
-            \includegraphics[width=12cm]{other/epsilon-covering}
+            \includegraphics[width=13cm]{other/epsilon-covering}
         };
 
         % Create scope with normalized axes
@@ -60,13 +63,7 @@ Finally, an $\varepsilon$-covering $V$ of $\mathcal{F}$ is called \emph{minimal}
     \label{fig: epsilon-covering}
 \end{figure}
 
-If $V$ is an $\varepsilon$-covering of $(\mathcal{F}, d)$, then clearly
-\[
-    \mathcal{F} = \bigcup_{g \in V} B_{d, \varepsilon}(g),
-\]
-where $B_{d, \varepsilon}(g) = \set{f \in \mathcal{F} \with d(f, g) \leq \varepsilon}$ is the closed ball of radius $\varepsilon$ centered at $g$. Thus, $\mathcal{F}$ is covered by closed balls of radius $\varepsilon$ centered on elements in $V$, hence the name $\varepsilon$-covering.
-
-Note that the definition of $\varepsilon$-coverings is in no way restricted to classes of \emph{functions}. Instead, all of these constructions make sense on any set $M$ endowed with a pseudometric $d$.
+If $V$ is an $\varepsilon$-covering (external or internal) of a set $K$, then every $y \in K$ is within distance of at most $\varepsilon$ to some $x \in V$, i.e., for every $y \in K$ there exists $x \in V$ such that $d(x, y) \leq \varepsilon$. For a class of functions $\mathcal{F}$, we will assume $\varepsilon$-coverings to be \emph{internal} coverings, unless explicitly stated otherwise. To ease notation, we simply write $\mathcal{N}(\mathcal{F}, d, \varepsilon)$ for the internal $\varepsilon$-covering numbers.
 
 Next, we introduce the \emph{conditional Rademacher average} of a class\footnote{In what follows, we use a general class of functions $\mathcal{F}$ and a set of points $\set{z_1, \dots, z_n}$. In the setting of empirical risk minimization, we would substitute $\mathcal{F}$ for $l \circ \mathcal{F}$ and the set under consideration would be the observations $\set{(x_1, y_1), \dots, (x_n, y_n)}$.} of functions $\mathcal{F}$ given a set of points $\set{z_1, \dots, z_n}$.
 
