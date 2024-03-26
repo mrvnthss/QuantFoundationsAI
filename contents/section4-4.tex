@@ -32,7 +32,7 @@ We split the proof of this result into three steps:
     This is known as the \emph{Sauer-Shelah} lemma.
 \end{enumerate}
 
-Since the first step is already done, let's tackle step number 2. As an intermediate result, we prove a bound of the Rademacher complexity of finite subsets in $\R^n$. This will turn out to be immensely useful, as we can express the Rademacher complexity of a family of sets $\mathcal{A}$ in terms of the Rademacher complexity of finite subsets in $\R^n$, i.e., $\mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \power(\mathcal{Z})} \mathfrak{R}_n(T(z))$, where $T(z)$ is defined as in \eqref{eq: T(z)}.
+Since the first step is already done, let's tackle step number 2. As an intermediate result, we prove a bound of the Rademacher complexity of finite subsets in $\R^n$. This will turn out to be immensely useful, as we can express the Rademacher complexity of a family of sets $\mathcal{A}$ in terms of the Rademacher complexity of finite subsets in $\R^n$, i.e., $\mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \mathcal{Z}^n} \mathfrak{R}_n(T(z))$, where $T(z)$ is defined as in \eqref{eq: T(z)}.
 
 \begin{lemma}
 \label{lem: bound on rademacher complexity of finite set}
@@ -87,9 +87,9 @@ For a family of sets $\mathcal{A}$, it holds
 \end{proposition}
 
 \begin{proof}
-Observe that $\mathfrak{R}_n(\mathcal{A}) = \sup_z \mathfrak{R}_n(T(z))$, by Lemma \ref{lem: rademacher complexity of family of sets}, where $T(z)$ is defined as in \eqref{eq: T(z)}. Since $T(z) \subset \set{0, 1}^n$, we have $\norm{b}_2 \leq \sqrt{n}$ for all $b \in T(z)$ and all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$. Hence, by Lemma \ref{lem: bound on rademacher complexity of finite set}, we have
+Observe that $\mathfrak{R}_n(\mathcal{A}) = \sup_z \mathfrak{R}_n(T(z))$, by Lemma \ref{lem: rademacher complexity of family of sets}, where $T(z)$ is defined as in \eqref{eq: T(z)}. Since $T(z) \subset \set{0, 1}^n$, we have $\norm{b}_2 \leq \sqrt{n}$ for all $b \in T(z)$ and all tuples $z = (z_1, \dots, z_n) \in \mathcal{Z}^n$. Hence, by Lemma \ref{lem: bound on rademacher complexity of finite set}, we have
 \[
-    \mathfrak{R}_n(\mathcal{A}) \leq \sup_{z \in \power(\mathcal{Z})} \sqrt{\frac{2 \log(2 \abs{T(z)})}{n}} \, .
+    \mathfrak{R}_n(\mathcal{A}) \leq \sup_{z \in \mathcal{Z}^n} \sqrt{\frac{2 \log(2 \abs{T(z)})}{n}} \, .
 \]
 Finally, by the definition of the shatter coefficients of $\mathcal{A}$, we have $\abs{T(z)} \leq \sup_z \abs{T(z)} = \mathcal{S}_{\mathcal{A}}(n)$, and hence
 \[

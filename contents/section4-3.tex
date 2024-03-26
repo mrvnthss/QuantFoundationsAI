@@ -10,21 +10,20 @@ $\mathcal{A}$ are sets of the form
         T(z) = \{(\indSet{z_1 \in A}, \dots, \indSet{z_n \in A})^{\top} \with A \in \mathcal{A}\},
     }
 \end{equation}
-for $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$, where\footnote{Again, this definition makes sense for arbitrary spaces $\mathcal{Z}$, i.e., we can take a family of sets $\mathcal{A}$ and a set $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$ and then define $T(z)$ as above.} $z_i \in \mathcal{X} \times \set{0, 1}$. Particularly, the cardinality of $T(z)$, i.e., the number of binary patterns a set of points $\set{z_1, \dots, z_n}$ can replicate as $A$ ranges over the family of sets $\mathcal{A}$, will be extremely important, as it will arise when trying to control the Rademacher complexity of $\mathcal{A}$. A first hint at this is the following result, which allows us to link the Rademacher complexity of $\mathcal{A}$ to the Rademacher complexity of the sets $T(z)$:
+for $z = (z_1, \dots, z_n) \in \mathcal{Z}^n$, where\footnote{Again, this definition makes sense for arbitrary spaces $\mathcal{Z}$, i.e., we can take a family of sets $\mathcal{A}$ and $z = (z_1, \dots, z_n) \in \mathcal{Z}^n$ and then define $T(z)$ as above.} $z_i \in \mathcal{X} \times \set{0, 1}$. Particularly, the cardinality of $T(z)$, i.e., the number of binary patterns a tuple of points $(z_1, \dots, z_n)$ can replicate as $A$ ranges over the family of sets $\mathcal{A}$, will be extremely important, as it will arise when trying to control the Rademacher complexity of $\mathcal{A}$. A first hint at this is the following result, which allows us to link the Rademacher complexity of $\mathcal{A}$ to the Rademacher complexity of the sets $T(z)$:
 
 \begin{lemma}
 \label{lem: rademacher complexity of family of sets}
 The Rademacher complexity of a family of sets $\mathcal{A}$ in a space $\mathcal{Z}$ satisfies
 \[
-    \mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \power(\mathcal{Z})} \mathfrak{R}_n(T(z)),
+    \mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \mathcal{Z}^n} \mathfrak{R}_n(T(z)).
 \]
-where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$.
 \end{lemma}
 
 \begin{proof}
 This is straightforward: by the definition of the set $T(z)$ in \eqref{eq: T(z)}, we have
 \[
-    \sup_{z \in \power(\mathcal{Z})} \mathfrak{R}_n(T(z)) = \sup_{z \in \power(\mathcal{Z})} \Exp\left[\sup_{b \in T(z)} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i b_i}\right] = \sup_{z \in \power(\mathcal{Z})} \Exp\left[\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}\right] = \mathfrak{R}_n(\mathcal{A}). \qedhere
+    \sup_{z \in \mathcal{Z}^n} \mathfrak{R}_n(T(z)) = \sup_{z \in \mathcal{Z}^n} \Exp\left[\sup_{b \in T(z)} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i b_i}\right] = \sup_{z \in \mathcal{Z}^n} \Exp\left[\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}\right] = \mathfrak{R}_n(\mathcal{A}). \qedhere
 \]
 \end{proof}
 
@@ -52,12 +51,11 @@ Clearly, a family of sets $\mathcal{A}$ shatters the set of points $\set{z_1, \d
 \begin{definition}
 The \emph{$n$-th shatter coefficient} $\mathcal{S}_{\mathcal{A}}(n)$ of a family of sets $\mathcal{A}$ is given by
 \[
-    \mathcal{S}_{\mathcal{A}}(n) = \sup_{z \in \power(\mathcal{Z})} \abs{T(z)} = \sup_{z \in \power(\mathcal{Z})} \abs{z \cap \mathcal{A}},
+    \mathcal{S}_{\mathcal{A}}(n) = \sup_{z \in \mathcal{Z}^n} \abs{T(z)} = \sup_{z \in \mathcal{Z}^n} \abs{z \cap \mathcal{A}}.
 \]
-where the suprema range over all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$.
 \end{definition}
 
-By definition, $\mathcal{S}_{\mathcal{A}}(n) = 2^n$ if $\mathcal{A}$ shatters a set $\set{z_1, \dots, z_n} \in \power(\mathcal{Z})$, i.e., if there exists a set $z = \set{z_1, \dots, z_n}$ such that every subset of $z$ can be picked up by $\mathcal{A}$. Analogously, we have $\mathcal{S}_{\mathcal{A}}(n) < 2^n$ if \emph{no} set of points $\set{z_1, \dots, z_n}$ can be shattered by $\mathcal{A}$. The largest integer $k$ for which there still exists a set that can be shattered by $\mathcal{A}$ is precisely the \emph{Vapnik-Chervonenkis dimension} of $\mathcal{A}$:
+By definition, $\mathcal{S}_{\mathcal{A}}(n) = 2^n$ if $\mathcal{A}$ shatters a set $\set{z_1, \dots, z_n} \subset \mathcal{Z}$, i.e., if there exists a set $z = \set{z_1, \dots, z_n}$ such that every subset of $z$ can be picked up by $\mathcal{A}$. Analogously, we have $\mathcal{S}_{\mathcal{A}}(n) < 2^n$ if \emph{no} set of points $\set{z_1, \dots, z_n}$ can be shattered by $\mathcal{A}$. The largest integer $k$ for which there still exists a set that can be shattered by $\mathcal{A}$ is precisely the \emph{Vapnik-Chervonenkis dimension} of $\mathcal{A}$:
 
 \begin{definition}
 The \emph{Vapnik-Chervonenkis dimension} $\VC(\mathcal{A})$ of a family of sets $\mathcal{A}$ is the largest integer $k$ such that $\mathcal{S}_{\mathcal{A}}(k) = 2^k$. If $\mathcal{S}_{\mathcal{A}}(n) = 2^n$ holds for all $n$, we set $\VC(\mathcal{A}) = \infty$.

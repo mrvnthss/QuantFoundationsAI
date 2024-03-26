@@ -68,7 +68,7 @@ If $V$ is an $\varepsilon$-covering (external or internal) of a set $K$, then ev
 Next, we introduce the \emph{conditional Rademacher average} of a class\footnote{In what follows, we use a general class of functions $\mathcal{F}$ and a set of points $\set{z_1, \dots, z_n}$. In the setting of empirical risk minimization, we would substitute $\mathcal{F}$ for $l \circ \mathcal{F}$ and the set under consideration would be the observations $\set{(x_1, y_1), \dots, (x_n, y_n)}$.} of functions $\mathcal{F}$ given a set of points $\set{z_1, \dots, z_n}$.
 
 \begin{definition}
-The \emph{conditional Rademacher average} of a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$ given a set of $n$ points $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ is defined as
+The \emph{conditional Rademacher average} of a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$ given a tuple $z = (z_1, \dots, z_n) \in \mathcal{Z}^n$ is defined as
 \[
     \hat{\mathfrak{R}}_n^z(\mathcal{F}) = \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i f(z_i)}\right],
 \]
@@ -77,20 +77,20 @@ where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random var
 
 Notice that, if $\mathcal{F}$ is a class of functions $f \colon \mathcal{Z} \to \R$, and we define the Rademacher complexity of $\mathcal{F}$ as\footnote{This is simply the generalization of Definition \ref{def: rademacher complexity for general loss} to an arbitrary class of functions $\mathcal{F}$.}
 \[
-    \mathfrak{R}_n(\mathcal{F}) = \sup_{z \in \power(\mathcal{Z})} \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i f(z_i)}\right],
+    \mathfrak{R}_n(\mathcal{F}) = \sup_{z \in \mathcal{Z}^n} \Exp\left[\sup_{f \in \mathcal{F}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i f(z_i)}\right],
 \]
-where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$, then clearly
+then clearly
 \begin{equation}
 \label{eq: rademacher complexity and conditional rademacher average}
     \highlightMath{
-        \mathfrak{R}_n(\mathcal{F}) = \sup_{z \in \power(\mathcal{Z})} \hat{\mathfrak{R}}_n^z(\mathcal{F}).
+        \mathfrak{R}_n(\mathcal{F}) = \sup_{z \in \mathcal{Z}^n} \hat{\mathfrak{R}}_n^z(\mathcal{F}).
     }
 \end{equation}
 
 There is one more term we have to introduce before we state the first result of this section.
 
 \begin{definition}
-Given a set of points $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ and a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^1$-distance} between $f, g \in \mathcal{F}$ is given by
+Given a tuple $z = (z_1, \dots, z_n) \in \mathcal{Z}^n$ and a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^1$-distance} between $f, g \in \mathcal{F}$ is given by
 \[
     d_1^z(f, g) = \frac{1}{n} \sum_{i=1}^n \abs{f(z_i) - g(z_i)}.
 \]
@@ -100,9 +100,9 @@ With these definitions in place, we will prove an upper bound of the conditional
 
 \begin{theorem}
 \label{thm: bound on conditional rademacher average}
-Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to [-1, 1]$, and let $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ be a set of $n$ points. Then,
+Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to [-1, 1]$. Then,
 \[
-    \hat{\mathfrak{R}}_n^z(\mathcal{F}) \leq \inf_{\varepsilon > 0} \varepsilon + \sqrt{\frac{2 \log(2 \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon))}{n}}.
+    \hat{\mathfrak{R}}_n^z(\mathcal{F}) \leq \inf_{\varepsilon > 0} \varepsilon + \sqrt{\frac{2 \log(2 \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon))}{n}}, \quad z \in \mathcal{Z}^n.
 \]
 \end{theorem}
 
@@ -163,7 +163,7 @@ and hence
 Next, we introduce another set of empirical distances.
 
 \begin{definition}
-Given a set of points $z = \set{z_1, \dots, z_n} \subset \mathcal{Z}$ and a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^p$-distance} between $f, g \in \mathcal{F}$ is given by
+Given a tuple $z = (z_1, \dots, z_n) \in \mathcal{Z}^n$ and a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^p$-distance} between $f, g \in \mathcal{F}$ is given by
 \[
     d_p^z(f, g) = \left(\frac{1}{n} \sum_{i=1}^n \abs{f(z_i) - g(z_i)}^p \right)^{\nicefrac{1}{p}}, \quad p \geq 1.
 \]
@@ -193,7 +193,7 @@ We will now show that something similar in spirit is true for the family of empi
 \]
 
 \begin{proposition}
-Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to \R$ and fix a set of points $z = \set{z_1, \dots, z_n}$. For $1 \leq p \leq q < \infty$ and $\varepsilon > 0$, it holds
+Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to \R$ and fix a tuple $z = (z_1, \dots, z_n) \in \mathcal{Z}^n$. For $1 \leq p \leq q < \infty$ and $\varepsilon > 0$, it holds
 \[
     \mathcal{N}(\mathcal{F}, d_p^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_q^z, \varepsilon) \leq \mathcal{N}(\mathcal{F}, d_{\infty}^z, \varepsilon).
 \]

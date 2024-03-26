@@ -45,9 +45,9 @@ where we have again used the fact that $\mathcal{D}_n$ and $\mathcal{D}_n'$ are 
 \begin{definition}
 The \emph{Rademacher complexity of a family of sets} $\mathcal{A}$ in a space $\mathcal{Z}$ is the quantity
 \[
-    \mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \power(\mathcal{Z})} \Exp\left[\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}\right],
+    \mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \mathcal{Z}^n} \Exp\left[\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{z_i \in A}}\right],
 \]
-where the supremum ranges over all subsets $z = \set{z_1, \dots, z_n} \in \power(\mathcal{Z})$, and $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables. The \emph{Rademacher complexity of a set} $B \subset \R^n$ is defined as 
+where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables. The \emph{Rademacher complexity of a set} $B \subset \R^n$ is defined as 
 \[
     \mathfrak{R}_n(B) = \Exp\left[\sup_{b \in B} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i b_i}\right],
 \]
