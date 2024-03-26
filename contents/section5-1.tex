@@ -22,3 +22,25 @@ and by evaluating this inequality at $t = \sqrt{\log(\delta^{-1}) / 2n}$, we see
     \sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)} < \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] + \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 holds with probability at least $1 - \delta$. Therefore, as in Chapter \ref{ch: VC theory}, it remains to control the first term on the RHS. Ideally, we can do so independently of the (unknown) distribution of $(X, Y)$.
+
+Throughout this chapter, we will illustrate the main results on the following class of functions:
+
+\begin{example}[Linear Functions]
+Let
+\[
+    B_p^d(1) = \{x \in \R^d \with \norm{x}_p \leq 1\}
+\]
+be the closed ball of radius $1$ in $\R^d$ with respect to the $p$-norm $\norm{x}_p = (\sum_{i=1}^d \abs{x_i}^p)^{\nicefrac{1}{p}}$. In particular, for $p = \infty$ we obtain the Chebyshev norm $\norm{x}_{\infty} = \max_{i=1, \dots, d} \abs{x_i}$. We set $\mathcal{X} = B_1^d(1)$, and let $\mathcal{F}$ be the class of linear functions
+\[
+    f_a \colon \mathcal{X} \to \R, \quad x \mapsto \langle a, x \rangle, \qquad a \in B_{\infty}^d(1).
+\]
+We recall H{\"o}lder's inequality, which states that, for $p, q \in [1, \infty]$ with\footnote{by convention, $\nicefrac{1}{\infty} = 0$} $\nicefrac{1}{p} + \nicefrac{1}{q} = 1$,
+\[
+    \sum_{i=1}^d \abs{x_i y_i} \leq \norm{x}_p \norm{y}_q, \quad x, y \in \R^d.
+\]
+By combining H{\"o}lder's inequality with the triangle inequality, we have
+\[
+    \abs{f_a(x)} = \abs{\langle a, x \rangle} \leq \sum_{i=1}^d \abs{a_i x_i} \leq \norm{a}_{\infty} \norm{x}_1 \leq 1, \quad x \in \mathcal{X}.
+\]
+Hence, for $a \in B_{\infty}^d(1)$, the linear function $f_a \in \mathcal{F}$ takes values in the interval $[-1, 1]$, i.e., $\mathcal{F}$ is a class of functions $f_a \colon B_1^d(1) \to [-1, 1]$.
+\end{example}
