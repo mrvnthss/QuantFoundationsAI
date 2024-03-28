@@ -264,8 +264,11 @@
         \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (subheadline) at ($(headline.north west) + (0, 16mm)$) {\fontsize{12pt}{14pt}\bfseries #2\par};
 
         \begin{scope}[on background layer]
-             % LIGHTBLUE BACKGROUND
-            \fill[lightblue] ($(current page.north west) + (8mm, -38mm)$) rectangle ($(current page.east |- subheadline.north) + (0, 16mm)$);
+            % LIGHTBLUE BACKGROUND
+            % \fill[lightblue] ($(current page.north west) + (8mm, -38mm)$) rectangle ($(current page.east |- subheadline.north) + (0, 16mm)$);
+
+            % BACKGROUND IMAGE
+            \node[scope fading=north, anchor=north west, inner sep=0pt, ] at ($(current page.north west) + (8mm, -38mm)$) {\includegraphics[width=202mm]{other/part-background}};
     
             % LOGO
             % \node[anchor=north east, inner sep=0pt] (jlu) at ($(current page.north east) - (8mm, 8mm)$) {\includegraphics[width=48mm, height=60mm]{tmp/logo}};
@@ -285,10 +288,10 @@
 
 
 %% HYPERLINKS %%
-\usepackage{hyperref}   % adds hyperlinks to PDF (LAST PACKAGE TO LOAD!)
+\usepackage{hyperref}  % adds hyperlinks to PDF (LAST PACKAGE TO LOAD!)
 \hypersetup{
     colorlinks=true,
-    citecolor=blue!80!black,     % citations
-    linkcolor=blue!80!black,     % internal links (figures, sections, etc.)
-    urlcolor=blue!80!black       % web links
+    citecolor=blue!80!black,  % citations
+    linkcolor=blue!80!black,  % internal links (figures, sections, etc.)
+    urlcolor=blue!80!black    % web links
 }
