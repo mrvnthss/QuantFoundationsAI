@@ -1,39 +1,43 @@
-%% TITEL-SEITE %%
+%% TITLE PAGE %%
 
 % Provide information for title page
-\subject{\sffamily Lecture Notes}
+\subject{Lecture Notes}
 \title{Quantitative Foundations\\ of Artificial Intelligence}
-\subtitle{Justus-Liebig-Universit\"at Gie{\ss}en \textbar{} Winter 2023/24}
-\author{\textbf{Lecturer}: Prof.~Dr.~Ludger Overbeck}  % NOTE: \author is being misused to refer to the lecturer
-\date{Last edited on \today}
-\publishers{By Marvin Thei{\ss}}
+\subtitle{Justus-Liebig-Universit\"at Gie{\ss}en, Fall 2023}
+\author{Marvin Thei{\ss}}
+\date{\today}
 
 \pagenumbering{Alph}
 
+\newgeometry{
+    top=25mm,
+    left=0mm,
+    right=15mm,
+    bottom=0mm
+}
+
 \begin{titlepage}
-    \begin{tikzpicture}[remember picture, overlay]
-        \begin{scope}[on background layer]
-            % LIGHTBLUE BACKGROUND
-            \fill[lightblue] ($(current page.north west) + (8mm, -38mm)$) rectangle ($(current page.south east)$);
-        
-            % LOGO
-            % \node[anchor=north east, inner sep=0pt] (jlu) at ($(current page.north east) - (8mm, 8mm)$) {\includegraphics[width=48mm, height=60mm]{tmp/logo}};
-        \end{scope}
+    \begin{flushright}
+        {
+            \bfseries\fontsize{40}{40}\selectfont
+            Quantitative Foundations \\
+            of Artificial Intelligence \\[24pt]
+        }
+        {
+            \fontsize{32}{36}\selectfont
+            JLU Gie{\ss}en, Fall 2023
+        }
+    \end{flushright}
 
-        % HEADLINE
-        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (headline) at ($(current page.south west) + (16mm, 32mm)$) {\fontsize{24pt}{34pt}\let\strut\relax\bfseries Quantitative Foundations\\ of Artificial Intelligence \par};
-
-        % SUBHEADLINE
-        \node[rectangle, anchor=south west, inner sep=0pt, text width=130mm, text=white] (subheadline) at ($(headline.north west) + (0, 8mm)$) {\fontsize{12pt}{14pt}\bfseries Justus-Liebig-Universit\"at Gie{\ss}en \textbar{} Winter 2023/24 \par};
-
-        \begin{scope}[on background layer]
-            % BLUE TEXTBOX
-            \fill[blue, fill opacity=0.9] ($(current page.west |- subheadline.north) + (0mm, 16mm)$) rectangle ($(current page.south west) + (154mm, 16mm)$);
-        \end{scope}
+    \begin{tikzpicture}[remember picture, overlay, inner sep=0pt]
+         \node[scope fading=north, anchor=south west] at (current page.south west) {
+            \includegraphics[width=\paperwidth]{other/title-background}
+        };
     \end{tikzpicture}
 \end{titlepage}
 
 \cleardoublepage
+\restoregeometry
 \pagenumbering{roman}
 
 \uppertitleback{
@@ -43,13 +47,13 @@
 }
 
 \lowertitleback{
-    \textbf{Disclaimer}: This publication is an independent project and is neither affiliated with, nor authorized, sponsored, or approved by Justus-Liebig-Universit{\"a}t Gie{\ss}en. The content within is based solely on my own notes, and should not be taken as an official course material, guide, or representation of the university's views, teachings, or policies. \\
+    \textbf{Disclaimer}: These notes were taken in the \emph{Quantitative Foundations of Artificial Intelligence} class in Fall 2023, taught by Prof.~Dr.~Ludger Overbeck at Justus-Liebig-Universit{\"a}t Gie{\ss}en. These notes are a personal project and, as such, are neither affiliated with, nor authorized, sponsored, or approved by Justus-Liebig-Universit{\"a}t Gie{\ss}en. \\
 
-    I have made every effort to ensure the accuracy and completeness of the information contained within, but the document may inadvertently contain errors. I assume no responsibility for errors, omissions, or any inconsistencies herein. \\
+    I have made every effort to ensure the accuracy and completeness of the information contained within these notes, but the document may inadvertently contain errors. I assume no responsibility for errors, omissions, or any inconsistencies herein. \\
 
-    Readers should consider this work as a personal project, intended for general informational and educational purposes only. Any reliance placed on the material in this publication is strictly at your own risk. \\
+    Readers should consider this work for what it is, a personal project intended for general informational and educational purposes only. Any reliance placed on the material in these notes is strictly at your own risk. \\
 
-    \textbf{Feedback and Corrections}: I welcome and appreciate feedback from readers, especially regarding errors or inaccuracies found within this publication. If you notice any mistakes or have suggestions for improvement, please feel free to contact me at \href{mailto:mrvnthss@mail.de}{mrvnthss@mail.de}.
+    \textbf{Feedback and Corrections}: I welcome and highly appreciate feedback from readers, especially regarding errors or inaccuracies found within these notes. If you notice any mistakes or have suggestions for improvement, please feel free to contact me at \href{mailto:mrvnthss@mail.de}{mrvnthss@mail.de}.
 }
 
 \maketitle
