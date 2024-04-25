@@ -136,28 +136,29 @@ Since this is true for every $\varepsilon > 0$, we can take the infimum over $\v
 
 Observe that there is a trade-off in the upper bound of the previous result, since the $\varepsilon$-covering numbers $\mathcal{N}(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ increase as $\varepsilon$ decreases, and vice versa. 
 
-Through Theorem \ref{thm: bound on conditional rademacher average}, we can bound the conditional Rademacher average of the class of linear functions $\mathcal{F}$ introduced in Example \ref{ex: linear functions f_a}. To arrive at an informative upper bound, we have to compute the covering numbers $\mathcal{N}(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ with respect to the empirical $L^1$-distance. The following Lemma will be helpful:
+By Theorem \ref{thm: bound on conditional rademacher average}, we can bound the conditional Rademacher average of the class of linear functions $\mathcal{F}$ introduced in Example \ref{ex: linear functions f_a}. To arrive at an informative upper bound, we have to compute the covering numbers $\mathcal{N}(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ with respect to the empirical $L^1$-distance. When doing so, the following Lemma will be helpful:
 
 \begin{lemma}
-For any two linear functions $f_a, f_b \in \mathcal{F}$, where $\mathcal{F}$ is defined as in Example \ref{ex: linear functions f_a}, we have
+For any two linear functions $f_a, f_b \in \mathcal{F}$, where $\mathcal{F}$ is defined as in \eqref{eq: family of linear functions f_a}, we have
 \[
     d_1^z(f_a, f_b) \leq \norm{a - b}_{\infty}, \quad z \in \mathcal{Z}^n.
 \]
 \end{lemma}
 
 \begin{proof}
-By definition, we have
+By definition of the empirical $L^1$-distance and the linear functions $f_a$ and $f_b$, we have
 \[
     d_1^z(f_a, f_b) = \frac{1}{n} \sum_{i=1}^n \abs{f_a(z_i) - f_b(z_i)} = \frac{1}{n} \sum_{i=1}^n \abs{\langle a - b, z_i \rangle}.
 \]
 We apply H{\"o}lder's inequality to arrive at
 \[
-    \abs{\langle a - b, z_i \rangle} \leq \sum_{j=1}^d \abs*{(a - b)^j z_i^j} \leq \norm{a - b}_{\infty} \norm{z_i}_1 \leq \norm{a - b}_{\infty},
+    \abs{\langle a - b, z_i \rangle} \leq \sum_{j=1}^d \abs*{(a - b)^j z_i^j} \leq \norm{a - b}_{\infty} \norm{z_i}_1 \leq \norm{a - b}_{\infty}, \quad i = 1, \dots, n,
 \]
 and hence
 \[
-    d_1^z(f_a, f_b) \leq \frac{1}{n} \sum_{i=1}^n \abs{\langle a - b, z_i \rangle} \leq \frac{1}{n} \sum_{i=1}^n \norm{a - b}_{\infty} = \norm{a - b}_{\infty}. \qedhere
+    d_1^z(f_a, f_b) \leq \frac{1}{n} \sum_{i=1}^n \abs{\langle a - b, z_i \rangle} \leq \frac{1}{n} \sum_{i=1}^n \norm{a - b}_{\infty} = \norm{a - b}_{\infty},
 \]
+as desired.
 \end{proof}
 
 Next, we introduce another set of empirical distances.
@@ -173,7 +174,7 @@ For $p = \infty$, we set
 \]
 \end{definition}
 
-Before we proceed to state the next result on $\varepsilon$-covering numbers, we recall a special case of H{\"o}lder's inequality.
+Before we proceed to state the next result on $\varepsilon$-covering numbers, we recall a special case of H{\"o}lder's inequality (which we will use to prove said result).
 
 \begin{proposition}[H{\"o}lder, 1889]
 \label{prop: hoelder}

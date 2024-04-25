@@ -43,5 +43,9 @@ By combining H{\"o}lder's inequality with the triangle inequality, we have
 \[
     \abs{f_a(x)} = \abs{\langle a, x \rangle} \leq \sum_{i=1}^d \abs{a_i x_i} \leq \norm{a}_{\infty} \norm{x}_1 \leq 1, \quad x \in \mathcal{X}.
 \]
-Hence, for $a \in B_{\infty}^d(1)$, the linear function $f_a \in \mathcal{F}$ takes values in the interval $[-1, 1]$, i.e., $\mathcal{F}$ is a class of functions $f_a \colon B_1^d(1) \to [-1, 1]$.
+Hence, for $a \in B_{\infty}^d(1)$, the linear function $f_a \in \mathcal{F}$ takes values in the interval $[-1, 1]$, i.e.,
+\begin{equation}
+\label{eq: family of linear functions f_a}
+    \mathcal{F} = \set{f_a \colon B_1^d(1) \to [-1, 1], \; x \mapsto \langle a, x \rangle \with a \in B_{\infty}^d(1)}.
+\end{equation}
 \end{example}
