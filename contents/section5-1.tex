@@ -19,9 +19,9 @@ In particular,
 \]
 and by evaluating this inequality at $t = \sqrt{\log(\delta^{-1}) / 2n}$, we see that the inequality
 \[
-    \sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)} < \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] + \sqrt{\frac{\log(\delta^{-1})}{2n}}
+    \sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)} < {\color{blue} \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}]} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
-holds with probability at least $1 - \delta$. Therefore, as in Chapter \ref{ch: VC theory}, it remains to control the first term on the RHS. Ideally, we can do so independently of the (unknown) distribution of $(X, Y)$.
+holds with probability at least $1 - \delta$. Therefore, as in Chapter \ref{ch: VC theory}, it remains to control the \textcolor{blue}{first term on the RHS}. Ideally, we can do so independently of the (unknown) distribution of $(X, Y)$.
 
 Throughout this chapter, we will illustrate the main results on the following class of functions:
 

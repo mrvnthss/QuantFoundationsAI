@@ -56,7 +56,7 @@ Based on our discussion of the emprical risk minimzer at the beginning of this s
 \begin{corollary}
 Let $\mathcal{H}$ be a family of classifiers such that the family $\bar{\mathcal{A}}$ defined in \eqref{eq: collection of sets bar A_h} has VC dimension $D$. Then, the empirical risk minimizer $\hat{h}$ of $\mathcal{H}$ satisfies
 \[
-    L(\hat{h}) < L(\bar{h}) + 4 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + 2 \sqrt{\frac{\log(\delta^{-1})}{2n}}
+    L(\hat{h}) < L(\bar{h}) + 4 \sqrt{\frac{2D \log(2 \e n / D)}{n}} + \sqrt{\frac{2 \log(\delta^{-1})}{n}}
 \]
 with probability at least $1 - \delta$.
 \end{corollary}
