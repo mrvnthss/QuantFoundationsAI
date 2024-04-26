@@ -148,6 +148,7 @@ holds with probability at least $1 - \delta$ for any $\mathcal{F}$. We also know
 by \eqref{eq: rademacher complexity and conditional rademacher average}, and Theorem \ref{thm: bound on conditional rademacher average} provides a way to bound the conditional Rademacher average $\hat{\mathfrak{R}}_n^z(l \circ \mathcal{F})$. Finally, we have to compute the covering numbers of the class $l \circ \mathcal{F}$ with respect to the empirical $L^1$-distance $d_1^z$. The following Lemma will be helpful in doing so:
 
 \begin{lemma}
+\label{lem: distance between linear functions f_a}
 Let $\mathcal{F}$ be defined as in \eqref{eq: family of linear functions f_a}, and assume that the loss function $l \colon \R \times \R \to [0, 1]$ is Lipschitz in its first argument, i.e.,
 \[
     \abs{l(u, y) - l(v, y)} \leq K \abs{u - v}, \quad u, v, y \in \R,
@@ -171,6 +172,31 @@ Hence, we conclude
 \[
     d_1^z(l \circ f_a, l \circ f_b) \leq \frac{K}{n} \sum_{i=1}^n \abs{\langle a - b, x_i \rangle} \leq \frac{K}{n} \sum_{i=1}^n \norm{a - b}_{\infty} = K \norm{a - b}_{\infty}. \qedhere
 \]
+\end{proof}
+
+An immediate consequence of the previous result is the following:
+
+\begin{corollary}
+The covering numbers of the class $l \circ \mathcal{F}$, where $\mathcal{F}$ is defined as in \eqref{eq: family of linear functions f_a}, satisfy
+\[
+    \mathcal{N}(l \circ \mathcal{F}, d_1^z, \varepsilon) \leq \mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}).
+\]
+\end{corollary}
+
+\begin{proof}
+The inequality trivially holds if $\mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}) = \infty$. Hence, we assume $\mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}) < \infty$, and we let $V_{\varepsilon / K}$ be a minimal $\nicefrac{\varepsilon}{K}$-covering of $(B_{\infty}^d(1), d_{\infty})$. Then,
+\[
+    W_{\varepsilon} = \set{l \circ f_{a_0} \with a_0 \in V_{\varepsilon / K}}
+\]
+defines an $\varepsilon$-covering of $(l \circ \mathcal{F}, d_1^z)$. To see this, let $f_a \in \mathcal{F}$ be arbitrary, with $a \in B_{\infty}^d(1)$. Since $V_{\varepsilon / K}$ is an $\nicefrac{\varepsilon}{K}$-covering of $(B_{\infty}^d(1), d_{\infty})$, there exists $a_0 \in V_{\varepsilon / K}$ such that $d_{\infty}(a, a_0) \leq \varepsilon / K$. For $l \circ f_{a_0} \in W_{\varepsilon}$, this implies
+\[
+    d_1^z(l \circ f_a, l \circ f_{a_0}) \leq K \norm{a - a_0}_{\infty} = K d_{\infty}(a, a_0) \leq \varepsilon
+\]
+by Lemma \ref{lem: distance between linear functions f_a}. Therefore, $W_{\varepsilon}$ is an $\varepsilon$-covering of $(l \circ \mathcal{F}, d_1^z)$ with cardinality at most
+\[
+    \abs{W_{\varepsilon}} \leq \abs{V_{\varepsilon / K}} = \mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}),
+\]
+and the statement follows.
 \end{proof}
 
 Next, we introduce another set of empirical distances.
