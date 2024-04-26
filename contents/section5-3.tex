@@ -177,6 +177,7 @@ Hence, we conclude
 An immediate consequence of the previous result is the following:
 
 \begin{corollary}
+\label{cor: bound on covering numbers of class of linear functions}
 The covering numbers of the class $l \circ \mathcal{F}$, where $\mathcal{F}$ is defined as in \eqref{eq: family of linear functions f_a}, satisfy
 \[
     \mathcal{N}(l \circ \mathcal{F}, d_1^z, \varepsilon) \leq \mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}).
@@ -184,7 +185,7 @@ The covering numbers of the class $l \circ \mathcal{F}$, where $\mathcal{F}$ is 
 \end{corollary}
 
 \begin{proof}
-The inequality trivially holds if $\mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}) = \infty$. Hence, we assume $\mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}) < \infty$, and we let $V_{\varepsilon / K}$ be a minimal $\nicefrac{\varepsilon}{K}$-covering of $(B_{\infty}^d(1), d_{\infty})$. Then,
+The inequality holds if $\mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}) = \infty$. Hence, we assume $\mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}) < \infty$, and we let $V_{\varepsilon / K}$ be a minimal $\nicefrac{\varepsilon}{K}$-covering of $(B_{\infty}^d(1), d_{\infty})$. Then,
 \[
     W_{\varepsilon} = \set{l \circ f_{a_0} \with a_0 \in V_{\varepsilon / K}}
 \]
@@ -197,6 +198,27 @@ by Lemma \ref{lem: distance between linear functions f_a}. Therefore, $W_{\varep
     \abs{W_{\varepsilon}} \leq \abs{V_{\varepsilon / K}} = \mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}),
 \]
 and the statement follows.
+\end{proof}
+
+By combining Corollary \ref{cor: bound on covering numbers of class of linear functions} with Theorem \ref{thm: bound on conditional rademacher average}, we just need to find an $\nicefrac{\varepsilon}{K}$-covering of $(B_{\infty}^d(1), d_{\infty})$ to bound the conditional Rademacher average $\hat{\mathfrak{R}}_n^z(l \circ \mathcal{F})$ for $\mathcal{F}$ as in \eqref{eq: family of linear functions f_a}.
+
+\begin{lemma}
+For every $\varepsilon > 0$, there exists an $\varepsilon$-covering of $(B_{\infty}^d(1), d_{\infty})$ with cardinality $\lceil 1 / \varepsilon \rceil^d$. In particular,
+\[
+    \mathcal{N}(B_{\infty}^d(1), d_{\infty}, \varepsilon) \leq \lceil 1 / \varepsilon \rceil^d.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $V_{\varepsilon}$ be the set of vectors in $\R^d$ whose coordinates take values in the set
+\[
+    G_{\varepsilon} = \set{-1 + (2k - 1)\varepsilon \with k = 1, \dots, \lceil 1 / \varepsilon \rceil} \subset [-1, 1].
+\]
+Clearly, the set $V_{\varepsilon}$ has $\lceil 1 / \varepsilon \rceil^d$ elements. To prove that $V_{\varepsilon}$ is indeed an $\varepsilon$-covering of $(B_{\infty}^d(1), d_{\infty})$, we let $x \in B_{\infty}^d(1)$ with coordinates $x^j \in [-1, 1]$. For $j = 1, \dots, d$, there exists $y^j \in G_{\varepsilon}$ such that $\abs{x^j - y^j} \leq \varepsilon$, because any two neighboring elements in $G_{\varepsilon}$ are exactly $2 \varepsilon$ apart, and the outermost points of $G_{\varepsilon}$, i.e., those corresponding to $k = 1$ and $k = \lceil 1 / \varepsilon \rceil$, are within distance of at most $\varepsilon$ to the endpoints $-1$ and $1$, respectively. Thus, for $y = (y^1, \dots, y^d) \in V_{\varepsilon}$, we have
+\[
+    d_{\infty}(x, y) = \max_{j = 1, \dots, d} \abs{x^j - y^j} \leq \varepsilon,
+\]
+proving that $V_{\varepsilon}$ is an $\varepsilon$-covering of $(B_{\infty}^d(1), d_{\infty})$.
 \end{proof}
 
 Next, we introduce another set of empirical distances.
