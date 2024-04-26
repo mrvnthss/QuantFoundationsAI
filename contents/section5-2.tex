@@ -1,5 +1,6 @@
 %% SECTION 5.2 %%
 \section{Symmetrization and Rademacher Complexity}
+\label{subsec: rademacher complexity for general loss function}
 
 We have already introduced the technique of symmetrization and the concept of Rademacher complexity in Section \ref{sec: symmetrization}. The line of argument we use here is naturally very similar to the one employed before. We introduce a so-called \say{ghost sample} $\mathcal{D}_n' = \set{(X_1', Y_1'), \dots, (X_n', Y_n')}$, which is a set of random variables identically distributed as and independent of the random variables $(X_i, Y_i)$ that make up our dataset $\mathcal{D}_n$. Using this ghost sample, we rewrite the error of $f$ as
 \[

@@ -136,7 +136,7 @@ Since this is true for every $\varepsilon > 0$, we can take the infimum over $\v
 
 Observe that there is a trade-off in the upper bound of the previous result, since the $\varepsilon$-covering numbers $\mathcal{N}(\mathcal{F}, d_1^z, \varepsilon)$ of $\mathcal{F}$ increase as $\varepsilon$ decreases, and vice versa. 
 
-We want to apply Theorem \ref{thm: bound on conditional rademacher average} to bound the estimation error of the empirical risk minimizer $\hat{f}$ of the class $\mathcal{F}$ of linear functions introduced in Example \ref{ex: linear functions f_a}. We know that the inequality
+We want to apply Theorem \ref{thm: bound on conditional rademacher average} to bound the estimation error of the empirical risk minimizer $\hat{f}$ of the class $\mathcal{F}$ of linear functions introduced in Example \ref{ex: linear functions f_a}. From Section \ref{subsec: empirical risk minimization for general loss function} and Section \ref{subsec: rademacher complexity for general loss function}, we know that the inequality
 \begin{align*}
     L(\hat{f}) - L(\bar{f}) &\leq 2 \sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)} \\
     &< 2 \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] + \sqrt{\frac{2 \log(\delta^{-1})}{n}} \leq 4 \mathfrak{R}_n(l \circ \mathcal{F}) + \sqrt{\frac{2 \log(\delta^{-1})}{n}}
