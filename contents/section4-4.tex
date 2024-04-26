@@ -111,7 +111,7 @@ For a family of sets $\mathcal{A}$ with finite VC dimension $\VC(\mathcal{A}) = 
 \]
 \end{lemma}
 
-For a proof of this result, we refer the reader to Theorem 13.2 of Section 13.1 in \cite[p.~216]{devroye1996probabilistic}. Replacing $\mathcal{S}_{\mathcal{A}}(n)$ with $(\e n/D)^D$ in \eqref{eq: precursor to VC inequality} clearly yields the VC inequality
+For a proof of this result, we refer the reader to Theorem 13.2 of Section 13.1 in \cite[p.~216]{devroye1996probabilistic}. Replacing $\mathcal{S}_{\mathcal{A}}(n)$ with $(\e n/D)^D$ in \eqref{eq: precursor to VC inequality} and observing that $\log(2x^D) \leq D \log(2x)$ holds for $D \in \N$ and $x > 0$ yields the VC inequality
 \[
     \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \sqrt{\frac{2D \log(2 \e n / D)}{n}}.
 \]
