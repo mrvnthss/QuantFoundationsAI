@@ -3,14 +3,30 @@
 
 % EXERCISE 8
 \begin{exercise}
+For a \emph{finite} collection of sets $\mathcal{A}$, show that
+\begin{enumerate}
+    \item $\VC(\mathcal{A}) \leq \log_2(\abs{\mathcal{A}})$
+
+    \item $\mathcal{S}_{\mathcal{A}}(n) \leq \abs{\mathcal{A}}$
+\end{enumerate}
 \end{exercise}
 
 
 % EXERCISE 9
 \begin{exercise}
+Let $\mathcal{A}_1$ and $\mathcal{A}_2$ be two collections of sets, and define $\mathcal{A}$ to be
+\[
+    \mathcal{A} = \set{A_1 \cap A_2 \with A_1 \in \mathcal{A}_1, A_2 \in \mathcal{A}_2}.
+\]
+Show that the shatter coefficients of the families $\mathcal{A}_1, \mathcal{A}_2$, and $\mathcal{A}$ satisfy $\mathcal{S}_{\mathcal{A}}(n) \leq \mathcal{S}_{\mathcal{A}_1}(n) \mathcal{S}_{\mathcal{A}_2}(n)$.
 \end{exercise}
 
 
 % EXERCISE 10
 \begin{exercise}
+Given the setting of Exercise \ref{exer: empirical distribution function}, prove
+\[
+    \P\left(\sup_{t \in \R} \abs{F_n(t) - F(t)} \leq C \sqrt{\frac{\log(n / \delta)}{n}}\right) \geq 1 - \delta,
+\]
+where $C$ is a constant that does \emph{not} depend on neither $\delta$ nor $n$.
 \end{exercise}
