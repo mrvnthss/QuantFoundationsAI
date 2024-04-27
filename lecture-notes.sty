@@ -254,6 +254,7 @@
 \setkomafont{partnumber}{}
 
 % Modify page layout
+\newcounter{image}
 \renewcommand\partlineswithprefixformat[3]{%
     \thispagestyle{empty}%
     \begin{tikzpicture}[remember picture, overlay]
@@ -268,7 +269,8 @@
             % \fill[lightblue] ($(current page.north west) + (8mm, -38mm)$) rectangle ($(current page.east |- subheadline.north) + (0, 16mm)$);
 
             % BACKGROUND IMAGE
-            \node[scope fading=north, anchor=north west, inner sep=0pt, ] at ($(current page.north west) + (8mm, -38mm)$) {\includegraphics[width=202mm]{other/part-background}};
+            \setcounter{image}{\value{part}}
+            \node[opacity=.5, anchor=north west, inner sep=0pt] at ($(current page.north west) + (8mm, -38mm)$) {\includegraphics[width=202mm]{backgrounds/part-\arabic{image}}};
     
             % LOGO
             % \node[anchor=north east, inner sep=0pt] (jlu) at ($(current page.north east) - (8mm, 8mm)$) {\includegraphics[width=48mm, height=60mm]{tmp/logo}};
