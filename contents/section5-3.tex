@@ -278,7 +278,9 @@ The result follows by substituting the inequality
 back into \eqref{eq: first step toward bound on ERM for linear functions}.
 \end{proof}
 
-Next, we introduce another set of empirical distances.
+Note that the upper bound on the expected error of the empirical risk minimizer $\hat{f}$ of the class $\mathcal{F}$ defined in \eqref{eq: family of linear functions f_a} is of order $\log(n) / n$. The driving factor for this is the bound on the conditional Rademacher average $\hat{\mathfrak{R}}_n^z(l \circ \mathcal{F})$ resulting from Theorem \ref{thm: bound on conditional rademacher average}. As it turns out, we can achieve a bound of rate $1 / n$ by using a technique called \emph{chaining} in order to bound the conditional Rademacher average $\hat{\mathfrak{R}}_n^z(l \circ \mathcal{F})$. This will be the topic of Section \ref{subsec: chaining}.
+
+For the remainder of this section, we will generalize the notion of the empirical $L^1$-distance between two functions $f$ and $g$ to empirical $L^p$-distances $d_p^z(f, g)$ for arbitrary $p \geq 1$, and we will demonstrate that the $\varepsilon$-covering numbers $\mathcal{N}(\mathcal{F}, d_p^z, \varepsilon)$ are increasing in $p$. First, let us introduce the empirical $L^p$-distance between two functions $f$ and $g$.
 
 \begin{definition}
 Given a tuple $z = (z_1, \dots, z_n) \in \mathcal{Z}^n$ and a class $\mathcal{F}$ of functions $f \colon \mathcal{Z} \to \R$, the \emph{empirical $L^p$-distance} between $f, g \in \mathcal{F}$ is given by
@@ -291,7 +293,7 @@ For $p = \infty$, we set
 \]
 \end{definition}
 
-Before we proceed to state the next result on $\varepsilon$-covering numbers, we recall a special case of H{\"o}lder's inequality (which we will use to prove said result).
+Before we state the result on the $\varepsilon$-covering numbers $\mathcal{N}(\mathcal{F}, d_p^z, \varepsilon)$ that we have already eluded to, we recall a special case of H{\"o}lder's inequality.
 
 \begin{proposition}[H{\"o}lder, 1889]
 \label{prop: hoelder}
