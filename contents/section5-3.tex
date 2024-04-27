@@ -102,7 +102,7 @@ With these definitions in place, we will prove an upper bound of the conditional
 \label{thm: bound on conditional rademacher average}
 Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{Z} \to [-1, 1]$. Then,
 \[
-    \hat{\mathfrak{R}}_n^z(\mathcal{F}) \leq \inf_{\varepsilon > 0} \varepsilon + \sqrt{\frac{2 \log(2 \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon))}{n}}, \quad z \in \mathcal{Z}^n.
+    \hat{\mathfrak{R}}_n^z(\mathcal{F}) \leq \inf_{\varepsilon > 0} \left( \varepsilon + \sqrt{\frac{2 \log(2 \mathcal{N}(\mathcal{F}, d_1^z, \varepsilon))}{n}} \right), \quad z \in \mathcal{Z}^n.
 \]
 \end{theorem}
 
@@ -177,8 +177,8 @@ Hence, we conclude
 An immediate consequence of the previous result is the following:
 
 \begin{corollary}
-\label{cor: bound on covering numbers of class of linear functions}
-The covering numbers of the class $l \circ \mathcal{F}$, where $\mathcal{F}$ is defined as in \eqref{eq: family of linear functions f_a}, satisfy
+\label{cor: bound on covering numbers of linear functions}
+Assuming that the loss function $l \colon \R \times \R \to [0, 1]$ is $K$-Lipschitz in its first argument, the covering numbers of the class $l \circ \mathcal{F}$, where $\mathcal{F}$ is defined as in \eqref{eq: family of linear functions f_a}, satisfy
 \[
     \mathcal{N}(l \circ \mathcal{F}, d_1^z, \varepsilon) \leq \mathcal{N}(B_{\infty}^d(1), d_{\infty}, \nicefrac{\varepsilon}{K}).
 \]
@@ -200,12 +200,12 @@ by Lemma \ref{lem: distance between linear functions f_a}. Therefore, $W_{\varep
 and the statement follows.
 \end{proof}
 
-By combining Corollary \ref{cor: bound on covering numbers of class of linear functions} with Theorem \ref{thm: bound on conditional rademacher average}, we just need to find an $\nicefrac{\varepsilon}{K}$-covering of $(B_{\infty}^d(1), d_{\infty})$ to bound the conditional Rademacher average $\hat{\mathfrak{R}}_n^z(l \circ \mathcal{F})$ for $\mathcal{F}$ as in \eqref{eq: family of linear functions f_a}.
+By combining Corollary \ref{cor: bound on covering numbers of linear functions} with Theorem \ref{thm: bound on conditional rademacher average}, we just need to find an $\nicefrac{\varepsilon}{K}$-covering of $(B_{\infty}^d(1), d_{\infty})$ to bound the conditional Rademacher average $\hat{\mathfrak{R}}_n^z(l \circ \mathcal{F})$ for $\mathcal{F}$ as in \eqref{eq: family of linear functions f_a}.
 
 \begin{lemma}
 For every $\varepsilon > 0$, there exists an $\varepsilon$-covering of $(B_{\infty}^d(1), d_{\infty})$ with cardinality $\lceil 1 / \varepsilon \rceil^d$. In particular,
 \[
-    \mathcal{N}(B_{\infty}^d(1), d_{\infty}, \varepsilon) \leq \lceil 1 / \varepsilon \rceil^d.
+    \mathcal{N}(B_{\infty}^d(1), d_{\infty}, \varepsilon) \leq {\lceil 1 / \varepsilon \rceil}^d.
 \]
 \end{lemma}
 
@@ -219,6 +219,63 @@ Clearly, the set $V_{\varepsilon}$ has $\lceil 1 / \varepsilon \rceil^d$ element
     d_{\infty}(x, y) = \max_{j = 1, \dots, d} \abs{x^j - y^j} \leq \varepsilon,
 \]
 proving that $V_{\varepsilon}$ is an $\varepsilon$-covering of $(B_{\infty}^d(1), d_{\infty})$.
+\end{proof}
+
+We conclude:
+
+\begin{corollary}
+\label{cor: final bound on covering numbers of linear functions}
+Assuming that the loss function $l \colon \R \times \R \to [0, 1]$ is $K$-Lipschitz in its first argument, the covering numbers of the class $l \circ \mathcal{F}$, where $\mathcal{F}$ is defined as in \eqref{eq: family of linear functions f_a}, satisfy
+\[
+    \mathcal{N}(l \circ \mathcal{F}, d_1^z, \varepsilon) \leq {\lceil K / \varepsilon \rceil}^d.
+\]
+\end{corollary}
+
+With all of the building blocks in place, we arrive at the main result of this section:
+
+\begin{theorem}
+Let the loss function $l \colon \R \times \R \to [0, 1]$ be $K$-Lipschitz in its first argument and let $\mathcal{F}$ be defined as in \eqref{eq: family of linear functions f_a}. For $n \geq d \max(K^{-2}/2, 2)$, the empirical risk minimizer $\hat{f}$ of $\mathcal{F}$ satisfies
+\[
+    L(\hat{f}) \leq L(\bar{f}) + 8 \sqrt{\frac{d \log(2\e Kn / d)}{n}} + \sqrt{\frac{2 \log(\delta^{-1})}{n}}
+\]
+with probability at least $1 - \delta$.
+\end{theorem}
+
+\begin{proof}
+Vapnik's lemma (Lemma \ref{lem: bound on estimation error}) and the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}) together guarantee that the inequality
+\begin{equation}
+\label{eq: first step toward bound on ERM for linear functions}
+    L(\hat{f}) \leq L(\bar{f}) + 2 \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] + \sqrt{\frac{2 \log(\delta^{-1})}{n}}
+\end{equation}
+holds with probability at least $1 - \delta$. Using symmetrization, we have shown that
+\[
+    2 \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] \leq 4 \mathfrak{R}_n(l \circ \mathcal{F}) = 4 \sup_{z \in \mathcal{Z}^n} \hat{\mathfrak{R}}_n^z(l \circ \mathcal{F}).
+\]
+By Theorem \ref{thm: bound on conditional rademacher average}, we can bound the conditional Rademacher average on the RHS to obtain
+\[
+    4 \sup_{z \in \mathcal{Z}^n} \hat{\mathfrak{R}}_n^z(l \circ \mathcal{F}) \leq 4 \sup_{z \in \mathcal{Z}^n} \inf_{\varepsilon > 0} \left( \varepsilon + \sqrt{\frac{2 \log(2 \mathcal{N}(l \circ \mathcal{F}, d_1^z, \varepsilon))}{n}} \right).
+\]
+The covering numbers $\mathcal{N}(l \circ \mathcal{F}, d_1^z, \varepsilon)$ satisfy
+\[
+    \mathcal{N}(l \circ \mathcal{F}, d_1^z, \varepsilon) \leq {\lceil K / \varepsilon \rceil}^d, \quad z \in \mathcal{Z}^n
+\]
+by Corollary \ref{cor: final bound on covering numbers of linear functions}, and hence,
+\[
+    4 \sup_{z \in \mathcal{Z}^n} \inf_{\varepsilon > 0} \left( \varepsilon + \sqrt{\frac{2 \log(2 \mathcal{N}(l \circ \mathcal{F}, d_1^z, \varepsilon))}{n}} \right) \leq 4 \inf_{\varepsilon > 0} \left( \varepsilon + \sqrt{\frac{2d \log(2 {\lceil K / \varepsilon \rceil})}{n}} \right).
+\]
+We get rid of the infimum by setting $\varepsilon = \sqrt{2d / n}$. Further, for $K \geq \varepsilon / 2 = \sqrt{d / 2n}$ (which is equivalent to $n \geq d K^{-2} / 2$), we have $\lceil K / \varepsilon \rceil \leq 2K / \varepsilon$. Also, for $n \geq 2d$, it holds that $\sqrt{n / 2d} \leq n / 2d$. Together, this implies
+\[
+    4 \inf_{\varepsilon > 0} \left( \varepsilon + \sqrt{\frac{2d \log(2 {\lceil K / \varepsilon \rceil})}{n}} \right) \leq 4 \sqrt{2d / n} \left( 1 + \sqrt{\log(4K \sqrt{n / 2d})} \right) \leq 4 \sqrt{2d / n} \left( 1 + \sqrt{\log(2Kn / d)} \right).
+\]
+Finally, we apply the inequality $1 + \sqrt{x} \leq \sqrt{2 (1 + x)}$ to arrive at
+\[
+    4 \sqrt{2d / n} \left( 1 + \sqrt{\log(2Kn / d)} \right) \leq 4 \sqrt{2d / n} \sqrt{2 (1 + \log(2Kn / d))} = 8 \sqrt{\frac{d \log(2 \e Kn / d)}{n}}.
+\]
+The result follows by substituting the inequality
+\[
+    2 \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] \leq 8 \sqrt{\frac{d \log(2 \e Kn / d)}{n}}
+\]
+back into \eqref{eq: first step toward bound on ERM for linear functions}.
 \end{proof}
 
 Next, we introduce another set of empirical distances.
