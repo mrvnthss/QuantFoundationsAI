@@ -166,7 +166,7 @@ Because the loss function is $K$-Lipschitz in its first argument, we have
 \]
 Applying H{\"o}lder's inequality, we obtain
 \[
-    \abs{\langle a - b, x_i \rangle} \leq \sum_{j=1}^d \abs*{(a - b)^j x_i^j} \leq \norm{a - b}_{\infty} \norm{x_i}_1 \leq \norm{a - b}_{\infty}, \quad i = 1, \dots, n.
+    \abs{\langle a - b, x_i \rangle} \leq \sum_{j=1}^d \abs*{(a - b)^{(j)} x_i^{(j)}} \leq \norm{a - b}_{\infty} \norm{x_i}_1 \leq \norm{a - b}_{\infty}, \quad i = 1, \dots, n.
 \]
 Hence, we conclude
 \[
@@ -214,9 +214,9 @@ Let $V_{\varepsilon}$ be the set of vectors in $\R^d$ whose coordinates take val
 \[
     G_{\varepsilon} = \set{-1 + (2k - 1)\varepsilon \with k = 1, \dots, \lceil 1 / \varepsilon \rceil} \subset [-1, 1].
 \]
-Clearly, the set $V_{\varepsilon}$ has $\lceil 1 / \varepsilon \rceil^d$ elements. To prove that $V_{\varepsilon}$ is indeed an $\varepsilon$-covering of $(B_{\infty}^d(1), d_{\infty})$, we let $x \in B_{\infty}^d(1)$ with coordinates $x^j \in [-1, 1]$. For $j = 1, \dots, d$, there exists $y^j \in G_{\varepsilon}$ such that $\abs{x^j - y^j} \leq \varepsilon$, because any two neighboring elements in $G_{\varepsilon}$ are exactly $2 \varepsilon$ apart, and the outermost points of $G_{\varepsilon}$, i.e., those corresponding to $k = 1$ and $k = \lceil 1 / \varepsilon \rceil$, are within distance of at most $\varepsilon$ to the endpoints $-1$ and $1$, respectively. Thus, for $y = (y^1, \dots, y^d) \in V_{\varepsilon}$, we have
+Clearly, the set $V_{\varepsilon}$ has $\lceil 1 / \varepsilon \rceil^d$ elements. To prove that $V_{\varepsilon}$ is indeed an $\varepsilon$-covering of $(B_{\infty}^d(1), d_{\infty})$, we let $x \in B_{\infty}^d(1)$ with coordinates $x^{(j)} \in [-1, 1]$. For $j = 1, \dots, d$, there exists $y^{(j)} \in G_{\varepsilon}$ such that $\abs{x^{(j)} - y^{(j)}} \leq \varepsilon$, because any two neighboring elements in $G_{\varepsilon}$ are exactly $2 \varepsilon$ apart, and the outermost points of $G_{\varepsilon}$, i.e., those corresponding to $k = 1$ and $k = \lceil 1 / \varepsilon \rceil$, are within distance of at most $\varepsilon$ to the endpoints $-1$ and $1$, respectively. Thus, for $y = (y^{(1)}, \dots, y^{(d)}) \in V_{\varepsilon}$, we have
 \[
-    d_{\infty}(x, y) = \max_{j = 1, \dots, d} \abs{x^j - y^j} \leq \varepsilon,
+    d_{\infty}(x, y) = \max_{j = 1, \dots, d} \abs{x^{(j)} - y^{(j)}} \leq \varepsilon,
 \]
 proving that $V_{\varepsilon}$ is an $\varepsilon$-covering of $(B_{\infty}^d(1), d_{\infty})$.
 \end{proof}
