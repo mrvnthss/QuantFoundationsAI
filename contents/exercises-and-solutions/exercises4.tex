@@ -28,29 +28,4 @@ Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{X} \to \R$, and let
 
 % EXERCISE 13
 \begin{exercise}
-Let $f \colon C \to \R$ be a $K$-Lipschitz function defined on a compact domain $C \subset \R^d$ with finite diameter\footnote{The diameter of a subset $X \subset \R^d$ is given by $\operatorname{diam}(X) = \sup_{x, y \in X} \norm{x - y}_2$.} $\operatorname{diam}(C) < \infty$, i.e.,
-\[
-    \norm{f(x) - f(y)}_2 \leq K \norm{x - y}_2, \quad x, y \in C.
-\]
-Further, assume that $f$ is \emph{$\beta$-smooth}, i.e., there exists $\beta > 0$ such that
-\[
-    f(y) - f(x) \leq \nabla f(x)^{\top} (y - x) + \frac{\beta}{2} \norm{y - x}_2^2, \quad x, y \in C.
-\]
-We define a sequence $(x_n)_{n \in \N}$ by
-\[
-    x_{n+1} = (1 - \alpha_n)x_n + \alpha_n y_n,
-\]
-where $\alpha_n = 2 / (n+1)$ and $y_n \in \argmin_{y \in C} \nabla f(x_n)^{\top} y$.
-\begin{enumerate}
-    \item Show that
-            \[
-                f(x_{n+1}) - f(x_n) \leq \alpha_n (f(x^*) - f(x_n)) + \frac{\beta}{2} \alpha_n^2 R^2,
-            \]
-        where $x^{*} \in \argmin_{x \in C} f(x)$ is a local minimum of $f$ and $R = \operatorname{diam}(C)$ is the diameter of $C$.
-
-    \item Conclude that
-            \[
-                f(x_n) - f(x^*) \leq \frac{2 \beta R^2}{n + 1}, \quad n \geq 2.
-            \]
-\end{enumerate}
 \end{exercise}
