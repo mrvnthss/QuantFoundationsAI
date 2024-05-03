@@ -6,8 +6,6 @@
 \usepackage{tikz}
 \usepackage{amsmath}
 \usepackage{xcolor}
-\usepackage{contour}
-\contourlength{1.4pt}
 
 
 %% COLORS %%
@@ -48,7 +46,7 @@
             (NO-\i) at (1, \y) {$a_{\index}^{[1]}$};
           \foreach \j [evaluate={\index=(\j<\NI?int(\j):"d");}] in {1, ..., \NI}{  % loop over nodes in previous layer
             \draw[connect] (NI-\j) -- (NO-\i)
-              node[pos=0.50] { \contour{white} {$w_{1,\index}^{[1]}$} };
+              node[fill=white, inner sep=1pt, pos=0.50] {{$w_{1, \index}^{[1]}$} };
           }
         \else  % other light-colored nodes
           \node[node, green!20!black, draw=green!40!white, fill=green!10!white]
@@ -65,17 +63,17 @@
       
       % EQUATIONS
       \def\arg#1{{\color{darkblue}x^{(#1)}}}
-      \def\wght#1#2{{\color{orange}w_{#1,#2}^{[1]}}}
+      \def\wght#1#2{{\color{orange}w_{#1, #2}^{[1]}}}
       \def\bias#1{b_{#1}^{[1]}}
       \def\actvn#1{a_{#1}^{[1]}}
 
       \node[below=17, right=11, darkgreen, scale=0.95] at (NO-1)
         {$\begin{aligned}
            &= \color{darkred}\sigma\left( \color{black}
-                \bias{1} + \wght{1}{1}\arg{1} + \wght{1}{2}\arg{2} + \ldots + \wght{1}{n}\arg{n}
+                \bias{1} + \wght{1}{1}\arg{1} + \wght{1}{2}\arg{2} + \ldots + \wght{1}{d}\arg{d}
               \color{darkred}\right) \\
            &= \color{darkred}\sigma\left( \color{black}
-                \bias{1} + \sum_{i=1}^{n} \wght{1}{i}\arg{i}
+                \bias{1} + \sum_{i=1}^{d} \wght{1}{i}\arg{i}
                \color{darkred}\right)
          \end{aligned}$};
       \node[right, scale=0.9] at (1.3, -1.3)
