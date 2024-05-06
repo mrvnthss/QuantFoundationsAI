@@ -5,6 +5,7 @@
 We have now introduced all the concepts required to formulate the main result of this chapter: the VC inequality.
 
 \begin{theorem}[VC Inequality]
+\label{thm: VC inequality}
 For $n > 2 V_{\mathcal{A}}$, every family of sets $\mathcal{A}$ satisfies
 \[
     \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2\e n / V_{\mathcal{A}})}{n}}.
@@ -97,12 +98,22 @@ Finally, by the definition of the shatter coefficients of $\mathcal{A}$, we have
 \]
 \end{proof}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=15cm]{other/vc-inequality}
+    \caption{%
+         The bound provided by the VC inequality (Corollary \ref{cor: VC inequality}) depends much more on the VC dimension $V_{\mathcal{A}}$ and the number of samples $n$ than it does on the level of confidence $1 - \delta$. \textbf{Left}, illustration of the upper bound for sample size $n$ and VC dimension $1$ (\textcolor{desmos-blue}{\textbf{blue}}), $10$ (\textcolor{desmos-red}{\textbf{red}}), and $100$ (\textcolor{desmos-green}{\textbf{green}}). \textbf{Right}, illustration of the upper bound for sample size $n$ and confidence $1 - \delta$ set to $0.99$ (\textcolor{desmos-blue}{\textbf{blue}}), $0.9$ (\textcolor{desmos-red}{\textbf{red}}), and $0.5$ (\textcolor{desmos-green}{\textbf{green}}). \\
+        \indent\emph{Note}. Created with the \href{https://www.desmos.com}{Desmos} Graphing Calculator. \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA 4.0}
+    }
+    \label{fig: VC inequality}
+\end{figure}
+
 Up to this point, we have shown that
 \begin{equation}
 \label{eq: precursor to VC inequality}
     \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \mathfrak{R}_n(\mathcal{A}) \leq 2 \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n))}{n}}.
 \end{equation}
-Note that this bound would not be informative (in the sense that it does not imply convergence of the uniform deviations to zero as the sample size $n$ goes to infinity) if the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ were exponential in $n$. For example, if $\mathcal{S}_{\mathcal{A}}(n) = 2^n$ for $n \leq D$ and $\mathcal{S}_{\mathcal{A}}(n) = 2^n - 1$ for all $n > D$, the RHS of \eqref{eq: precursor to VC inequality} would be greater than $2$ for all $n$. The VC inequality suggests that this cannot be the case, and indeed, if the VC dimension of a family of sets is \emph{finite}, the shatter coefficients of $\mathcal{A}$ can be at most \emph{polynomial} in $n$. This result is known as the Sauer-Shelah lemma, which we now turn to.
+Note that this bound would not be informative (in the sense that it does not imply convergence of the uniform deviations to zero as the sample size $n$ goes to infinity) if the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ were exponential in $n$. For example, if $\mathcal{S}_{\mathcal{A}}(n) = 2^n$ for $n \leq V_{\mathcal{A}}$ and $\mathcal{S}_{\mathcal{A}}(n) = 2^n - 1$ for all $n > V_{\mathcal{A}}$, the RHS of \eqref{eq: precursor to VC inequality} would be greater than $2$ for all $n$. The VC inequality suggests that this cannot be the case, and indeed, if the VC dimension of a family of sets is \emph{finite}, the shatter coefficients of $\mathcal{A}$ can be at most \emph{polynomial} in $n$. This result is known as the Sauer-Shelah lemma:
 
 \begin{lemma}[Sauer-Shelah]
 For a family of sets $\mathcal{A}$ with \emph{finite} VC dimension $V_{\mathcal{A}}$, the shatter coefficients satisfy
@@ -115,10 +126,7 @@ In particular,
 \]
 \end{lemma}
 
-For a proof of this result, we refer the reader to Theorem 13.2 and Theorem 13.3 in \cite[pp.~216--218]{devroye1996probabilistic}. Replacing $\mathcal{S}_{\mathcal{A}}(n)$ with $(\e n / V_{\mathcal{A}})^{V_{\mathcal{A}}}$ in \eqref{eq: precursor to VC inequality}---and observing that $\log(2x^n) \leq n \log(2x)$ holds for $n \in \N$ and $x > 0$---yields the VC inequality
-\[
-    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2 \e n / V_{\mathcal{A}})}{n}}.
-\]
+For a proof of this result, we refer the reader to Theorem 13.2 and Theorem 13.3 in \cite[pp.~216--218]{devroye1996probabilistic}. Replacing $\mathcal{S}_{\mathcal{A}}(n)$ with $(\e n / V_{\mathcal{A}})^{V_{\mathcal{A}}}$ in \eqref{eq: precursor to VC inequality}---and observing that $\log(2x^n) \leq n \log(2x)$ holds for $n \in \N$ and $x > 0$---yields the VC inequality stated in Theorem \ref{thm: VC inequality}.
 
 Recall that, using the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}), we had shown that the bound
 \[
@@ -127,9 +135,12 @@ Recall that, using the bounded differences inequality (Theorem \ref{thm: bounded
 holds with probability at least $1 - \delta$. Hence, we conclude:
 
 \begin{corollary}[VC Inequality]
+\label{cor: VC inequality}
 For $n > 2 V_{\mathcal{A}}$ and a family of sets $\mathcal{A}$ with finite VC dimension $V_{\mathcal{A}}$, the upper bound
 \[
     \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2 \e n / V_{\mathcal{A}})}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 holds with probability at least $1 - \delta$.
 \end{corollary}
+
+The upper bound provided by Corollary \ref{cor: VC inequality} is mostly driven by the number of samples $n$ and the VC dimension $V_{\mathcal{A}}$ of the family of sets $\mathcal{A}$. In contrast, the desired level of confidence $1 - \delta$ does not have much of an impact (see Figure \ref{fig: VC inequality}). For example, given a family $\mathcal{A}$ with VC dimension $V_{\mathcal{A}} = 4$, to guarantee an upper bound of $0.2$ with confidence $1 - \delta = 0.9$, we would need to observe $n = 3319$ samples. To increase the confidence we have in this bound from $0.9$ to $0.99$, we would only need to observe an additional $192$ samples. However, if the family $\mathcal{A}$ is slightly more complex in that it has VC dimension $5$ instead, we would have to observe an additional $769$ samples to guarantee the initial bound of $0.2$ with the same confidence (i.e., $1 - \delta = 0.9$). An interactive demo illustrating the bound's dependence on $V_{\mathcal{A}}$ and $\delta$ can be found at \url{https://www.desmos.com/calculator/fnfw9imfz1}.
