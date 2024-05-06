@@ -54,7 +54,7 @@ Since the XOR operation is bijective, this tells us that the cardinalities of $T
 Based on our discussion of the emprical risk minimzer at the beginning of this section, we conclude the following:
 
 \begin{corollary}
-Let $\mathcal{H}$ be a family of classifiers such that the family $\bar{\mathcal{A}}$ defined in \eqref{eq: collection of sets bar A_h} has finite VC dimension $V_{\bar{\mathcal{A}}}$. Then, the empirical risk minimizer $\hat{h}$ of $\mathcal{H}$ satisfies
+Let $\mathcal{H}$ be a family of classifiers such that the family $\bar{\mathcal{A}}$ defined in \eqref{eq: collection of sets bar A_h} has finite VC dimension $V_{\bar{\mathcal{A}}}$. Then, for $n > 2 V_{\mathcal{A}}$, the empirical risk minimizer $\hat{h}$ of $\mathcal{H}$ satisfies
 \[
     L(\hat{h}) < L(\bar{h}) + 4 \sqrt{\frac{2 V_{\bar{\mathcal{A}}} \log(2 \e n / V_{\bar{\mathcal{A}}})}{n}} + \sqrt{\frac{2 \log(\delta^{-1})}{n}}
 \]

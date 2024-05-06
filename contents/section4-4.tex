@@ -5,7 +5,7 @@
 We have now introduced all the concepts required to formulate the main result of this chapter: the VC inequality.
 
 \begin{theorem}[VC Inequality]
-Every family of sets $\mathcal{A}$ satisfies
+For $n > 2 V_{\mathcal{A}}$, every family of sets $\mathcal{A}$ satisfies
 \[
     \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2\e n / V_{\mathcal{A}})}{n}}.
 \]
@@ -25,11 +25,11 @@ We split the proof of this result into three steps:
         \mathfrak{R}_n(\mathcal{A}) \leq \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n))}{n}}.
     \]
 
-    \item Finally, we bound the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ of $\mathcal{A}$ by the VC dimension of $\mathcal{A}$ as follows:
+    \item Finally, for $n > 2 V_{\mathcal{A}}$, we bound the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ of $\mathcal{A}$ by
     \[
-        \mathcal{S}_{\mathcal{A}}(n) \leq \left(\frac{\e n}{V_{\mathcal{A}}}\right)^{V_{\mathcal{A}}}.
+        \mathcal{S}_{\mathcal{A}}(n) \leq \left(\frac{\e n}{V_{\mathcal{A}}}\right)^{V_{\mathcal{A}}},
     \]
-    This is known as the \emph{Sauer-Shelah} lemma.
+    which is a result known as the \emph{Sauer-Shelah} lemma.
 \end{enumerate}
 
 Since the first step is already done, let's tackle step number 2. As an intermediate result, we prove a bound of the Rademacher complexity of finite subsets in $\R^n$. This will turn out to be immensely useful, as we can express the Rademacher complexity of a family of sets $\mathcal{A}$ in terms of the Rademacher complexity of finite subsets in $\R^n$, i.e., $\mathfrak{R}_n(\mathcal{A}) = \sup_{z \in \mathcal{Z}^n} \mathfrak{R}_n(T(z))$, where $T(z)$ is defined as in \eqref{eq: T(z)}.
@@ -105,13 +105,17 @@ Up to this point, we have shown that
 Note that this bound would not be informative (in the sense that it does not imply convergence of the uniform deviations to zero as the sample size $n$ goes to infinity) if the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ were exponential in $n$. For example, if $\mathcal{S}_{\mathcal{A}}(n) = 2^n$ for $n \leq D$ and $\mathcal{S}_{\mathcal{A}}(n) = 2^n - 1$ for all $n > D$, the RHS of \eqref{eq: precursor to VC inequality} would be greater than $2$ for all $n$. The VC inequality suggests that this cannot be the case, and indeed, if the VC dimension of a family of sets is \emph{finite}, the shatter coefficients of $\mathcal{A}$ can be at most \emph{polynomial} in $n$. This result is known as the Sauer-Shelah lemma, which we now turn to.
 
 \begin{lemma}[Sauer-Shelah]
-For a family of sets $\mathcal{A}$ with finite VC dimension $V_{\mathcal{A}}$, the shatter coefficients satisfy
+For a family of sets $\mathcal{A}$ with \emph{finite} VC dimension $V_{\mathcal{A}}$, the shatter coefficients satisfy
 \[
-    \mathcal{S}_{\mathcal{A}}(n) \leq \sum_{k=0}^{V_{\mathcal{A}}} \binom{n}{k} \leq \left(\frac{\e n}{V_{\mathcal{A}}}\right)^{V_{\mathcal{A}}}, \quad n \in \N.
+    \mathcal{S}_{\mathcal{A}}(n) \leq \sum_{k=0}^{V_{\mathcal{A}}} \binom{n}{k}, \quad n \in \N.
+\]
+In particular,
+\[
+    \mathcal{S}_{\mathcal{A}}(n) \leq \left(\frac{\e n}{V_{\mathcal{A}}}\right)^{V_{\mathcal{A}}}, \quad n > 2 V_{\mathcal{A}}.
 \]
 \end{lemma}
 
-For a proof of this result, we refer the reader to Theorem 13.2 of Section 13.1 in \cite[p.~216]{devroye1996probabilistic}. Replacing $\mathcal{S}_{\mathcal{A}}(n)$ with $(\e n / V_{\mathcal{A}})^{V_{\mathcal{A}}}$ in \eqref{eq: precursor to VC inequality} and observing that $\log(2x^n) \leq n \log(2x)$ holds for $n \in \N$ and $x > 0$ yields the VC inequality
+For a proof of this result, we refer the reader to Theorem 13.2 and Theorem 13.3 in \cite[pp.~216--218]{devroye1996probabilistic}. Replacing $\mathcal{S}_{\mathcal{A}}(n)$ with $(\e n / V_{\mathcal{A}})^{V_{\mathcal{A}}}$ in \eqref{eq: precursor to VC inequality}---and observing that $\log(2x^n) \leq n \log(2x)$ holds for $n \in \N$ and $x > 0$---yields the VC inequality
 \[
     \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2 \e n / V_{\mathcal{A}})}{n}}.
 \]
@@ -123,11 +127,9 @@ Recall that, using the bounded differences inequality (Theorem \ref{thm: bounded
 holds with probability at least $1 - \delta$. Hence, we conclude:
 
 \begin{corollary}[VC Inequality]
-For a family of sets $\mathcal{A}$ with finite VC dimension $V_{\mathcal{A}}$, the upper bound
+For $n > 2 V_{\mathcal{A}}$ and a family of sets $\mathcal{A}$ with finite VC dimension $V_{\mathcal{A}}$, the upper bound
 \[
     \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2 \e n / V_{\mathcal{A}})}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
 \]
 holds with probability at least $1 - \delta$.
 \end{corollary}
-
-Note that, while this bound can be improved, it is always of rate $\sqrt{\log(n) / n}$, which is a \say{slow rate}.
