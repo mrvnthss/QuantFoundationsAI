@@ -116,6 +116,7 @@ Up to this point, we have shown that
 Note that this bound would not be informative (in the sense that it does not imply convergence of the uniform deviations to zero as the sample size $n$ goes to infinity) if the shatter coefficients $\mathcal{S}_{\mathcal{A}}(n)$ were exponential in $n$. For example, if $\mathcal{S}_{\mathcal{A}}(n) = 2^n$ for $n \leq V_{\mathcal{A}}$ and $\mathcal{S}_{\mathcal{A}}(n) = 2^n - 1$ for all $n > V_{\mathcal{A}}$, the RHS of \eqref{eq: precursor to VC inequality} would be greater than $2$ for all $n$. The VC inequality suggests that this cannot be the case, and indeed, if the VC dimension of a family of sets is \emph{finite}, the shatter coefficients of $\mathcal{A}$ can be at most \emph{polynomial} in $n$. This result is known as the Sauer-Shelah lemma:
 
 \begin{lemma}[Sauer-Shelah]
+\label{lem: sauer-shelah}
 For a family of sets $\mathcal{A}$ with \emph{finite} VC dimension $V_{\mathcal{A}}$, the shatter coefficients satisfy
 \[
     \mathcal{S}_{\mathcal{A}}(n) \leq \sum_{k=0}^{V_{\mathcal{A}}} \binom{n}{k}, \quad n \in \N.

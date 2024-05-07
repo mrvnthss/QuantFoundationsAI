@@ -1,34 +1,45 @@
 %% SECTION 4.6 %%
-\section{A \say{Fast Rate} VC Inequality}
+\section{Extensions}
 
-While the VC inequality stated in Section \ref{sec: VC inequality} was of rate $\sqrt{\log(n) / n}$ (i.e., \say{slow}), there also exists an upper bound that decreases exponentially fast.
+In Section \ref{sec: VC inequality}, we had shown that the inequality
+\[
+    \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < 2 \sqrt{\frac{2 \log(2 \mathcal{S}_{\mathcal{A}}(n))}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}} \leq 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2 \e n / V_{\mathcal{A}})}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}}
+\]
+holds with probability at least $1 - \delta$. To arrive at this result, we first applied the bounded differences inequality to establish the bound
+\[
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] + \sqrt{\frac{\log(\delta^{-1})}{2n}}\right) \geq 1 - \delta,
+\]
+and then proceeded to prove a deterministic upper bound on $\Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}]$. By using a slightly different approach, one obtains the following result:
 
 \begin{theorem}[Vapnik-Chervonenkis, 1971]
 \label{thm: fast rate VC inequality}
 For a probability measure $\mu$ and a collection of measurable sets $\mathcal{A}$, it holds
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 8 \mathcal{S}_{\mathcal{A}}(n) \e^{-n \varepsilon^2 / 32}
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} \geq \varepsilon\right) \leq 8 \mathcal{S}_{\mathcal{A}}(n) \e^{-n \varepsilon^2 / 32}
 \]
-for all $n \geq 1$ and $\varepsilon > 0$.
+for all $n \geq 1$ and $\varepsilon > 0$. In particular, the upper bound
+\[
+    \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < 4 \sqrt{\frac{2 \log(8 \mathcal{S}_{\mathcal{A}}(n) \delta^{-1})}{n}} \leq 4 \sqrt{\frac{2 V_{\mathcal{A}} \log(8 \e n / \delta V_{\mathcal{A}})}{n}}
+\]
+holds with probability at least $1 - \delta$. The second inequality assumes that $\mathcal{A}$ has finite VC dimension $V_{\mathcal{A}}$.
 \end{theorem}
 
-The proof of this statement (which we omit) is similar to the proof of an important result by Glivenko-Cantelli (see below), both of which can be found in Chapter 12 of  \cite{devroye1996probabilistic}.
+A full proof of this result is given in Section 12.4 of \cite{devroye1996probabilistic}. Here, we only outline the key ideas. Instead of starting by applying the bounded differences inequality, one first proves the inequality
+\[
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} \geq \varepsilon\right) \leq 2 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} \geq \frac{\varepsilon}{2}\right), \quad n \varepsilon^2 \geq 2,
+\]
+where $\mu_n'(A) = \frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}}$ for a ghost sample $Z_1', \dots, Z_n'$, using a symmetrization argument similar to the one we used in Section \ref{sec: symmetrization}. Next, i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables $\sigma_1, \dots, \sigma_n$ are introduced to show that
+\[
+    2 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} \geq \frac{\varepsilon}{2}\right) \leq 4 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} \geq \frac{\varepsilon}{4}\right).
+\]
+Further, using a simple union bound, one observes that\footnote{Without getting into much detail, we define the conditional probability of $X \in A$ given $Y$ by $\Prob(X \in A \given Y) = \Exp[\indSet{X \in A} \given Y]$.}
+\[
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} \geq \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq \mathcal{S}_{\mathcal{A}}(n) \sup_{A \in \mathcal{A}} \Prob\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} \geq \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right),
+\]
+since there are at most $\mathcal{S}_{\mathcal{A}}(n)$ different vectors $(\indSet{Z_1 \in A}, \dots, \indSet{Z_n \in A})^{\top}$ as $A$ ranges over $\mathcal{A}$. Finally, one applies Hoeffding's inequality (Theorem \ref{thm: hoeffding}) to obtain
+\[
+    \Prob\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} \geq \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq 2 \exp(-n\varepsilon^2 / 32),
+\]
+and then takes the expectation of both sides to arrive at the desired result. The second part of the statement follows from a simple application of the complement rule and the Sauer-Shelah lemma (Lemma \ref{lem: sauer-shelah}).
 
-\begin{theorem}[Fundamental Theorem of Statistics {[Glivenko-Cantelli, 1933]}]
-\label{thm: glivenko-cantelli}
-Let $X_1, \dots, X_n$ be i.i.d.\ random variables with distribution function $F(t)$ and denote the corresponding empirical distribution function by $F_n(t)$. Then,
-\[
-    \Prob\left(\sup_{t \in \R} \abs{F_n(t) - F(t)} > \varepsilon\right) \leq 8(n+1) \e^{-n \varepsilon^2 / 32}.
-\]
-In particular, by the Borel-Cantelli lemma,
-\[
-    \sup_{t \in \R} \abs{F_n(t) - F(t)} \xrightarrow{\mathrm{a.s.}} 0.
-\]
-\end{theorem}
-
-\begin{remark}
-While the proofs of the two statements are quite similar, the fast rate VC inequality (Theorem \ref{thm: fast rate VC inequality}) also directly implies the result by Glivenko-Cantelli (Theorem \ref{thm: glivenko-cantelli}): for $t \in \R$, define $A_t = (-\infty, t]$ and let $\mathcal{A} = \set{A_t \with t \in \R}$. Clearly, $\mathcal{A}$ is a collection of measurable sets. Further, it is easy to see that $\mathcal{A}$ can only generate binary patterns of $1$s followed by $0$s. Hence, the $n$-th shatter coefficient $\mathcal{S}_{\mathcal{A}}(n)$ of $\mathcal{A}$ is given by $n+1$. Finally, we define a measure $\mu$ by $\mu(A) = \Prob(X \in A)$ for any measurable set $A$ (not necessarily in the collection $\mathcal{A}$), where $X \sim F$. In that case, we have $\mu(A_t) = \Prob(X \in A_t) = \Prob(X \leq t) = F(t)$ and $\mu_n(A_t) = \frac{1}{n} \sum_{i=1}^n \indSet{X_i \in A_t} = \frac{1}{n} \sum_{i=1}^n \indSet{X_i \leq t} = F_n(t)$. Altogether,
-\[
-    \Prob\left(\sup_{t \in \R} \abs{F_n(t) - F(t)} > \varepsilon\right) = \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 8 \mathcal{S}_{\mathcal{A}}(n) \e^{-n \varepsilon^2 / 32} = 8(n+1)\e^{-n \varepsilon^2 / 32}.
-\]
-\end{remark}
+The proof outlined above is the one given in \cite{devroye1996probabilistic}, which differs from the one originally provided  by Vapnik and Chervonenkis. Note also that Vapnik and Chervonenkis proved a slightly sharper bound with exponent $-n \varepsilon^2 / 8$ instead of $-n \varepsilon^2 / 32$.
