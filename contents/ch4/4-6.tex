@@ -59,9 +59,10 @@ for all $n \geq 1$ and $\varepsilon > 0$, where the constant $C$ satisfies
 Note that, while the coefficient $C \mathcal{S}_{\mathcal{A}}(n^2)$ in Theorem \ref{thm: upper bound by devroye} is larger than the coefficient $8 \mathcal{S}_{\mathcal{A}}(n)$ in Theorem \ref{thm: VC inequality (2nd version)}, this disadvantage is quickly compensated for by the improved exponential term.
 
 Finally, even though Theorem \ref{thm: upper bound by devroye} provides a better bound than Theorem \ref{thm: VC inequality (2nd version)}, both of them imply\footnote{This is also the case for the first version of the VC inequality we proved, see Theorem \ref{thm: VC inequality}.}
-\[
+\begin{equation}
+\label{eq: order of uniform deviations}
     \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \in \mathcal{O}\left(\sqrt{\frac{\log(n)}{n}}\right),
-\]
+\end{equation}
 which follows directly from the following observation:
 
 \begin{proposition}
@@ -92,8 +93,24 @@ holds for all $u > 0$, we can optimize the bound over $u$ to find the optimal so
 \[
     \Exp[Z^2] \leq \frac{\log(C\e)}{2n} \, .
 \]
-Finally, since the square-root $x \mapsto \sqrt{x}$ is a concave function, we can apply Jensen's inequality to obtain
+Finally, since the square root $x \mapsto \sqrt{x}$ is a concave function, we can apply Jensen's inequality to obtain
 \[
     \Exp[Z] = \Exp[\sqrt{Z^2}] \leq \sqrt{\Exp[Z^2]} \leq \sqrt{\frac{\log(C\e)}{2n}} \, . \qedhere
 \]
 \end{proof}
+
+We finish this section by pointing out that it is possible to get rid of the $\log(n)$ factor in \eqref{eq: order of uniform deviations} to obtain $\Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \in \mathcal{O}(\sqrt{n^{-1}})$:
+
+\begin{theorem}[Alexander, 1984]
+\label{thm: upper bound by alexander}
+For a probability measure $\mu$ and a collection of measurable sets $\mathcal{A}$, it holds
+\[
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 16 (\sqrt{n} \varepsilon)^{4096 V_{\mathcal{A}}} \e^{-2n\varepsilon^2}
+\]
+for $\varepsilon > 0$ and $n \varepsilon^2 \geq 64$. In particular,
+\[
+    \Exp\left[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}\right] \leq \frac{8 + \sqrt{2048 V_{\mathcal{A}} \log(4096 V_{\mathcal{A}})}}{\sqrt{n}} \, .
+\]
+\end{theorem}
+
+While Alexander's result is theoretically interesting, as it implies $\Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \in \mathcal{O}(\sqrt{n^{-1}})$, it is of no practical use since the bound in Theorem \ref{thm: upper bound by alexander} is larger than the bound in Theorem \ref{thm: upper bound by devroye} unless $n > 2^{6144}$, a ridiculously large number.
