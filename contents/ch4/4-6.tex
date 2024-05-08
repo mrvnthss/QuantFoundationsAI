@@ -12,34 +12,88 @@ holds with probability at least $1 - \delta$. To arrive at this result, we first
 and then proceeded to prove a deterministic upper bound on $\Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}]$. By using a slightly different approach, one obtains the following result:
 
 \begin{theorem}[Vapnik-Chervonenkis, 1971]
-\label{thm: fast rate VC inequality}
+\label{thm: VC inequality (2nd version)}
 For a probability measure $\mu$ and a collection of measurable sets $\mathcal{A}$, it holds
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} \geq \varepsilon\right) \leq 8 \mathcal{S}_{\mathcal{A}}(n) \e^{-n \varepsilon^2 / 32}
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 8 \mathcal{S}_{\mathcal{A}}(n) \e^{-n \varepsilon^2 / 32}
 \]
 for all $n \geq 1$ and $\varepsilon > 0$. In particular, the upper bound
 \[
-    \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < 4 \sqrt{\frac{2 \log(8 \mathcal{S}_{\mathcal{A}}(n) \delta^{-1})}{n}} \leq 4 \sqrt{\frac{2 V_{\mathcal{A}} \log(8 \e n / \delta V_{\mathcal{A}})}{n}}
+    \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} \leq 4 \sqrt{\frac{2 \log(8 \mathcal{S}_{\mathcal{A}}(n) \delta^{-1})}{n}} \leq 4 \sqrt{\frac{2 V_{\mathcal{A}} \log(8 \e n / \delta V_{\mathcal{A}})}{n}}
 \]
 holds with probability at least $1 - \delta$, where the second inequality assumes that $\mathcal{A}$ has finite VC dimension $V_{\mathcal{A}}$.
 \end{theorem}
 
 A full proof of this result is given in Section 12.4 of \cite{devroye1996probabilistic}. Here, we only outline the key ideas. Instead of starting by applying the bounded differences inequality, one first proves the inequality
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} \geq \varepsilon\right) \leq 2 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} \geq \frac{\varepsilon}{2}\right), \quad n \varepsilon^2 \geq 2,
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 2 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} > \frac{\varepsilon}{2}\right), \quad n \varepsilon^2 \geq 2,
 \]
 where $\mu_n'(A) = \frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}}$ for a ghost sample $Z_1', \dots, Z_n'$, using a symmetrization argument similar to the one we used in Section \ref{sec: symmetrization}. Next, i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables $\sigma_1, \dots, \sigma_n$ are introduced to show that
 \[
-    2 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} \geq \frac{\varepsilon}{2}\right) \leq 4 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} \geq \frac{\varepsilon}{4}\right).
+    2 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} > \frac{\varepsilon}{2}\right) \leq 4 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4}\right).
 \]
 Further, using a simple union bound, one observes that\footnote{Without getting into much detail, we define the conditional probability of $X \in A$ given $Y$ by $\Prob(X \in A \given Y) = \Exp[\indSet{X \in A} \given Y]$.}
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} \geq \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq \mathcal{S}_{\mathcal{A}}(n) \sup_{A \in \mathcal{A}} \Prob\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} \geq \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right),
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq \mathcal{S}_{\mathcal{A}}(n) \sup_{A \in \mathcal{A}} \Prob\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right),
 \]
 since there are at most $\mathcal{S}_{\mathcal{A}}(n)$ different vectors $(\indSet{Z_1 \in A}, \dots, \indSet{Z_n \in A})^{\top}$ as $A$ ranges over $\mathcal{A}$. Finally, one applies Hoeffding's inequality (Theorem \ref{thm: hoeffding}) to obtain
 \[
-    \Prob\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} \geq \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq 2 \exp(-n\varepsilon^2 / 32),
+    \Prob\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq 2 \exp(-n\varepsilon^2 / 32),
 \]
 and then takes the expectation of both sides to arrive at the desired result. The second part of the statement follows from a simple application of the complement rule and the Sauer-Shelah lemma (Lemma \ref{lem: sauer-shelah}).
 
-The proof outlined above is the one given in \cite{devroye1996probabilistic}, which differs from the one originally provided  by Vapnik and Chervonenkis. Note also that Vapnik and Chervonenkis proved a slightly sharper bound with exponent $-n \varepsilon^2 / 8$ instead of $-n \varepsilon^2 / 32$.
+The proof outlined above is the one given in \cite{devroye1996probabilistic}, which differs from the one originally provided  by Vapnik and Chervonenkis. Note also that Vapnik and Chervonenkis proved a slightly sharper bound with exponent $-n \varepsilon^2 / 8$ instead of $-n \varepsilon^2 / 32$. An even better bound is given by the following result:
+
+\begin{theorem}[Devroye, 1982]
+\label{thm: upper bound by devroye}
+For a probability measure $\mu$ and a collection of measurable sets $\mathcal{A}$, it holds
+\[
+    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq C \mathcal{S}_{\mathcal{A}}(n^2) \e^{-2n \varepsilon^2}
+\]
+for all $n \geq 1$ and $\varepsilon > 0$, where the constant $C$ satisfies
+\[
+    C \leq 4 \e^{4(\varepsilon + \varepsilon^2)} \leq 4 \e^8, \quad \varepsilon \leq 1.
+\]
+\end{theorem}
+
+Note that, while the coefficient $C \mathcal{S}_{\mathcal{A}}(n^2)$ in Theorem \ref{thm: upper bound by devroye} is larger than the coefficient $8 \mathcal{S}_{\mathcal{A}}(n)$ in Theorem \ref{thm: VC inequality (2nd version)}, this disadvantage is quickly compensated for by the improved exponential term.
+
+Finally, even though Theorem \ref{thm: upper bound by devroye} provides a better bound than Theorem \ref{thm: VC inequality (2nd version)}, both of them imply\footnote{This is also the case for the first version of the VC inequality we proved, see Theorem \ref{thm: VC inequality}.}
+\[
+    \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \in \mathcal{O}\left(\sqrt{\frac{\log(n)}{n}}\right),
+\]
+which follows directly from the following observation:
+
+\begin{proposition}
+Let $Z \geq 0$ be a non-negative random variable satisfying
+\[
+    \Prob(Z > t) \leq C \exp(-2nt^2), \quad t > 0
+\]
+for some positive constant $C > 0$. Then,
+\[
+    \Exp[Z] \leq \sqrt{\frac{\log(C\e)}{2n}} \, .
+\]
+\end{proposition}
+
+\begin{proof}
+We start by bounding the expected value of $Z^2$ as follows:
+\[
+    \Exp[Z^2] = \int_0^{\infty} \Prob(Z^2 > t) \dt = \int_0^u \Prob(Z^2 > t) \dt + \int_u^{\infty} \Prob(Z^2 > t) \dt \leq u + \int_u^{\infty} \Prob(Z^2 > t) \dt.
+\]
+Since $Z$ is a non-negative random variable, we have $\set{Z^2 > t} = \set{Z > \sqrt{t}}$, and hence
+\[
+    \int_u^{\infty} \Prob(Z^2 > t) \dt = \int_u^{\infty} \Prob(Z > \sqrt{t}) \dt \leq C \int_u^{\infty} \exp(-2nt) \dt = \frac{C \exp(-2nu)}{2n} \, .
+\]
+Since the inequality
+\[
+    \Exp[Z^2] \leq u + \frac{C \exp(-2nu)}{2n}
+\]
+holds for all $u > 0$, we can optimize the bound over $u$ to find the optimal solution $u^* = \log(C) / 2n$, which yields
+\[
+    \Exp[Z^2] \leq \frac{\log(C\e)}{2n} \, .
+\]
+Finally, since the square-root $x \mapsto \sqrt{x}$ is a concave function, we can apply Jensen's inequality to obtain
+\[
+    \Exp[Z] = \Exp[\sqrt{Z^2}] \leq \sqrt{\Exp[Z^2]} \leq \sqrt{\frac{\log(C\e)}{2n}} \, . \qedhere
+\]
+\end{proof}
