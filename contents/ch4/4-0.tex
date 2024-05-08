@@ -42,7 +42,7 @@ Since the probability $\Prob(\hat{L}_n(h) = 0)$ that no $(X_i, Y_i)$ falls in th
 
 To bound the expected error probability of $\hat{h}$ for $n \in \N$, first recall that the expected value of a non-negative random variable $Z \geq 0$ can be computed as follows:
 \[
-    \Exp[Z] = \int_0^{\infty} \Prob(X > t) \dt.
+    \Exp[Z] = \int_0^{\infty} 1 - F_Z(t) \dt = \int_0^{\infty} \Prob(Z > t) \dt.
 \]
 Hence, we have
 \begin{align*}
