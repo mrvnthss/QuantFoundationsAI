@@ -5,9 +5,9 @@ An important technique for understanding the empirical error and classifiers bas
 
 \begin{prop}
 \begin{itemize}
-    \item \emph{Markov's inequality}: $\Prob(X \geq t) \leq \nicefrac{\Exp[X]}{t}$ for $X \geq 0$ and $t > 0$,
+    \item \emph{Markov's inequality}: $\P(X \geq t) \leq \nicefrac{\Exp[X]}{t}$ for $X \geq 0$ and $t > 0$,
 
-    \item \emph{Chebyshev’s inequality}: $\Prob(\abs{X - \Exp[X]} \geq t) \leq \nicefrac{\Var(X)}{t^2}$ for $X$ with $\Var(X) < \infty$ and $t > 0$.
+    \item \emph{Chebyshev’s inequality}: $\P(\abs{X - \Exp[X]} \geq t) \leq \nicefrac{\Var(X)}{t^2}$ for $X$ with $\Var(X) < \infty$ and $t > 0$.
 \end{itemize}
 \end{prop}
 
@@ -57,24 +57,24 @@ Equipped with this result, we can tackle Hoeffding's inequality:
 \label{thm: hoeffding}
 Let $X_1, \dots, X_n$ be independent random variables such that, almost surely, $a_i \leq X_i \leq b_i$, and denote the sum of the $X_i$ by $S_n = \sum_{i=1}^n X_i$. Then, for any $t>0$,
 \[
-    \Prob(S_n - \Exp[S_n] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+    \P(S_n - \Exp[S_n] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
 In particular,
 \[
-    \Prob(\abs{S_n - \Exp[S_n]} \geq t) \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+    \P(\abs{S_n - \Exp[S_n]} \geq t) \leq 2 \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
 \end{theorem}
 
 \begin{proof}
 It suffices to prove the first inequality
 \[
-    \Prob(S_n - \Exp[S_n] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2})
+    \P(S_n - \Exp[S_n] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n (b_i - a_i)^2})
 \]
 as the bound for the lower tail follows analogously. For any $s>0$, we have
 \[
-    \Prob(S_n - \Exp[S_n] \geq t) = \Prob(\exp(s(S_n - \Exp[S_n])) \geq \exp(st)) \leq \exp(-st) \Exp[\exp(s(S_n - \Exp[S_n]))],
+    \P(S_n - \Exp[S_n] \geq t) = \P(\exp(s(S_n - \Exp[S_n])) \geq \exp(st)) \leq \exp(-st) \Exp[\exp(s(S_n - \Exp[S_n]))],
 \]
-where we have applied Markov's inequality\footnote{This is what is referred to as the \emph{generic Chernoff bound}, which -- for a random variable $X$ -- is attained by applying Markov's inequality to $\e^{tX}$ with $t > 0$. Doing so yields $\Prob(X \geq a) = \Prob(\e^{tX} \geq \e^{ta}) \leq \e^{-ta} \Exp(e^{tX}) = \e^{-ta} M_X(t)$.}. Since the $X_i$ are independent, we have
+where we have applied Markov's inequality\footnote{This is what is referred to as the \emph{generic Chernoff bound}, which -- for a random variable $X$ -- is attained by applying Markov's inequality to $\e^{tX}$ with $t > 0$. Doing so yields $\P(X \geq a) = \P(\e^{tX} \geq \e^{ta}) \leq \e^{-ta} \Exp(e^{tX}) = \e^{-ta} M_X(t)$.}. Since the $X_i$ are independent, we have
 \[
     \Exp[\exp(s(S_n - \Exp[S_n]))] = \Exp\left[\exp(\sum_{i=1}^n s(X_i - \Exp[X_i]))\right] = \prod_{i=1}^n \Exp[\exp(s(X_i - \Exp[X_i]))],
 \]
@@ -96,14 +96,14 @@ which is exactly the upper bound we wanted to prove.
 \begin{remark}
 Let $X_1, \dots, X_n$ be random variables satisfying the conditions of Theorem \ref{thm: hoeffding}, and write $\bar{X} = S_n/n$ for the arithmetic mean of the $X_i$. We have
 \[
-    \Prob(\abs*{\bar{X} - \Exp[\bar{X}]} \geq t) = \Prob(\abs{S_n - \Exp[S_n]} \geq nt) \leq 2 \exp(\frac{-2 n^2 t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
+    \P(\abs*{\bar{X} - \Exp[\bar{X}]} \geq t) = \P(\abs{S_n - \Exp[S_n]} \geq nt) \leq 2 \exp(\frac{-2 n^2 t^2}{\sum_{i=1}^n (b_i - a_i)^2}).
 \]
 Further, observe that the expression $\bar{X} - \Exp[\bar{X}]$ can be rewritten as $\frac{1}{n} \sum_{i=1}^n (X_i - \Exp[X_i])$. Hence, Hoeffding's inequality ensures that the (absolute) average deviation of independent and (almost surely) bounded random variables from their respective means decays \emph{exponentially fast} in the number of observations $n$. Finally, if the random variables $X_1, \dots, X_n$ are i.i.d.\ random variables such that, almost surely, $a \leq X_i \leq b$, Hoeffding's inequality states that
 \[
-    \Prob(\abs*{\bar{X} - \Exp[X_1]} \geq t) \leq 2 \exp(\frac{-2nt^2}{(b - a)^2}).
+    \P(\abs*{\bar{X} - \Exp[X_1]} \geq t) \leq 2 \exp(\frac{-2nt^2}{(b - a)^2}).
 \]
 For random variables $X_i$ taking values in the unit interval, this reduces to
 \[
-    \Prob(\abs*{\bar{X} - \Exp[X_1]} \geq t) \leq 2 \e^{-2nt^2}.
+    \P(\abs*{\bar{X} - \Exp[X_1]} \geq t) \leq 2 \e^{-2nt^2}.
 \]
 \end{remark}

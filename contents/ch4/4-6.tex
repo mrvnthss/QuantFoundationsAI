@@ -7,7 +7,7 @@ In Section \ref{sec: VC inequality}, we had shown that the inequality
 \]
 holds with probability at least $1 - \delta$. To arrive at this result, we first applied the bounded differences inequality to establish the bound
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] + \sqrt{\frac{\log(\delta^{-1})}{2n}}\right) \geq 1 - \delta,
+    \P\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} < \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] + \sqrt{\frac{\log(\delta^{-1})}{2n}}\right) \geq 1 - \delta,
 \]
 and then proceeded to prove a deterministic upper bound on $\Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}]$. By using a slightly different approach, one obtains the following result:
 
@@ -15,7 +15,7 @@ and then proceeded to prove a deterministic upper bound on $\Exp[\sup_{A \in \ma
 \label{thm: VC inequality (2nd version)}
 For a probability measure $\mu$ and a collection of measurable sets $\mathcal{A}$, it holds
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 8 \mathcal{S}_{\mathcal{A}}(n) \e^{-n \varepsilon^2 / 32}
+    \P\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 8 \mathcal{S}_{\mathcal{A}}(n) \e^{-n \varepsilon^2 / 32}
 \]
 for all $n \geq 1$ and $\varepsilon > 0$. In particular, the upper bound
 \[
@@ -26,19 +26,19 @@ holds with probability at least $1 - \delta$, where the second inequality assume
 
 A full proof of this result is given in Section 12.4 of \cite{devroye1996probabilistic}. Here, we only outline the key ideas. Instead of starting by applying the bounded differences inequality, one first proves the inequality
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 2 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} > \frac{\varepsilon}{2}\right), \quad n \varepsilon^2 \geq 2,
+    \P\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 2 \P\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} > \frac{\varepsilon}{2}\right), \quad n \varepsilon^2 \geq 2,
 \]
 where $\mu_n'(A) = \frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}}$ for a ghost sample $Z_1', \dots, Z_n'$, using a symmetrization argument similar to the one we used in Section \ref{sec: symmetrization}. Next, i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables $\sigma_1, \dots, \sigma_n$ are introduced to show that
 \[
-    2 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} > \frac{\varepsilon}{2}\right) \leq 4 \Prob\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4}\right).
+    2 \P\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu_n'(A)} > \frac{\varepsilon}{2}\right) \leq 4 \P\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4}\right).
 \]
-Further, using a simple union bound, one observes that\footnote{Without getting into much detail, we define the conditional probability of $X \in A$ given $Y$ by $\Prob(X \in A \given Y) = \Exp[\indSet{X \in A} \given Y]$.}
+Further, using a simple union bound, one observes that\footnote{Without getting into much detail, we define the conditional probability of $X \in A$ given $Y$ by $\P(X \in A \given Y) = \Exp[\indSet{X \in A} \given Y]$.}
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq \mathcal{S}_{\mathcal{A}}(n) \sup_{A \in \mathcal{A}} \Prob\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right),
+    \P\left(\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq \mathcal{S}_{\mathcal{A}}(n) \sup_{A \in \mathcal{A}} \P\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right),
 \]
 since there are at most $\mathcal{S}_{\mathcal{A}}(n)$ different vectors $(\indSet{Z_1 \in A}, \dots, \indSet{Z_n \in A})^{\top}$ as $A$ ranges over $\mathcal{A}$. Finally, one applies Hoeffding's inequality (Theorem \ref{thm: hoeffding}) to obtain
 \[
-    \Prob\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq 2 \exp(-n\varepsilon^2 / 32),
+    \P\left(\abs{\frac{1}{n} \sum_{i=1}^n \sigma_i \indSet{Z_i \in A}} > \frac{\varepsilon}{4} \given[\bigg] Z_1, \dots, Z_n\right) \leq 2 \exp(-n\varepsilon^2 / 32),
 \]
 and then takes the expectation of both sides to arrive at the desired result. The second part of the statement follows from a simple application of the complement rule and the Sauer-Shelah lemma (Lemma \ref{lem: sauer-shelah}).
 
@@ -48,7 +48,7 @@ The proof outlined above is the one given in \cite{devroye1996probabilistic}, wh
 \label{thm: upper bound by devroye}
 For a probability measure $\mu$ and a collection of measurable sets $\mathcal{A}$, it holds
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq C \mathcal{S}_{\mathcal{A}}(n^2) \e^{-2n \varepsilon^2}
+    \P\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq C \mathcal{S}_{\mathcal{A}}(n^2) \e^{-2n \varepsilon^2}
 \]
 for all $n \geq 1$ and $\varepsilon > 0$, where the constant $C$ satisfies
 \[
@@ -68,7 +68,7 @@ which follows directly from the following observation:
 \begin{proposition}
 Let $Z \geq 0$ be a non-negative random variable satisfying
 \[
-    \Prob(Z > t) \leq C \exp(-2nt^2), \quad t > 0
+    \P(Z > t) \leq C \exp(-2nt^2), \quad t > 0
 \]
 for some positive constant $C > 0$. Then,
 \[
@@ -79,11 +79,11 @@ for some positive constant $C > 0$. Then,
 \begin{proof}
 We start by bounding the expected value of $Z^2$ as follows:
 \[
-    \Exp[Z^2] = \int_0^{\infty} \Prob(Z^2 > t) \dt = \int_0^u \Prob(Z^2 > t) \dt + \int_u^{\infty} \Prob(Z^2 > t) \dt \leq u + \int_u^{\infty} \Prob(Z^2 > t) \dt.
+    \Exp[Z^2] = \int_0^{\infty} \P(Z^2 > t) \dt = \int_0^u \P(Z^2 > t) \dt + \int_u^{\infty} \P(Z^2 > t) \dt \leq u + \int_u^{\infty} \P(Z^2 > t) \dt.
 \]
 Since $Z$ is a non-negative random variable, we have $\set{Z^2 > t} = \set{Z > \sqrt{t}}$, and hence
 \[
-    \int_u^{\infty} \Prob(Z^2 > t) \dt = \int_u^{\infty} \Prob(Z > \sqrt{t}) \dt \leq C \int_u^{\infty} \exp(-2nt) \dt = \frac{C \exp(-2nu)}{2n} \, .
+    \int_u^{\infty} \P(Z^2 > t) \dt = \int_u^{\infty} \P(Z > \sqrt{t}) \dt \leq C \int_u^{\infty} \exp(-2nt) \dt = \frac{C \exp(-2nu)}{2n} \, .
 \]
 Since the inequality
 \[
@@ -105,7 +105,7 @@ We finish this section by pointing out that it is possible to get rid of the $\l
 \label{thm: upper bound by alexander}
 For a probability measure $\mu$ and a collection of measurable sets $\mathcal{A}$, it holds
 \[
-    \Prob\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 16 (\sqrt{n} \varepsilon)^{4096 V_{\mathcal{A}}} \e^{-2n\varepsilon^2}
+    \P\left(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} > \varepsilon\right) \leq 16 (\sqrt{n} \varepsilon)^{4096 V_{\mathcal{A}}} \e^{-2n\varepsilon^2}
 \]
 for $\varepsilon > 0$ and $n \varepsilon^2 \geq 64$. In particular,
 \[

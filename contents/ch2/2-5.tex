@@ -41,12 +41,12 @@ Hence, in order to find a bound of the estimation error of a class $\mathcal{H}$
 \begin{enumerate}
     \item For a classifier $h \colon \mathcal{X} \to \set{0, 1}$ and a confidence level $\delta > 0$,
     \[
-        \Prob\left(\abs*{\hat{L}_n(h) - L(h)} < \sqrt{\frac{\log(2 / \delta)}{2n}}\right) \geq 1 - \delta.
+        \P\left(\abs*{\hat{L}_n(h) - L(h)} < \sqrt{\frac{\log(2 / \delta)}{2n}}\right) \geq 1 - \delta.
     \]
 
     \item If $\mathcal{H} = \set{h_1, \dots, h_M}$ is a \emph{finite} family of $M$ classifiers, then
     \[
-        \Prob\left(\max_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} < \sqrt{\frac{\log(2M / \delta)}{2n}}\right) \geq 1 - \delta.
+        \P\left(\max_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} < \sqrt{\frac{\log(2M / \delta)}{2n}}\right) \geq 1 - \delta.
     \]
 \end{enumerate}
 \end{theorem}
@@ -54,13 +54,13 @@ Hence, in order to find a bound of the estimation error of a class $\mathcal{H}$
 \begin{proof}
 Since $(X_i, Y_i)$ are i.i.d.\ draws from $\P_{(X, Y)}$, we have
 \[
-    \Prob(h(X) \neq Y) = \Exp[\indSet{h(X) \neq Y}] = \frac{1}{n} \sum_{i=1}^n \Exp[\indSet{h(X) \neq Y}] = \frac{1}{n} \sum_{i=1}^n \Exp[\indSet{h(X_i) \neq Y_i}],
+    \P(h(X) \neq Y) = \Exp[\indSet{h(X) \neq Y}] = \frac{1}{n} \sum_{i=1}^n \Exp[\indSet{h(X) \neq Y}] = \frac{1}{n} \sum_{i=1}^n \Exp[\indSet{h(X_i) \neq Y_i}],
 \]
 and hence,
 \[
     \hat{L}_n(h) - L(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i} - \Exp[\indSet{h(X_i) \neq Y_i}].
 \]
-Consequently, the first assertion follows from Hoeffding's inequality applied to $\indSet{h(X_i) \neq Y_i}$, with $i = 1, \dots, n$, and $t = \sqrt{\frac{\log(2 / \delta)}{2n}}$, since $\Prob(\abs{\ldots} < t) = 1 - \Prob(\abs{\ldots} \geq t) \geq 1 - 2\e^{-2nt^2} = 1 - \delta$.
+Consequently, the first assertion follows from Hoeffding's inequality applied to $\indSet{h(X_i) \neq Y_i}$, with $i = 1, \dots, n$, and $t = \sqrt{\frac{\log(2 / \delta)}{2n}}$, since $\P(\abs{\ldots} < t) = 1 - \P(\abs{\ldots} \geq t) \geq 1 - 2\e^{-2nt^2} = 1 - \delta$.
 
 For the second assertion, observe that, for $t = \sqrt{\frac{\log(2M/\delta)}{2n}} \,$,
 \[
@@ -68,15 +68,15 @@ For the second assertion, observe that, for $t = \sqrt{\frac{\log(2M/\delta)}{2n
 \]
 and hence,
 \[
-    \Prob(\max_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} < t) = 1 - \Prob(\max_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} \geq t) \geq 1 - \sum_{j=1}^M \Prob(\abs*{\hat{L}_n(h_j) - L(h_j)} \geq t)
+    \P(\max_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} < t) = 1 - \P(\max_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} \geq t) \geq 1 - \sum_{j=1}^M \P(\abs*{\hat{L}_n(h_j) - L(h_j)} \geq t)
 \]
 by applying a simple union bound. As before, Hoeffding's inequality yields
 \[
-    \Prob(\abs*{\hat{L}_n(h_j) - L(h_j)} \geq t) \leq 2 \e^{-2nt^2} = \frac{\delta}{M}, \quad j = 1, \dots, M.
+    \P(\abs*{\hat{L}_n(h_j) - L(h_j)} \geq t) \leq 2 \e^{-2nt^2} = \frac{\delta}{M}, \quad j = 1, \dots, M.
 \]
 Putting everything together, we obtain
 \[
-    \Prob(\max_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} < t) \geq 1 - \sum_{j=1}^M \Prob(\abs*{\hat{L}_n(h_j) - L(h_j)} \geq t) \geq 1 - \sum_{j=1}^M \frac{\delta}{M} = 1 - \delta. \qedhere
+    \P(\max_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} < t) \geq 1 - \sum_{j=1}^M \P(\abs*{\hat{L}_n(h_j) - L(h_j)} \geq t) \geq 1 - \sum_{j=1}^M \frac{\delta}{M} = 1 - \delta. \qedhere
 \]
 \end{proof}
 
@@ -86,7 +86,7 @@ We can now use this intermediate result to obtain a bound on the estimation erro
 \label{thm: estimation error finite dictionary}
 For a finite family of classifiers $\mathcal{H} = \set{h_1, \dots, h_M}$ and a confidence level $\delta > 0$, the estimation error $L(\hat{h}) - L(\bar{h})$ satisfies
 \[
-    \Prob\left(L(\hat{h}) - L(\bar{h}) < \sqrt{\frac{2 \log(2M / \delta)}{n}}\right) \geq 1 - \delta.
+    \P\left(L(\hat{h}) - L(\bar{h}) < \sqrt{\frac{2 \log(2M / \delta)}{n}}\right) \geq 1 - \delta.
 \]
 \end{theorem}
 
@@ -97,8 +97,8 @@ From Vapnik's lemma (Lemma \ref{lem: bound on estimation error}), we know that
 \]
 Hence, Theorem \ref{thm: empirical vs true risk} implies
 \begin{align*}
-    \Prob\left(L(\hat{h}) - L(\bar{h}) < \sqrt{\frac{2 \log(2M / \delta)}{n}}\right) &\geq \Prob\left(2 \max_{1 \leq j \leq M} \abs*{\hat{L}_n(h_j) - L(h_j)} < \sqrt{\frac{2 \log(2M / \delta)}{n}}\right) \\[4pt]
-    &= \Prob\left(\max_{1 \leq j \leq M} \abs*{\hat{L}_n(h_j) - L(h_j)} < \sqrt{\frac{\log(2M / \delta)}{2n}}\right) \geq 1 - \delta. \qedhere
+    \P\left(L(\hat{h}) - L(\bar{h}) < \sqrt{\frac{2 \log(2M / \delta)}{n}}\right) &\geq \P\left(2 \max_{1 \leq j \leq M} \abs*{\hat{L}_n(h_j) - L(h_j)} < \sqrt{\frac{2 \log(2M / \delta)}{n}}\right) \\[4pt]
+    &= \P\left(\max_{1 \leq j \leq M} \abs*{\hat{L}_n(h_j) - L(h_j)} < \sqrt{\frac{\log(2M / \delta)}{2n}}\right) \geq 1 - \delta. \qedhere
 \end{align*}
 \end{proof}
 

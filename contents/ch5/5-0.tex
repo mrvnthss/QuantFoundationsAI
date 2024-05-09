@@ -3,7 +3,7 @@
 
 So far, in chapters \ref{ch: binary classification} and \ref{ch: VC theory}, we have solely focused on the problem of binary classification, i.e., we have studied classifiers $h \colon \mathcal{X} \to \set{0, 1}$ and their performance. To gauge the performance of these classifiers we introduced the binary loss function $\indSet{h(X) \neq Y}$ and measured the risk of a classifier $h$ by its misclassification probability
 \[
-    L(h) = \Exp[\indSet{h(X) \neq Y}] = \Prob(h(X) \neq Y).
+    L(h) = \Exp[\indSet{h(X) \neq Y}] = \P(h(X) \neq Y).
 \]
 We then split the excess risk of a classifier $h$ into estimation error and approximation error as follows:
 \[

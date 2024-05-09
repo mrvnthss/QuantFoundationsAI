@@ -39,14 +39,14 @@ Let $h^*$ be the Bayes classifier and let $L^*$ be the Bayes error. For $Y \in \
 \begin{exercise}
 Assume that $X$ has a density $f$ with respect to the Lebesgue measure, i.e.,
 \[
-    \Prob(X \in A) = \int_A f(x) \dx,
+    \P(X \in A) = \int_A f(x) \dx,
 \]
 and assume further that the class-conditional densities $f_i$ of $X$ given $Y = i$ exist for $i = 1, 2$, i.e.,
 \[
-    \Prob(X \in A \given Y = i) = \int_A f_i(x) \dx, \quad i = 1, 2.
+    \P(X \in A \given Y = i) = \int_A f_i(x) \dx, \quad i = 1, 2.
 \]
-Finally, denote the class probabilities by $p = \Prob(Y = 1) = 1 - \Prob(Y = 0)$. Demonstrate that
+Finally, denote the class probabilities by $p = \P(Y = 1) = 1 - \P(Y = 0)$. Demonstrate that
 \[
-    \Prob(Y = 1 \given X = x) = \frac{f_1(x)p}{f_1(x)p + f_0(x) (1-p)}.
+    \P(Y = 1 \given X = x) = \frac{f_1(x)p}{f_1(x)p + f_0(x) (1-p)}.
 \]
 \end{exercise}

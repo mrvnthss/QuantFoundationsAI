@@ -12,11 +12,11 @@ The function
 \]
 satisfies the bounded differences condition for constants $c_i = \frac{1}{n}$, since the loss function $l$ is assumed to be bounded, i.e., $0 \leq l \leq 1$. Thus, by the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}), we obtain
 \[
-    \Prob\left(\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)} - \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] \geq t\right) \leq \e^{-2nt^2}.
+    \P\left(\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)} - \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat L_n(f) - L(f)}] \geq t\right) \leq \e^{-2nt^2}.
 \]
 In particular,
 \[
-    \Prob\left(\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)} - \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)}] < t\right) \geq 1 - \e^{-2nt^2},
+    \P\left(\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)} - \Exp[\sup_{f \in \mathcal{F}} \abs*{\hat{L}_n(f) - L(f)}] < t\right) \geq 1 - \e^{-2nt^2},
 \]
 and by evaluating this inequality at $t = \sqrt{\log(\delta^{-1}) / 2n}$, we see that the inequality
 \[

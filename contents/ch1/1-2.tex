@@ -82,7 +82,7 @@ On $\mathcal{L}^p$, we can define a seminorm via
 \]
 This does \emph{not} yield a \say{true} norm since any two functions $f$ and $g$ that agree almost surely (but may differ on a null set) will share the same seminorm $\norm{f}_p = \norm{g}_p$. In particular, $\norm{f}_p = 0$ does \emph{not} imply $f = 0$ (but only $f = 0$ almost surely). However, this can easily be fixed by considering the set $L^p$ of equivalence classes
 \[
-    [f] = \set{g \in \mathcal{L}^p \with f \sim g}, \qquad f \sim g \Leftrightarrow \Prob(f - g \neq 0) = 0,
+    [f] = \set{g \in \mathcal{L}^p \with f \sim g}, \qquad f \sim g \Leftrightarrow \P(f - g \neq 0) = 0,
 \]
 i.e., we simply identify all functions that agree almost surely. On $L^p = \mathcal{L}^p / {\sim}$, we define $\norm{[f]}_p = \norm{f}_p$, and one can check that this indeed defines a norm on $L^p$, turning the latter into a \emph{normed space}. Moreover, one can show (cf. \href{https://en.wikipedia.org/wiki/Riesz–Fischer_theorem#Completeness_of_Lp,_0_%3C_p_≤_∞}{Riesz–Fischer theorem}) that the $L^p$-spaces are \emph{complete} (i.e., every Cauchy sequence converges) with respect to this norm and hence, are \emph{Banach spaces}.
 

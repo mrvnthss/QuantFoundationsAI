@@ -1,7 +1,7 @@
 %% SECTION 2.1 %%
 \section{Bayes Classifier}
 
-First, we define an optimal classifier in the setting of binary classification, the so-called \emph{Bayes classifier}. This is the classifier that (somehow) is aware of the regression function $\eta(X)$, and, based on an observation $X = x$, predicts the class $Y$ that has the higher a posteriori probability $\Prob(Y = 1 \given X = x)$. This is the classifier we \emph{would} use \emph{if} we knew the distribution of $Y \given X$.
+First, we define an optimal classifier in the setting of binary classification, the so-called \emph{Bayes classifier}. This is the classifier that (somehow) is aware of the regression function $\eta(X)$, and, based on an observation $X = x$, predicts the class $Y$ that has the higher a posteriori probability $\P(Y = 1 \given X = x)$. This is the classifier we \emph{would} use \emph{if} we knew the distribution of $Y \given X$.
 
 \begin{definition}
 The Bayes classifier $h^* \colon \mathcal{X} \to \set{0,1}$ is defined by
@@ -13,7 +13,7 @@ The Bayes classifier $h^* \colon \mathcal{X} \to \set{0,1}$ is defined by
 \]
 \end{definition}
 
-It follows from the definition that $h^*$ equals $1$ whenever $\Prob(Y = 1 \given X) > \Prob(Y = 0 \given X)$ or, equivalently, $\eta(X) > 1 - \eta(X)$. To quantify the performance of a classifier $h \colon \mathcal{X} \to \set{0, 1}$ in a binary classification tasks, we use the \emph{$0$-$1$ loss function}
+It follows from the definition that $h^*$ equals $1$ whenever $\P(Y = 1 \given X) > \P(Y = 0 \given X)$ or, equivalently, $\eta(X) > 1 - \eta(X)$. To quantify the performance of a classifier $h \colon \mathcal{X} \to \set{0, 1}$ in a binary classification tasks, we use the \emph{$0$-$1$ loss function}
 \[
     l(y_1, y_2) = \indSet{y_1 \neq y_2} = \begin{cases}
         1, \quad & y_1 \neq y_2 \\
@@ -23,7 +23,7 @@ It follows from the definition that $h^*$ equals $1$ whenever $\Prob(Y = 1 \give
 Hence, the expected error of a classifier $h$ is given by its \emph{error probability}:
 \[
     \highlightMath{
-        L(h) = \Exp[\indSet{h(X) \neq Y}] = \Prob(h(X) \neq Y).
+        L(h) = \Exp[\indSet{h(X) \neq Y}] = \P(h(X) \neq Y).
     }
 \]
 Further, note that the error probability equals the expected absolute deviation of the prediction $h(X)$ from the true label $Y$, i.e.,
@@ -55,7 +55,7 @@ The Bayes classifier satisfies the following two properties:
 \begin{proof}
 For every classifier $h \colon \mathcal{X} \to \set{0, 1}$, we have
 \begin{align*}
-    L(h) = \Prob(h(X) \neq Y) &= \Prob(h(X) = 0, Y = 1) + \Prob(h(X) = 1, Y = 0) \\
+    L(h) = \P(h(X) \neq Y) &= \P(h(X) = 0, Y = 1) + \P(h(X) = 1, Y = 0) \\
     &= \Exp[\indSet{h(X) = 0} \indSet{Y = 1}] + \Exp[\indSet{h(X) = 1} \indSet{Y = 0}] \\
     &= \Exp[\Exp[Y \indSet{h(X) = 0} \given X]] + \Exp[\Exp[(1 - Y) \indSet{h(X) = 1} \given X]],
 \end{align*}
@@ -100,7 +100,7 @@ completing this proof.
 \begin{example}[Bayes error]
 Let's consider the prediction of a student's performance in a final exam. We denote a passing grade by $Y = 1$ and a failing grade by $Y = 0$. Our only observation is the number $X \colon \Omega \to [0, \infty)$ of hours of study per week. It is (somewhat) reasonable to assume that the a posteriori probability
 \[
-    \eta \colon [0, \infty) \to [0, 1], \quad x \mapsto \Prob(Y = 1 \given X = x),
+    \eta \colon [0, \infty) \to [0, 1], \quad x \mapsto \P(Y = 1 \given X = x),
 \]
 is monotonically increasing in $x$. We further assume that $\eta$ is given by
 \[
@@ -120,7 +120,7 @@ By \eqref{eq: bayes error}, the Bayes error is given by
 since $1 - \eta(x) = c / (x+c)$ for $x \geq 0$.
 
 \begin{enumerate}
-    \item Assume that $\Prob(X = c) = 1$, i.e., (almost surely) every student studies exactly $c$ hours. In this scenario, the Bayes error is equal to $1/2$, i.e., as large as possible. This is due to the fact that $\eta(X)$ is constantly equal to $1/2$ and thus, completely uninformative.
+    \item Assume that $\P(X = c) = 1$, i.e., (almost surely) every student studies exactly $c$ hours. In this scenario, the Bayes error is equal to $1/2$, i.e., as large as possible. This is due to the fact that $\eta(X)$ is constantly equal to $1/2$ and thus, completely uninformative.
     
     \item Assume that $X \sim U(0, 4c)$. Then,
     \[
@@ -140,7 +140,7 @@ In particular, for the Bayes classifier, we have
 \]
 Further, we observe that, by Proposition \ref{prop: decomposition of mean-squared error}, the a posteriori probability
 \[
-    \eta(x) = \Prob(Y = 1 \given X = x) = \Exp[Y \given X = x]
+    \eta(x) = \P(Y = 1 \given X = x) = \Exp[Y \given X = x]
 \]
 minimizes the mean squared error when $Y$ is to be predicted by $h(X)$ for a function $h \colon \mathcal{X} \to \R$, i.e., the inequality
 \[
@@ -202,24 +202,24 @@ A function minimizing the mean absolute error is called the \emph{conditional me
 
 So far, we have seen that the expected error of the Bayes classifier can be expressed as
 \[
-    L^* = \min_{h \in \R^{\mathcal{X}}} \Prob(h(X) \neq Y) = \Exp[\min(\eta(X), 1 - \eta(X))] = \frac{1}{2} - \frac{1}{2} \Exp[\abs{2\eta(X) - 1}].
+    L^* = \min_{h \in \R^{\mathcal{X}}} \P(h(X) \neq Y) = \Exp[\min(\eta(X), 1 - \eta(X))] = \frac{1}{2} - \frac{1}{2} \Exp[\abs{2\eta(X) - 1}].
 \]
 Next, we will look at special cases for which we can deduce other helpful ways of expressing the Bayes error. First, we assume that $X$ has a density $f$ with respect to the Lebesgue measure, i.e.,
 \[
-    \Prob(X \in A) = \int_{A} f(x) \dx.
+    \P(X \in A) = \int_{A} f(x) \dx.
 \]
-Further, let $f_i$ denote the conditional density of $X$ given $Y = i$ for $i = 0, 1$. These are called \emph{class-conditional densities}. The values $p = \Prob(Y = 1)$ and $1 - p = \Prob(Y = 0)$ are called \emph{class probabilities}. Recall that, if $X$ is continuous with density $f_X$ and $Y$ is discrete, Bayes rule states that
+Further, let $f_i$ denote the conditional density of $X$ given $Y = i$ for $i = 0, 1$. These are called \emph{class-conditional densities}. The values $p = \P(Y = 1)$ and $1 - p = \P(Y = 0)$ are called \emph{class probabilities}. Recall that, if $X$ is continuous with density $f_X$ and $Y$ is discrete, Bayes rule states that
 \[
-    \Prob(Y = y \given X = x) = \frac{f_{X \given Y = y}(x) \Prob(Y = y)}{f_X(x)} \, .
+    \P(Y = y \given X = x) = \frac{f_{X \given Y = y}(x) \P(Y = y)}{f_X(x)} \, .
 \]
 In the setting above, this becomes
 \[
-    \eta(x) = \Prob(Y = 1 \given X = x) = \frac{f_1(x) p}{f(x)} \, .
+    \eta(x) = \P(Y = 1 \given X = x) = \frac{f_1(x) p}{f(x)} \, .
 \]
 By the law of total probability, we can express the density $f(x)$ as $f_1(x)p + f_0(x)(1 - p)$ and thus obtain
 \begin{equation}
     \highlightMath{
-        \eta(x) = \Prob(Y = 1 \given X = x) = \frac{f_1(x) p}{f_1(x)p + f_0(x)(1 - p)} \, .
+        \eta(x) = \P(Y = 1 \given X = x) = \frac{f_1(x) p}{f_1(x)p + f_0(x)(1 - p)} \, .
     }
 \end{equation}
 By solving $\eta(x) > 1/2$, we see that the Bayes classifier is given by

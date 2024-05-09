@@ -17,7 +17,7 @@ Intuitively, $g$ meets the bounded differences condition if changing only one co
 \label{thm: bounded differences inequality}
 Let $X_1, \dots, X_n$ be independent random variables and let $g \colon \mathcal{X}_1 \times \dots \times \mathcal{X}_n \to \R$ be a function satisfying the bounded differences condition for constants $c_1, \dots, c_n \in \R$. Then,
 \[
-    \Prob(g(X_1, \dots, X_n) - \Exp[g(X_1, \dots, X_n)] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
+    \P(g(X_1, \dots, X_n) - \Exp[g(X_1, \dots, X_n)] \geq t) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}).
 \]
 \end{theorem}
 
@@ -63,7 +63,7 @@ since $g$ satisfies the bounded differences condition for constants $c_1, \dots,
 \]
 Hence, we can apply the Azuma-Hoeffding inequality (Theorem \ref{thm: azuma-hoeffding}) to obtain
 \[
-    \Prob(g(X_1, \dots, X_n) - \Exp[g(X_1, \dots, X_n)] \geq t) = \Prob\left(\sum_{i=1}^n \Delta_i \geq t\right) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}). \qedhere
+    \P(g(X_1, \dots, X_n) - \Exp[g(X_1, \dots, X_n)] \geq t) = \P\left(\sum_{i=1}^n \Delta_i \geq t\right) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n c_i^2}). \qedhere
 \]
 \end{proof}
 
@@ -75,7 +75,7 @@ Another drawback of Hoeffding's inequality is that it completely ignores the ran
 \label{thm: bernstein}
 Let $X_1, \dots, X_n$ be independent, centered random variables such that $\abs{X_i} \leq c$ for $i = 1, \dots, n$. Then,
 \[
-    \Prob\left(\sum_{i=1}^n X_i \geq t\right) \leq \exp(\frac{-\frac{1}{2}t^2}{\sum_{i=1}^n \Exp[X_i^2] + \frac{1}{3}ct}).
+    \P\left(\sum_{i=1}^n X_i \geq t\right) \leq \exp(\frac{-\frac{1}{2}t^2}{\sum_{i=1}^n \Exp[X_i^2] + \frac{1}{3}ct}).
 \]
 \end{theorem}
 
@@ -113,7 +113,7 @@ Equipped with this result, we can prove Bernstein's inequality.
 \begin{proof}[Proof of Theorem \ref{thm: bernstein}]
 As in the proof of Hoeffding's inequality, we have
 \[
-    \Prob\left(\sum_{i=1}^n X_i \geq t\right) \leq \e^{-st} \prod_{i=1}^n \Exp[e^{sX_i}] \leq \e^{-st} \exp(s^2 \sum_{i=1}^n \Exp[X_i^2] \left(\frac{\e^{sc} - 1 - sc}{(sc)^2}\right)), \quad s > 0,
+    \P\left(\sum_{i=1}^n X_i \geq t\right) \leq \e^{-st} \prod_{i=1}^n \Exp[e^{sX_i}] \leq \e^{-st} \exp(s^2 \sum_{i=1}^n \Exp[X_i^2] \left(\frac{\e^{sc} - 1 - sc}{(sc)^2}\right)), \quad s > 0,
 \]
 where the second inequality is a consequence of Lemma \ref{lem: bernstein}. The RHS can be written as
 \[

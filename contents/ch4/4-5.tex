@@ -5,11 +5,11 @@ Recall our goal that we started with at the beginning of this chapter: given a f
 \[
     L(\hat{h}) - L(\bar{h}) \leq 2 \sup_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)}.
 \]
-Defining $A_h$ and $\mathcal{A}$ as in \eqref{eq: sets A_h} and \eqref{eq: collection of sets A_h}, respectively, and letting $\mu_n(A) = n^{-1} \sum_{i=1}^n \indSet{Z_i \in A}$ and $\mu(A) = \Prob(Z \in A)$, we had observed that $\sup_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} = \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}$. Hence, the VC inequality tells us that
+Defining $A_h$ and $\mathcal{A}$ as in \eqref{eq: sets A_h} and \eqref{eq: collection of sets A_h}, respectively, and letting $\mu_n(A) = n^{-1} \sum_{i=1}^n \indSet{Z_i \in A}$ and $\mu(A) = \P(Z \in A)$, we had observed that $\sup_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} = \sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}$. Hence, the VC inequality tells us that
 \begin{equation}
 \label{eq: VC ineqaulity for ERM}
     \highlightMath{
-        \Prob\left(\sup_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} < 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2 \e n / V_{\mathcal{A}})}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}}\right) \geq 1 - \delta,
+        \P\left(\sup_{h \in \mathcal{H}} \abs*{\hat{L}_n(h) - L(h)} < 2 \sqrt{\frac{2 V_{\mathcal{A}} \log(2 \e n / V_{\mathcal{A}})}{n}} + \sqrt{\frac{\log(\delta^{-1})}{2n}}\right) \geq 1 - \delta,
     }
 \end{equation}
 where $V_{\mathcal{A}}$ denotes the VC dimension of $\mathcal{A} = \set{A_h \with h \in \mathcal{H}}$. However, the VC dimension of this class $\mathcal{A}$ is not very natural, and in many cases it is more convenient to consider the class

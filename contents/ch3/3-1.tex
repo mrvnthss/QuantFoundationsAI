@@ -52,7 +52,7 @@ Assume that $\set{\Delta_i}_{i \in \N}$ is a martingale difference sequence with
 \]
 holds almost surely for all $i \in \N$. Then,
 \[
-    \Prob\left(\sum_{i=1}^n \Delta_i \geq t\right) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n \norm{B_i - A_i}_{\infty}^2}).
+    \P\left(\sum_{i=1}^n \Delta_i \geq t\right) \leq \exp(\frac{-2t^2}{\sum_{i=1}^n \norm{B_i - A_i}_{\infty}^2}).
 \]
 \end{theorem}
 
@@ -61,16 +61,16 @@ In comparison to Hoeffding’s inequality, the Azuma-Hoeffding inequality allows
 \begin{proof}
 For ease of notation, we write $S_k = \sum_{i=1}^k \Delta_i$, with $k = 1, \dots, n$. As in the proof of Hoeffding's inequality, we first apply the generic Chernoff bound to obtain
 \begin{align*}
-    \Prob(S_n \geq t) \leq \e^{-st} {\color{blue} \Exp[\exp(s S_n)]} &= \e^{-st} \Exp[\Exp[\exp(s S_n) \given \mathcal{F}_{n-1}]] \\
+    \P(S_n \geq t) \leq \e^{-st} {\color{blue} \Exp[\exp(s S_n)]} &= \e^{-st} \Exp[\Exp[\exp(s S_n) \given \mathcal{F}_{n-1}]] \\
     &= \e^{-st} \Exp[\exp(s S_{n-1}) {\color{red} \Exp[\exp(s \Delta_n) \given \mathcal{F}_{n-1}]}].
 \end{align*}
 Next, applying Hoeffding's lemma (Lemma \ref{lem: hoeffding}) to the inner expectation ${\color{red} \Exp[\exp(s \Delta_n) \given \mathcal{F}_{n-1}]}$ yields
 \[
-    \Prob(S_n \geq t) \leq \e^{-st} \Exp\left[\exp(s S_{n-1}) \, {\color{red} \exp(s^2 \frac{(B_n - A_n)^2}{8})}\right] \leq \e^{-st} \exp(\frac{s^2}{8} \norm{B_n - A_n}_{\infty}^2) {\color{blue} \Exp[\exp(s S_{n-1})]}.
+    \P(S_n \geq t) \leq \e^{-st} \Exp\left[\exp(s S_{n-1}) \, {\color{red} \exp(s^2 \frac{(B_n - A_n)^2}{8})}\right] \leq \e^{-st} \exp(\frac{s^2}{8} \norm{B_n - A_n}_{\infty}^2) {\color{blue} \Exp[\exp(s S_{n-1})]}.
 \]
 Iteratively splitting off the $\Delta_i$ one-by-one and then applying Hoeffding's lemma, we eventually get
 \[
-    \Prob(S_n \geq t) \leq \e^{-st} \exp(\frac{s^2}{8} \sum_{i=1}^n \norm{B_i - A_i}_{\infty}^2).
+    \P(S_n \geq t) \leq \e^{-st} \exp(\frac{s^2}{8} \sum_{i=1}^n \norm{B_i - A_i}_{\infty}^2).
 \]
 Optimizing the RHS over $s$ yields the desired result.
 \end{proof}

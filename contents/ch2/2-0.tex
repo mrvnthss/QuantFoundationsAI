@@ -7,7 +7,7 @@ In the first chapter, we described the formal setting that will accompany us for
 Let us first recall the setup of binary classification: we observe a sequence $(X_1, Y_1), \dots, (X_n, Y_n)$ of $n$ \emph{feature-label pairs}, where each $(X_i, Y_i)$ is an independent draw from some (unknown) joint distribution $\P_{(X, Y)}$. The random variable $Y$ takes values in $\set{0, 1}$ and $X$ takes values in some \emph{feature space} $\mathcal{X}$, which in many use cases will be $\R^d$. Because $Y$ is supported on $\set{0, 1}$, the conditional random variable $Y \given X$ follows a Bernoulli distribution, which we denote by $Y \given X \sim \Ber(\eta(X))$, where
 \[
     \highlightMath{
-        \eta(X) = \Prob(Y = 1 \given X) = \Exp[Y \given X]
+        \eta(X) = \P(Y = 1 \given X) = \Exp[Y \given X]
     }
 \]
-is the \emph{regression function}. For $x \in \mathcal{X}$, the value\footnote{Note that $\eta(X) \colon \Omega \to [0, 1]$ is a random variable defined on some probability space $(\Omega, \mathcal{A}, \P)$, while $\eta \colon \mathcal{X} \to [0, 1]$ is a deterministic function.} $\eta(x) = \Prob(Y = 1 \given X = x)$ is also called the \emph{a posteriori probability} of $Y$ given the observation $X = x$.
+is the \emph{regression function}. For $x \in \mathcal{X}$, the value\footnote{Note that $\eta(X) \colon \Omega \to [0, 1]$ is a random variable defined on some probability space $(\Omega, \mathcal{A}, \P)$, while $\eta \colon \mathcal{X} \to [0, 1]$ is a deterministic function.} $\eta(x) = \P(Y = 1 \given X = x)$ is also called the \emph{a posteriori probability} of $Y$ given the observation $X = x$.

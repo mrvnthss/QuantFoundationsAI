@@ -4,7 +4,7 @@
 
 In reality, we do \emph{not} know the true distribution of $(X, Y)$. Instead, we are often working with finite sets of data $\mathcal{D}_n = \set{(X_1, Y_1), \dots, (X_n, Y_n)}$ (e.g., a training set), where the $(X_i, Y_i)$ are hypothetical future i.i.d.\ draws from $\P_{(X, Y)}$. Note that, if we build a classifier $h_n(X)$ based on this data, the classifier is random in two senses: it is a function of a random variable $X$, and it depends implicitly on the random data $\mathcal{D}_n$. Further, the expected error of $h_n$, i.e.,
 \[
-    L(h_n) = \Exp[\indSet{h_n(X) \neq Y}] = \Prob(h_n(X) \neq Y),
+    L(h_n) = \Exp[\indSet{h_n(X) \neq Y}] = \P(h_n(X) \neq Y),
 \]
 is a \emph{random variable}, as it depends on the random data $\mathcal{D}_n$! Nevertheless, the excess risk
 \[
@@ -63,9 +63,9 @@ Such inequalities are often called \emph{oracle inequalities} for the simple rea
 
 Ultimately\footnote{Remember that $L(\hat{f)}$ is a random variable!}, we want to prove tail bounds or bounds in expectation of the form
 \[
-    \Prob(L(\hat{h}) \leq L(\bar{h}) + \Delta_{n, \delta}(\mathcal{H})) \geq 1 - \delta,
+    \P(L(\hat{h}) \leq L(\bar{h}) + \Delta_{n, \delta}(\mathcal{H})) \geq 1 - \delta,
 \]
-where $\Delta_{n, \delta}(\mathcal{H})$ is some function of $\mathcal{H}$ depending on the sample size $n$ and the desired level of confidence $\delta$.
+where $\Delta_{n, \delta}(\mathcal{H})$ is a function of $\mathcal{H}$ depending on the sample size $n$ and the desired level of confidence $\delta$.
 
 Finally, note that we can decompose the excess risk $R(\hat{h})$ of a classifier as follows:
 \[

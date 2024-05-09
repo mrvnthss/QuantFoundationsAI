@@ -16,12 +16,12 @@ We start with the unrealistic case that our family $\mathcal{H}$ of classifiers 
 \[
     \Exp[\hat{L}_n(\hat{h})] = \Exp[\min_{h \in \mathcal{H}} \hat{L}_n(h)] \leq \min_{h \in \mathcal{H}} \Exp[\hat{L}_n(h)] = \min_{h \in \mathcal{H}} L(h) = L(\bar{h}) = 0.
 \]
-Because $\hat{L}_n(\hat{h})$ is non-negative, this implies that $\Prob(\hat{L}_n(\hat{h}) = 0) = 1$. We can also bound the \emph{true} error of the ERM as follows:
+Because $\hat{L}_n(\hat{h})$ is non-negative, this implies that $\P(\hat{L}_n(\hat{h}) = 0) = 1$. We can also bound the \emph{true} error of the ERM as follows:
 
 \begin{theorem}[Vapnik and Chervonenkis, 1974]
 Let $\mathcal{H}$ be finite and assume $L(\bar{h}) = \min_{h \in \mathcal{H}} L(h) = 0$. Then, for every $n \in \N$, the empirical risk minimzer $\hat{h}$ satisfies
 \[
-    \Prob(L(\hat{h}) > \varepsilon) \leq \abs{\mathcal{H}} \e^{-n \varepsilon}, \quad \varepsilon > 0
+    \P(L(\hat{h}) > \varepsilon) \leq \abs{\mathcal{H}} \e^{-n \varepsilon}, \quad \varepsilon > 0
 \]
 and
 \[
@@ -32,22 +32,22 @@ and
 \begin{proof}
 Since $\hat{L}_n(\hat{h}) = 0$ almost surely, we have $\hat{h} \in \mathcal{H}_0 = \{h \in \mathcal{H} \with \hat L_n(h) = 0 \text{ a.s.}\}$, and hence
 \begin{align*}
-    \Prob(L(\hat{h}) > \varepsilon) &\leq \Prob\left(\max_{h \in \mathcal{H}_0} L(h) > \varepsilon\right) = \Exp\left[\ind{\{\max_{h \in \mathcal{H}_0} L(h) > \varepsilon\}}\right] \\[4pt]
-    &=\Exp\left[\max_{h \in \mathcal{H}} \ind{\{\hat{L}_n(h) = 0\}} \indSet{L(h) > \varepsilon}\right] \leq \sum_{h \in \mathcal{H}, \, L(h) > \varepsilon} \Prob(\hat{L}_n(h) = 0).
+    \P(L(\hat{h}) > \varepsilon) &\leq \P\left(\max_{h \in \mathcal{H}_0} L(h) > \varepsilon\right) = \Exp\left[\ind{\{\max_{h \in \mathcal{H}_0} L(h) > \varepsilon\}}\right] \\[4pt]
+    &=\Exp\left[\max_{h \in \mathcal{H}} \ind{\{\hat{L}_n(h) = 0\}} \indSet{L(h) > \varepsilon}\right] \leq \sum_{h \in \mathcal{H}, \, L(h) > \varepsilon} \P(\hat{L}_n(h) = 0).
 \end{align*}
-Since the probability $\Prob(\hat{L}_n(h) = 0)$ that no $(X_i, Y_i)$ falls in the set $\set{(x, y) \with h(x) \neq y}$ is at most $(1 - \varepsilon)^n$ if the probability of this set\footnote{This is precisely the true loss $L(h) = \Prob(h(X) \neq Y)$, which is larger than $\varepsilon$ by assumption.} is larger than $\varepsilon$, we conclude
+Since the probability $\P(\hat{L}_n(h) = 0)$ that no $(X_i, Y_i)$ falls in the set $\set{(x, y) \with h(x) \neq y}$ is at most $(1 - \varepsilon)^n$ if the probability of this set\footnote{This is precisely the true loss $L(h) = \P(h(X) \neq Y)$, which is larger than $\varepsilon$ by assumption.} is larger than $\varepsilon$, we conclude
 \[
-    \Prob(L(\hat{h}_n) > \varepsilon) \leq \sum_{h \in \mathcal{H}, \, L(h) > \varepsilon} \Prob(\hat{L}_n(h) = 0) \leq \abs{\mathcal{H}} (1 - \varepsilon)^n \leq \abs{\mathcal{H}} \e^{-n \varepsilon}.
+    \P(L(\hat{h}_n) > \varepsilon) \leq \sum_{h \in \mathcal{H}, \, L(h) > \varepsilon} \P(\hat{L}_n(h) = 0) \leq \abs{\mathcal{H}} (1 - \varepsilon)^n \leq \abs{\mathcal{H}} \e^{-n \varepsilon}.
 \]
 
 To bound the expected error probability of $\hat{h}$ for $n \in \N$, first recall that the expected value of a non-negative random variable $Z \geq 0$ can be computed as follows:
 \[
-    \Exp[Z] = \int_0^{\infty} 1 - F_Z(t) \dt = \int_0^{\infty} \Prob(Z > t) \dt.
+    \Exp[Z] = \int_0^{\infty} 1 - F_Z(t) \dt = \int_0^{\infty} \P(Z > t) \dt.
 \]
 Hence, we have
 \begin{align*}
-    \Exp[L(\hat{h})] &= \int_0^{\infty} \Prob(L(\hat{h}) > t) \dt \\
-    &\leq u + \int_u^{\infty} \Prob(L(\hat{h}) > t) \dt \leq u + \abs{\mathcal{H}} \int_u^{\infty} \e^{-nt} \dt = u + \abs{\mathcal{H}} \frac{\e^{-nu}}{n}.
+    \Exp[L(\hat{h})] &= \int_0^{\infty} \P(L(\hat{h}) > t) \dt \\
+    &\leq u + \int_u^{\infty} \P(L(\hat{h}) > t) \dt \leq u + \abs{\mathcal{H}} \int_u^{\infty} \e^{-nt} \dt = u + \abs{\mathcal{H}} \frac{\e^{-nu}}{n}.
 \end{align*}
 Since $u > 0$ was arbitrary, we can minimize the RHS to obtain the optimal solution $u^* = \log(\abs{\mathcal{H}}) / n$, giving the desired result.
 \end{proof}

@@ -9,7 +9,7 @@ Let $X_1, \dots, X_n$ be i.i.d.\ random variables with $X_i \in [0,1]$, represen
 \]
 Let $B_n$ denote the \emph{minimum} number of containers needed to ship all $n$ packages. Show that
 \[
-    \Prob(\abs{B_n - \Exp[B_n]} \geq t) \leq 2 \exp(\frac{-2t^2}{n}).
+    \P(\abs{B_n - \Exp[B_n]} \geq t) \leq 2 \exp(\frac{-2t^2}{n}).
 \]
 \end{exercise}
 
@@ -18,7 +18,7 @@ Let $B_n$ denote the \emph{minimum} number of containers needed to ship all $n$ 
 \begin{exercise}
 Let $\mathbf{X}_1, \dots, \mathbf{X}_n \in \R^d$ be i.i.d.\ random vectors with $\Exp[\mathbf{X}_i] = \mathbf{0}$ and $\norm{\mathbf{X}_i}_2 \leq 1$, where $\norm{\cdot}_2$ denotes the Euclidean norm on $\R^d$, and let $\overline{\mathbf{X}} = \frac{1}{n} \sum_{i=1}^n \mathbf{X}_i$. Show that there exist constants $C_a$ and $C_b$ such that
 \begin{enumerate}
-    \item $\Prob(\norm*{\overline{\mathbf{X}}}_2 - \Exp[\norm*{\overline{\mathbf{X}}}_2] \geq t) \leq \exp(-C_a n t^2)$
+    \item $\P(\norm*{\overline{\mathbf{X}}}_2 - \Exp[\norm*{\overline{\mathbf{X}}}_2] \geq t) \leq \exp(-C_a n t^2)$
 
     \item $\Exp[\norm*{\overline{\mathbf{X}}}_2] \leq \nicefrac{C_b}{\sqrt{n}}$
 \end{enumerate}
@@ -36,7 +36,7 @@ denote the \emph{empirical distribution function}.
 \begin{enumerate}
     \item Compute the mean and variance of $F_n(t)$.
 
-    \item Show that $\Prob(\abs{F_n(t) - F(t)} > \varepsilon) \leq 2 \exp(-2 n \varepsilon^2)$.
+    \item Show that $\P(\abs{F_n(t) - F(t)} > \varepsilon) \leq 2 \exp(-2 n \varepsilon^2)$.
 
     \item Conclude that $F_n(t) \xrightarrow{\mathrm{a.s.}} F(t)$.
 \end{enumerate}

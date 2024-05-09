@@ -7,11 +7,11 @@ We want to derive bounds of the estimation error similar to those established in
 \]
 The goal of bounding this quantity leads to the study of uniform deviations of relative frequencies from their theoretical probabilities. By definition, we have
 \[
-    \hat{L}_n(h) - L(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i} - \Prob(h(X) \neq Y).
+    \hat{L}_n(h) - L(h) = \frac{1}{n} \sum_{i=1}^n \indSet{h(X_i) \neq Y_i} - \P(h(X) \neq Y).
 \]
 Write $Z = (X, Y)$ and similarly $Z_i = (X_i, Y_i)$ for $i = 1, \dots, n$. We define two measures $\mu$ and $\mu_n$ on the space $\mathcal{X} \times \set{0, 1}$ by
 \[
-    \mu(A) = \Prob(Z \in A) \qquad \text{and} \qquad \mu_n(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i \in A}.
+    \mu(A) = \P(Z \in A) \qquad \text{and} \qquad \mu_n(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i \in A}.
 \]
 Further, for a classifier $h \in \mathcal{H}$, let $A_h$ be defined by\footnote{Note that $A_h$ coincides with $(h^{-1}(1) \times \set{0}) \cup (h^{-1}(0) \times \set{1})$, which is clearly measurable, assuming that $h \colon \mathcal{X} \to \set{0, 1}$ is measurable.}
 \begin{equation}
@@ -26,7 +26,7 @@ By definition of $A_h$, we have
 \]
 resulting in
 \[
-    \mu(A_h) = \Prob(Z \in A_h) = \Prob(h(X) \neq Y) = L(h)
+    \mu(A_h) = \P(Z \in A_h) = \P(h(X) \neq Y) = L(h)
 \]
 and
 \[
@@ -49,15 +49,15 @@ The law of large numbers tells us that, for a measurable set $A \in \mathcal{A}$
 \]
 given that the $Z_i$ are i.i.d.\ draws from the distribution of $Z$. Further, as we can write
 \[
-    \mu_n(A) - \mu(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i \in A} - \Prob(Z \in A) = \frac{1}{n} \sum_{i=1}^n \left(\indSet{Z_i \in A} - \Exp[\indSet{Z_i \in A}]\right),
+    \mu_n(A) - \mu(A) = \frac{1}{n} \sum_{i=1}^n \indSet{Z_i \in A} - \P(Z \in A) = \frac{1}{n} \sum_{i=1}^n \left(\indSet{Z_i \in A} - \Exp[\indSet{Z_i \in A}]\right),
 \]
 Hoeffding's inequality (Theorem \ref{thm: hoeffding}) bounds the probability that the two measures differ on a measurable set $A \in \mathcal{A}$ by at least $t > 0$ as follows (cf. Theorem \ref{thm: empirical vs true risk}):
 \[
-    \Prob(\abs{\mu_n(A) - \mu(A)} \geq t) \leq 2 \e^{-2nt^2}, \quad t > 0.
+    \P(\abs{\mu_n(A) - \mu(A)} \geq t) \leq 2 \e^{-2nt^2}, \quad t > 0.
 \]
 Additionally, for finite $\mathcal{A}$, we have
 \[
-    \Prob(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} \geq t) \leq 2 \abs{\mathcal{A}} \e^{-2nt^2}, \quad t > 0
+    \P(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} \geq t) \leq 2 \abs{\mathcal{A}} \e^{-2nt^2}, \quad t > 0
 \]
 by applying a simple union bound (again, cf. Theorem \ref{thm: empirical vs true risk}). However, for infinite $\mathcal{A}$ (i.e., infinite dictionaries $\mathcal{H}$), the most powerful tools to attack these problems are distribution-free large deviation type inequalities proved by Vapnik and Chervonenkis (1971).
 
@@ -67,7 +67,7 @@ Finally, observe that, for every collection $\mathcal{A}$ of measurable sets $A 
 \]
 satisfies the bounded differences condition for constants $c_i = \frac{1}{n}$. Hence, by the bounded differences inequality (Theorem \ref{thm: bounded differences inequality}), we have
 \[
-    \Prob(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} - \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] < t) \geq 1 - \e^{-2nt^2}.
+    \P(\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)} - \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] < t) \geq 1 - \e^{-2nt^2}.
 \]
 Evaluating this inequality at $t = \sqrt{\log(\delta^{-1}) / 2n}$, we see that, with probability at least $1 - \delta$,
 \begin{equation}
@@ -81,7 +81,7 @@ In the next section, we will focus on bounding the first term on the RHS. To do 
 \begin{remark}
 The results discussed in this section are \emph{not} restricted to our particular setup of binary classification with $\mathcal{Z} = \mathcal{X} \times \set{0, 1}$ and $Z = (X, Y)$ a feature-label pair, with $X \colon \Omega \to \mathcal{X}$ and $Y \colon \Omega \to \set{0 ,1}$. Instead, for \emph{any} random variable $W \colon \Omega \to \mathcal{Z}$ defined on some probability space $(\Omega, \mathcal{A}, \P)$, we can let $\mu$ be the pushforward measure of $\P$ with respect to $W$, i.e.,
 \[
-    \mu(A) = \P_W(A) = \Prob(W \in A),
+    \mu(A) = \P_W(A) = \P(W \in A),
 \]
 and let $\mu_n$ be the empirical measure associated with $\mu$, i.e.,
 \[

@@ -4,7 +4,7 @@
 
 \emph{Symmetrization} is a commonly used technique in machine learning. Let $\mathcal{D}_n = \set{Z_1, \dots, Z_n}$ be our sample set. We take another independent copy of the sample set, which we denote $\mathcal{D}_n' = \set{Z_1', \dots, Z_n'}$. In machine learning, this sample is sometimes referred to as a \say{ghost sample}. We have
 \[
-    \mu(A) = \Prob(Z \in A) = \Exp\left[\frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}}\right] = \Exp\left[\frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}} \given[\Big] \mathcal{D}_n\right] = \Exp[\mu_n'(A) \given \mathcal{D}_n],
+    \mu(A) = \P(Z \in A) = \Exp\left[\frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}}\right] = \Exp\left[\frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}} \given[\Big] \mathcal{D}_n\right] = \Exp[\mu_n'(A) \given \mathcal{D}_n],
 \]
 where $\mu_n'(A) = \frac{1}{n} \sum_{i=1}^n \ind{\{Z_i' \in A\}}$, since $Z_1', \dots, Z_n'$ are identically distributed as $Z$, and are independent of $\mathcal{D}_n$. Hence,
 \begin{align*}
@@ -27,7 +27,7 @@ by the law of total expectation. By definition,
 \[
     \mu_n(A) - \mu_n'(A) = \frac{1}{n} \sum_{i=1}^n (\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}}).
 \]
-Since our ghost sample $\mathcal{D}_n'$ has the same distribution as $\mathcal{D}_n$, by symmetry, $\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}}$ has the same distribution as $\sigma_i (\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}})$, where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables\footnote{i.e., $\Prob(\sigma_i = \pm 1) = \nicefrac{1}{2}$} that are independent of both samples $\mathcal{D}_n$ and $\mathcal{D}_n'$. Thus,
+Since our ghost sample $\mathcal{D}_n'$ has the same distribution as $\mathcal{D}_n$, by symmetry, $\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}}$ has the same distribution as $\sigma_i (\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}})$, where $\sigma_1, \dots, \sigma_n$ are i.i.d.\ $\Rad(\nicefrac{1}{2})$ random variables\footnote{i.e., $\P(\sigma_i = \pm 1) = \nicefrac{1}{2}$} that are independent of both samples $\mathcal{D}_n$ and $\mathcal{D}_n'$. Thus,
 \[
     \Exp[\sup_{A \in \mathcal{A}} \abs{\mu_n(A) - \mu(A)}] \leq \Exp[\sup_{A \in \mathcal{A}} \abs*{\mu_n(A) - \mu_n'(A)}] = \Exp\left[\sup_{A \in \mathcal{A}} \abs{\frac{1}{n} \sum_{i=1}^n \sigma_i (\indSet{Z_i \in A} - \ind{\{Z_i' \in A\}})}\right].
 \]
