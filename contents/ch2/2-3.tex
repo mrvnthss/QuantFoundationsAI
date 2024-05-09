@@ -67,6 +67,34 @@ Ultimately\footnote{Remember that $L(\hat{f)}$ is a random variable!}, we want t
 \]
 where $\Delta_{n, \delta}(\mathcal{H})$ is a function of $\mathcal{H}$ depending on the sample size $n$ and the desired level of confidence $\delta$.
 
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node[above right, inner sep=0] (image) at (0,0) {
+            \includegraphics[width=0.5\textwidth]{other/estimation-approximation-error}
+        };
+
+        % Create scope with normalized axes
+        \begin{scope}[
+            x={(image.south east)},
+            y={(image.north west)}]
+         
+            % Grid to properly align annotations
+            % \draw[help lines, step=0.1] (image.south west) grid ($(image.north east) + (0.001,0)$);
+
+            % Annotate image
+            \node[] at (0.42,0.65) {${\color{white} \mathcal{H}}$};
+            \node[] at (0.28,0.54) {${\color{white} \hat{h}}$};
+            \node[] at (0.44,0.30) {${\color{white} \bar{h}}$};
+            \node[] at (0.78,0.29) {$h^{*}$};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Decomposition of the excess risk $R(\hat{h})$ into estimation error (dashed line) and approximation error (solid line). The light blue area represents all measurable functions $h \colon \mathcal{X} \to \mathcal{Y}$ of which we consider a subset $\mathcal{H}$.
+    }
+    \label{fig: estimation vs approximation error}
+\end{figure}
+
 Finally, note that we can decompose the excess risk $R(\hat{h})$ of a classifier as follows:
 \[
     \highlightMath{
