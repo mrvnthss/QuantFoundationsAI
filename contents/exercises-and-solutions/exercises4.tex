@@ -30,7 +30,7 @@ Let $\mathcal{F}$ be a class of functions $f \colon \mathcal{X} \to \R$, and let
 \begin{exercise}
 Consider a neural network $\psi \colon \R^d \to \set{-1, 1}$ with one hidden layer made up of $k$ hidden neurons, i.e.,
 \[
-    \psi(x) = \phi\left(b^{[2]} + \sum_{j=1}^k w_{j}^{[2]} \sigma\left(b_{j}^{[1]} + \sum_{i=1}^d w_{j, i}^{[1]} x^{(i)} \right)\right), \quad x \in \R^d,
+    \psi(x) = \phi\left(b^{[2]} + \sum_{k=1}^n w_k^{[2]} \sigma\left(b_k^{[1]} + \sum_{j=1}^d w_{k, j}^{[1]} x^{(j)} \right)\right), \quad x \in \R^d,
 \]
 where
 \[
@@ -39,9 +39,9 @@ where
         -1, \quad & z \leq 0
     \end{cases}
 \]
-is the threshold sigmoid, $b^{[2]}$ and $w_1^{[2]}, \dots, w_k^{[2]}$ are the bias and the weights of the output layer, respectively, $\sigma \colon \R \to [-1, 1]$ is an arbitrary sigmoid, and $b_j^{[1]}$ and $w_{j, 1}^{[1]}, \dots, w_{j, d}^{[1]}$ are the bias and weights of the $j$-th hidden neuron, respectively. Given a fixed training set $\mathcal{D}_k = \set{(X_1, Y_1), \dots, (X_k, Y_k)}$ consisting of as many samples $(X_j, Y_j) \in \R^d \times \set{-1, 1}$ as we have hidden neurons, where $X_i \neq X_j$ for $i \neq j$, prove that we can choose the biases and weights of $\psi$ such that
+is the threshold sigmoid, $b^{[2]}$ and $w_1^{[2]}, \dots, w_n^{[2]}$ are the bias and the weights of the output layer, respectively, $\sigma \colon \R \to [-1, 1]$ is an arbitrary sigmoid, and $b_k^{[1]}$ and $w_{k, 1}^{[1]}, \dots, w_{k, d}^{[1]}$ are the bias and weights of the $k$-th hidden neuron, respectively. Given a fixed training set $\mathcal{D}_k = \set{(X_1, Y_1), \dots, (X_n, Y_n)}$ consisting of as many samples $(X_i, Y_i) \in \R^d \times \set{-1, 1}$ as we have hidden neurons, where $X_i \neq X_l$ for $i \neq l$, prove that we can choose the biases and weights of $\psi$ such that
 \[
-    \psi(X_j) = Y_j, \quad j = 1, \dots, k.
+    \psi(X_i) = Y_i, \quad i = 1, \dots, n.
 \]
 This phenomenon of perfectly predicting the training set is called \emph{overfitting}, which occurs when the neural network becomes too \say{rich}.
 \end{exercise}
